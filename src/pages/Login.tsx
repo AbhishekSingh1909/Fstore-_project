@@ -19,7 +19,6 @@ import { purple } from "@mui/material/colors";
 import { Navigate, useNavigate } from "react-router-dom";
 
 import { useAppDispatch } from "../app/hooks/useAppDispatch";
-import { LoginCredential } from "../types/User";
 import { userLogInAsync } from "../redux/userAuthentication/userLogInAsync";
 import { useAppSelector } from "../app/hooks/useAppSelector";
 import Footer from "../components/Footer";

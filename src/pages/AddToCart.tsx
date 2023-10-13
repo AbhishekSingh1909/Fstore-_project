@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Card,
   CardActions,
   CardMedia,
   Container,
@@ -12,6 +11,8 @@ import {
   Typography,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { Link } from "react-router-dom";
+
 import { Wrapper } from "../custom-component/AddToCartPrimaryBox";
 import { useAppSelector } from "../app/hooks/useAppSelector";
 import { SecondryBox } from "../custom-component/SecondryBox";
@@ -23,9 +24,8 @@ import {
   increaseQuantity,
 } from "../redux/cart/cartReducer";
 import { CartItem } from "../types/CartItem";
-import { Fragment, useEffect } from "react";
+import { Fragment } from "react";
 import { CheckOut } from "./OrderMessage";
-import { Link } from "react-router-dom";
 
 export const AddtoCart = () => {
   const { cartItems } = useAppSelector((state) => state.cartReducer);

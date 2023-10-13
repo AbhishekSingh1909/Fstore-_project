@@ -1,5 +1,5 @@
 import * as React from "react";
-import Grid from "@mui/material/Grid";
+
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
@@ -14,7 +14,6 @@ interface State extends SnackbarOrigin {
 
 export const CheckOut = () => {
   const { user } = useAppSelector((state) => state.authReducer);
-  const [clear, setClear] = React.useState(false);
   const [state, setState] = React.useState<State>({
     open: false,
     vertical: "top",
@@ -29,7 +28,6 @@ export const CheckOut = () => {
       navigate("../login", { replace: true });
     } else {
       setState({ ...newState, open: true });
-      setClear(true);
       dispatch(clearCart());
     }
   };

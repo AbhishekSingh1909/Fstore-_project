@@ -1,6 +1,6 @@
 import React from "react";
-import ProductsPage from "./pages/PorductsPage";
-import ProductCategory from "./pages/ProductCategoriesPage";
+import ProductsPage from "./pages/PorductsList";
+import ProductCategory from "./pages/ProductFilter";
 
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Root from "./components/Root";

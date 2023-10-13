@@ -1,27 +1,19 @@
 import {
-  Badge,
   Box,
   CircularProgress,
-  Container,
   FormControl,
-  IconButton,
   InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
-  Stack,
-  Typography,
-  InputBase,
-  Paper,
 } from "@mui/material";
-
-import SearchIcon from "@mui/icons-material/Search";
-import { getProductCategoriesAsync } from "../redux/productCategories/getProductCategoriesAsync";
 import { useEffect, useState } from "react";
+
+import { getProductCategoriesAsync } from "../redux/productCategories/getProductCategoriesAsync";
 
 import { useAppDispatch } from "../app/hooks/useAppDispatch";
 import { useAppSelector } from "../app/hooks/useAppSelector";
-import ProductsPage from "./PorductsPage";
+import ProductsPage from "./PorductsList";
 import { CreateProductModel } from "../components/Model/CreateProductModel";
 import ErrorMessage from "../components/ErrorMessage";
 
@@ -75,15 +67,11 @@ const ProductCategory = () => {
             sx={{
               display: "flex",
               width: "50%",
-              /* padding: 20px; */
               gap: "10px",
               marginLeft: "auto",
               marginTop: "2em",
             }}
           >
-            {/* <FormControl fullWidth>
-              
-            </FormControl> */}
             {user?.role === "admin" && (
               <Box sx={{ width: "60%" }}>
                 <CreateProductModel />
