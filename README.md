@@ -82,3 +82,5 @@ first clone the project from the repository and run the node commands.
 - Horizontal Function bases project
 
 ## Deployment
+
+- this project can access by url -https://tiny-lily-dcaacd.netlify.app
