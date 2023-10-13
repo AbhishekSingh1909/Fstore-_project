@@ -36,9 +36,10 @@ export const DeleteProductModel = ({ product }: { product: Product }) => {
       if (result.meta.requestStatus === "fulfilled") {
         toast.success(`${product.title} has been deleted successfully`);
       } else if (result.meta.requestStatus === "rejected") {
-        toast.success(`${product.title} could not deleted`);
+        toast.error(`${product.title} could not deleted`);
       }
     }
+    setOpen(false);
   };
 
   return (

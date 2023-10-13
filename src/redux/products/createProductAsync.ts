@@ -14,15 +14,11 @@ export const createProductAsync = createAsyncThunk<
       `https://api.escuelajs.co/api/v1/products/`,
       product
     );
-    // if (!response.data) {
-    //   throw new Error("Could not add product");
-    // }
-
+    console.log("product has created", response.data);
     return response.data;
   } catch (e) {
     const error = e as AxiosError;
-    // Use `err.response.data` as `action.payload` for a `rejected` action,
-    // by explicitly returning it using the `rejectWithValue()` utility
+    console.log("product has created", error);
     return rejectWithValue(error);
   }
 });

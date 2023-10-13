@@ -61,8 +61,9 @@ export default function UpdateProductModel({ product }: { product: Product }) {
     if (result.meta.requestStatus === "fulfilled") {
       toast.success(`${product.title} has been updated successfully`);
     } else if (result.meta.requestStatus === "rejected") {
-      toast.success(`${product.title} could not updated`);
+      toast.error(`${product.title} could not updated`);
     }
+    setOpen(false);
   };
 
   return (

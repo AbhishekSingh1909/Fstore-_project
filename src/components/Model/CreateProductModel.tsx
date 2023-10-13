@@ -46,15 +46,16 @@ export const CreateProductModel = () => {
       description: desc,
       price: price,
       categoryId: categoryId,
-      images: [image ?? "https://i.imgur.com/kTPCFG2.jpeg"],
+      images: [image || "https://i.imgur.com/kTPCFG2.jpeg"],
     };
-    setOpen(false);
+    console.log("product need to create", product);
     const result = await dispatch(createProductAsync(product));
     if (result.meta.requestStatus === "fulfilled") {
-      toast.success(`${product.title} has been created successfully`);
+      toast.success(`product ${product.title} has been created successfully`);
     } else if (result.meta.requestStatus === "rejected") {
-      toast.success(`${product.title} could not created`);
+      toast.error(`product ${product.title} could not created`);
     }
+    setOpen(false);
   };
   const categoryHandleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const id = event.target.value;
