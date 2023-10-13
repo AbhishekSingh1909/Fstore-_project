@@ -1,6 +1,4 @@
 import {
-  Avatar,
-  Box,
   Button,
   Card,
   CardActions,
@@ -8,8 +6,6 @@ import {
   CardMedia,
   Container,
   CssBaseline,
-  Divider,
-  InputLabel,
   Stack,
   Typography,
 } from "@mui/material";
@@ -19,16 +15,11 @@ import { useAppSelector } from "../app/hooks/useAppSelector";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useMemo } from "react";
 import { UpdateProfileModel } from "../components/user/Model/UpdateProfile";
-import { useAppDispatch } from "../app/hooks/useAppDispatch";
-import { getSingleUsersAsync } from "../redux/users/getSingleUserAsync";
 
 export const Profile = () => {
   const { user } = useAppSelector((state) => state.authReducer);
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-  const { users, singleUser, error, loading } = useAppSelector(
-    (state) => state.userReducer
-  );
+  const { users, singleUser } = useAppSelector((state) => state.userReducer);
 
   useEffect(() => {
     if (!user) {
@@ -38,13 +29,11 @@ export const Profile = () => {
 
   const currentUser = useMemo(() => {
     if (users.length > 0) {
-      console.log("current user : single user ", singleUser);
       const findUser = users.find((u) => u.id === user?.id);
       if (findUser) {
         return findUser;
       }
     } else {
-      console.log("current user : login user ", user);
       return user;
     }
   }, [singleUser, user]);

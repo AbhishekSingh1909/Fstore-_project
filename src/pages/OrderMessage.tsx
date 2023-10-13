@@ -6,6 +6,7 @@ import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
 import { useAppSelector } from "../app/hooks/useAppSelector";
 import { useDispatch } from "react-redux";
 import { clearCart } from "../redux/cart/cartReducer";
+import { useNavigate } from "react-router-dom";
 
 interface State extends SnackbarOrigin {
   open: boolean;
@@ -20,22 +21,18 @@ export const CheckOut = () => {
     horizontal: "center",
   });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { vertical, horizontal, open } = state;
 
   const handleClick = (newState: SnackbarOrigin) => () => {
-    setState({ ...newState, open: true });
-    setClear(true);
-    dispatch(clearCart());
+    if (!user) {
+      navigate("../login", { replace: true });
+    } else {
+      setState({ ...newState, open: true });
+      setClear(true);
+      dispatch(clearCart());
+    }
   };
-  // React.useEffect(() => {
-  //   if (clear) {
-  //     if (user) {
-  //       console.log("clear cart");
-  //       localStorage.removeItem(JSON.stringify(user.id));
-  //     }
-  //   }
-  // }, [clear]);
-
   const handleClose = () => {
     setState({ ...state, open: false });
   };

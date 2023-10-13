@@ -18,8 +18,8 @@ import {
 } from "@mui/material";
 import { useAppDispatch } from "../app/hooks/useAppDispatch";
 import { useAppSelector } from "../app/hooks/useAppSelector";
-import { AuthType, logOut } from "../redux/userAuthentication/authReducer";
-import { useEffect, useMemo, useState } from "react";
+import { logOut } from "../redux/userAuthentication/authReducer";
+import { useState } from "react";
 import { StyledBadge } from "../custom-component/StyledCartButton";
 import { CartItem } from "../types/CartItem";
 import { clearCart } from "../redux/cart/cartReducer";
@@ -32,27 +32,7 @@ const Header = () => {
   const [items, setItems] = useState<CartItem[]>();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  // const items = useMemo(() => {
-  //   if (user && cartItems?.length > 0) {
-  //     const userId = JSON.stringify(user.id);
 
-  //     const cartItems = localStorage.getItem(userId);
-  //     if (cartItems) {
-  //       return JSON.parse(cartItems);
-  //     }
-  //   }
-  // }, [user, cartItems]);
-
-  // useEffect(() => {
-  //   if (user && cartItems?.length > 0) {
-  //     const userId = JSON.stringify(user.id);
-
-  //     const cartItems = localStorage.getItem(userId);
-  //     if (cartItems) {
-  //       setItems(JSON.parse(cartItems));
-  //     }
-  //   }
-  // }, [user, cartItems]);
   const calculateTotal = () =>
     cartItems.reduce((acc, item) => acc + item.quantity, 0);
 

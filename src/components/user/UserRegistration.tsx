@@ -11,36 +11,25 @@ import {
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { purple } from "@mui/material/colors";
-import { Fragment, useEffect, useState } from "react";
-import { CreateNewUser } from "../../types/CreateNewUser";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Fragment } from "react";
+
+import { useNavigate } from "react-router-dom";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { useAppDispatch } from "../../app/hooks/useAppDispatch";
 import { createUsersAsync } from "../../redux/users/createUserAsync";
 import Footer from "../Footer";
 import FormBoxFlex from "../../custom-component/FormBoxFlex";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-
 import { FormValues, defaultValues, formSchema } from "../../types/FormValues";
+import { CreateNewUser } from "../../types/CreateNewUser";
 import ButtonBoxFlex from "../../custom-component/ButtonBoxFlex";
-import { useAppSelector } from "../../app/hooks/useAppSelector";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { resetUser } from "../../redux/users/userReducer";
 
 const UserRegister = () => {
-  const [confirmPassword, setconfirmPassword] = useState("");
-  const [newUser, setNewUser] = useState<CreateNewUser>({
-    email: "",
-    name: "",
-    password: "",
-    avatar: "",
-  });
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { users, error, loading, singleUser } = useAppSelector(
-    (state) => state.userReducer
-  );
 
   const {
     handleSubmit,
@@ -74,35 +63,11 @@ const UserRegister = () => {
     navigate("../login", { replace: true });
   };
 
-  // useEffect(() => {
-  //   console.log("clear");
-  //   dispatch(resetUser());
-  // }, []);
-  // useEffect(() => {
-  //   if (error) {
-  //     toast.error("Can't Register , because" + error, {
-  //       position: toast.POSITION.TOP_RIGHT,
-  //     });
-  //   }
-  //   if (singleUser) {
-  //     toast.success("Welcome " + singleUser.name, {
-  //       position: toast.POSITION.TOP_RIGHT,
-  //     });
-  //     setTimeout(() => {
-  //       userSignIn();
-  //     }, 1000);
-
-  //     dispatch(resetUser());
-  //   }
-  // }, [error, singleUser]);
-
   return (
     <Fragment>
       <Container maxWidth="xs">
         <ToastContainer />
-        {/* {singleUser && <Navigate to="../login" replace={true} />} */}
         <CssBaseline />
-
         <FormBoxFlex>
           <Avatar sx={{ bgcolor: purple[500] }}>
             <LockOutlinedIcon />
@@ -128,26 +93,9 @@ const UserRegister = () => {
               name="name"
               control={control}
             />
-            {/* <TextField
-              required
-              fullWidth
-              margin="normal"
-              id="name"
-              label="Enter your name"
-              autoFocus
-              {...register("name")}
-            /> */}
             {errors.name && (
               <Typography color="red">{errors.name.message}</Typography>
             )}
-            {/* <TextField
-              required
-              fullWidth
-              margin="normal"
-              id="email"
-              label="Enter your email"
-              {...register("email")}
-            /> */}
             <Controller
               render={({ field }) => (
                 <TextField
@@ -164,16 +112,6 @@ const UserRegister = () => {
             {errors.email && (
               <Typography color="red">{errors.email.message}</Typography>
             )}
-            {/* <TextField
-              required
-              fullWidth
-              margin="normal"
-              id="password"
-              label="Password"
-              type="password"
-              autoComplete="current-password"
-              {...register("password")}
-            /> */}
             <Controller
               render={({ field }) => (
                 <TextField
@@ -192,15 +130,6 @@ const UserRegister = () => {
             {errors.password && (
               <Typography color="red">{errors.password.message}</Typography>
             )}
-            {/* <TextField
-              required
-              fullWidth
-              margin="normal"
-              id="confirm"
-              label="confirm password"
-              type="password"
-              {...register("confirm")}
-            /> */}
             <Controller
               render={({ field }) => (
                 <TextField
@@ -219,14 +148,6 @@ const UserRegister = () => {
             {errors.confirm && (
               <Typography color="red">{errors.confirm.message}</Typography>
             )}
-            {/* <TextField
-              required
-              fullWidth
-              margin="normal"
-              id="image"
-              label="Image Url"
-              {...register("image")}
-            /> */}
             <Controller
               render={({ field }) => (
                 <TextField

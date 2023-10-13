@@ -1,21 +1,16 @@
 import {
-  Alert,
   Box,
   Button,
-  Collapse,
   Dialog,
   DialogActions,
   DialogTitle,
   InputAdornment,
   MenuItem,
-  Stack,
   TextField,
-  IconButton,
 } from "@mui/material";
-import React, { useEffect } from "react";
+import React from "react";
 import SendIcon from "@mui/icons-material/Send";
 import CancelIcon from "@mui/icons-material/Cancel";
-import CloseIcon from "@mui/icons-material/Close";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 
 import { useAppDispatch } from "../../app/hooks/useAppDispatch";
@@ -26,13 +21,10 @@ import { ToastContainer, toast } from "react-toastify";
 
 export const CreateProductModel = () => {
   const [open, setOpen] = React.useState(false);
-  const [openAlert, setOpenAlert] = React.useState(true);
   const [title, setTitle] = React.useState("");
   const [desc, setDesc] = React.useState("");
   const [categoryId, setCategoryId] = React.useState<number>(1);
   const [price, setPrice] = React.useState(0);
-  const [showMessage, setShowMessage] = React.useState(false);
-  const [product, setProduct] = React.useState<CreateProduct>();
   const [image, setImage] = React.useState("");
 
   const dispatch = useAppDispatch();
@@ -40,19 +32,12 @@ export const CreateProductModel = () => {
     (state) => state.ProductCategoryReducer.categories
   );
 
-  const { products, error } = useAppSelector((state) => state.productReducer);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const onCloseAlert = () => {
-    setOpenAlert(false);
-    setShowMessage(false);
   };
 
   const saveChanges = async () => {
@@ -63,10 +48,6 @@ export const CreateProductModel = () => {
       categoryId: categoryId,
       images: [image ?? "https://i.imgur.com/kTPCFG2.jpeg"],
     };
-
-    setProduct(product);
-
-    setOpenAlert(true);
     setOpen(false);
     const result = await dispatch(createProductAsync(product));
     if (result.meta.requestStatus === "fulfilled") {
@@ -75,14 +56,6 @@ export const CreateProductModel = () => {
       toast.success(`${product.title} could not created`);
     }
   };
-
-  // useEffect(() => {
-  //   if (product) {
-  //     dispatch(createProductAsync(product));
-  //     setOpen(false);
-  //   }
-  // }, [product]);
-
   const categoryHandleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const id = event.target.value;
     setCategoryId(+id);
@@ -176,54 +149,6 @@ export const CreateProductModel = () => {
             </Button>
           </DialogActions>
         </Dialog>
-      </Box>
-      <Box>
-        {error && showMessage && (
-          <Stack sx={{ width: "100%" }} spacing={2}>
-            <Collapse in={openAlert}>
-              <Alert
-                severity="error"
-                action={
-                  <IconButton
-                    aria-label="close"
-                    color="inherit"
-                    size="small"
-                    onClick={() => {
-                      onCloseAlert();
-                    }}
-                  >
-                    <CloseIcon fontSize="inherit" />
-                  </IconButton>
-                }
-              >
-                Product is not created <br /> because {error}
-              </Alert>
-            </Collapse>
-          </Stack>
-        )}
-        {products && showMessage && (
-          <Stack sx={{ width: "100%" }} spacing={2}>
-            <Collapse in={openAlert}>
-              <Alert
-                severity="success"
-                action={
-                  <IconButton
-                    aria-label="close"
-                    color="inherit"
-                    size="small"
-                    onClick={() => {
-                      onCloseAlert();
-                    }}
-                  >
-                    <CloseIcon fontSize="inherit" />
-                  </IconButton>
-                }
-              >
-                Product has been updated successfully
-              </Alert>
-            </Collapse>
-          </Stack>
-        )}
       </Box>
     </main>
   );

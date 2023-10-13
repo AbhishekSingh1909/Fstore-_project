@@ -1,11 +1,12 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios, { AxiosError } from "axios";
 
 import { getProductsByCategoryAsync } from "./getProductsByCategoryAsync";
 import UpdateProduct from "../../types/UpdateProduct";
 import Product from "../../types/Product";
 import { createProductAsync } from "./createProductAsync";
 import { deleteProductAsync } from "./deleteProductAsync";
-import axios, { AxiosError, AxiosResponse } from "axios";
+
 import { getSingleProductByIdAsync } from "./getSingleProductByIdAsync";
 
 const initialState: {
@@ -105,13 +106,9 @@ const productsSlice = createSlice({
         const foundIndex = state.products.findIndex(
           (p) => p.id === action.payload.id
         );
-        console.log("createProductAsync.fulfilled");
-        console.log("state.products", state.products.length);
         if (foundIndex === -1) {
-          console.log("create foundIndex", foundIndex);
           state.products.push(action.payload);
         }
-        console.log("state.products", state.products.length);
       })
       .addCase(createProductAsync.rejected, (state, action) => {
         if (action.payload instanceof AxiosError) {

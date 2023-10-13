@@ -10,13 +10,11 @@ export const deleteProductAsync = createAsyncThunk<
     const response = await axios.delete<boolean>(
       `https://api.escuelajs.co/api/v1/products/${productId}`
     );
-    console.log("response.data", response.data);
     if (!response.data) {
       throw new AxiosError("Could not delete product");
     }
     return productId;
   } catch (e) {
-    console.log("eroor", e);
     const error = e as AxiosError;
     return rejectWithValue(error);
   }

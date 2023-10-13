@@ -15,7 +15,7 @@ export const onlineStoreSiteTheme = createTheme({
       contrastText: "#000",
     },
     background: {
-      default: "#3f51b5",
+      // default: "#3f51b5",
       paper: "#90caf9",
     },
   },
@@ -34,12 +34,12 @@ export const onlineStoreSiteTheme = createTheme({
       fontSize: "1.8em",
     },
     button: {
-      fontSize: "1em",
+      fontSize: "0.8em",
       fontFamily: "Rowdies",
     },
-    body1: {
-      padding: "1em",
-    },
+    // body1: {
+    //   padding: "20px",
+    // },
   },
   components: {
     MuiAppBar: {

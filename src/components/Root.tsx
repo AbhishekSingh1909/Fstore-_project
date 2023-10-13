@@ -10,11 +10,11 @@ import { useEffect } from "react";
 const Root = () => {
   return (
     <StyledEngineProvider injectFirst>
-      {/* <ThemeProvider theme={onlineStoreSiteTheme}> */}
-      <Header />
-      <Outlet />
-      <Footer />
-      {/* </ThemeProvider> */}
+      <ThemeProvider theme={onlineStoreSiteTheme}>
+        <Header />
+        <Outlet />
+        <Footer />
+      </ThemeProvider>
     </StyledEngineProvider>
   );
 };

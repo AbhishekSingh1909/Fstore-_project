@@ -33,8 +33,6 @@ import { useNavigate } from "react-router-dom";
 
 export const UpdateProfileModel = ({ updateUser }: { updateUser: User }) => {
   const [open, setOpen] = useState(false);
-  const [openAlert, setOpenAlert] = useState(true);
-  const [showMessage, setShowMessage] = useState(false);
 
   const defaultValues: DefaultValues<FormValues> = {
     name: updateUser.name,
@@ -53,11 +51,6 @@ export const UpdateProfileModel = ({ updateUser }: { updateUser: User }) => {
     setOpen(false);
   };
 
-  const onCloseAlert = () => {
-    setOpenAlert(false);
-    setShowMessage(false);
-  };
-
   const {
     handleSubmit,
     reset,
@@ -70,8 +63,6 @@ export const UpdateProfileModel = ({ updateUser }: { updateUser: User }) => {
 
   const onFormSubmit: SubmitHandler<FormValues> = async (data, event) => {
     event?.preventDefault();
-    console.log(data);
-    console.log("submit");
     const updateUserDto: UpdateUserDto = {
       name: data.name,
       email: data.email,
@@ -95,12 +86,10 @@ export const UpdateProfileModel = ({ updateUser }: { updateUser: User }) => {
       setOpen(true);
     }
     if (singleUser) {
-      console.log("show update message");
       toast.success("details are updated", {
         position: toast.POSITION.TOP_RIGHT,
       });
       setOpen(false);
-      console.log("update profile user", singleUser);
     }
     dispatch(resetUser());
   }, [error, singleUser]);

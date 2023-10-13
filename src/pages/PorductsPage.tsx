@@ -11,26 +11,22 @@ import {
   IconButton,
   InputBase,
   Paper,
-  TextField,
 } from "@mui/material";
-
 import SearchIcon from "@mui/icons-material/Search";
+import { Link } from "react-router-dom";
 
 import { useAppSelector } from "../app/hooks/useAppSelector";
 import { useEffect, useMemo, useState } from "react";
-import IProduct from "../types/Product";
 import { useAppDispatch } from "../app/hooks/useAppDispatch";
 import {
   getAllProductsAsync,
   sortByPrice,
 } from "../redux/products/productReducer";
-import { getProductCategoriesAsync } from "../redux/productCategories/getProductCategoriesAsync";
 import { getProductsByCategoryAsync } from "../redux/products/getProductsByCategoryAsync";
-
 import { addToCart } from "../redux/cart/cartReducer";
 import Product from "../types/Product";
 import getFilteredProducts from "../selectors/getFilteredProducts";
-import { Link } from "react-router-dom";
+
 import UpdateProductModel from "../components/Model/UpdateProductModel";
 import { DeleteProductModel } from "../components/Model/DeleteProductModel";
 import ErrorMessage from "../components/ErrorMessage";
@@ -43,7 +39,6 @@ interface ProductProps {
 const ProductsPage = ({ categoryId, sortPrice }: ProductProps) => {
   const [page, setPage] = useState(1);
   const [data, setData] = useState<Product[]>([]);
-  const [hasMore, setHasMore] = useState(true);
   const [search, setSearch] = useState("");
   const [debounceSearch, setDebouncedSearch] = useState("");
   const dispatch = useAppDispatch();
@@ -78,10 +73,7 @@ const ProductsPage = ({ categoryId, sortPrice }: ProductProps) => {
   );
 
   const pageCount = useMemo(() => {
-    setHasMore(products.length > 0);
-
     const pageCount = Math.ceil(filterProducts.length / 10);
-
     const data = filterProducts?.slice(0, 10);
     setData(data);
     return pageCount;
@@ -104,7 +96,6 @@ const ProductsPage = ({ categoryId, sortPrice }: ProductProps) => {
   };
 
   const handleSeachChange = (search: string) => {
-    console.log("search Change");
     setSearch(search);
   };
 
@@ -178,14 +169,7 @@ const ProductsPage = ({ categoryId, sortPrice }: ProductProps) => {
                     borderRadius: "5px",
                   }}
                 >
-                  <Typography
-                  // sx={{
-                  //   paddingLeft: "20%",
-                  //   paddingRight: "20%",
-                  // }}
-                  >
-                    {p.title}
-                  </Typography>
+                  <Typography>{p.title}</Typography>
                   <Box>
                     <Avatar
                       alt="Remy Sharp"
@@ -194,13 +178,7 @@ const ProductsPage = ({ categoryId, sortPrice }: ProductProps) => {
                       sx={{ display: "block", width: "100%", height: "5%" }}
                     />
                   </Box>
-                  <Typography
-                    sx={{ textAlign: "center" }}
-                    // sx={{
-                    //   paddingLeft: "20%",
-                    //   paddingRight: "20%",
-                    // }}
-                  >
+                  <Typography sx={{ textAlign: "center" }}>
                     {p.price} €
                   </Typography>
                   {user?.role === "admin" && (
@@ -255,6 +233,7 @@ const ProductsPage = ({ categoryId, sortPrice }: ProductProps) => {
               page={page}
               onChange={handleChange}
               color="primary"
+              sx={{ margin: "20px", padding: "20px" }}
             />
           </Stack>
         )}

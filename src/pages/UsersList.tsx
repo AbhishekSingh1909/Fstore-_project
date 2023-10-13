@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAppDispatch } from "../app/hooks/useAppDispatch";
 import { useAppSelector } from "../app/hooks/useAppSelector";
 import { getAllUsersAsync } from "../redux/users/getAllUsersAsync";
@@ -13,6 +13,8 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 import UpdateUserByAdmin from "../components/user/Model/UpdateUser";
 import { User } from "../types/User";
 import ErrorMessage from "../components/ErrorMessage";
@@ -20,7 +22,6 @@ import ErrorMessage from "../components/ErrorMessage";
 export const UsersList = () => {
   const [page, setPage] = useState(1);
   const [data, setData] = useState<User[]>([]);
-  const [hasMore, setHasMore] = useState(true);
   const { user } = useAppSelector((state) => state.authReducer);
   const { users, error, loading } = useAppSelector(
     (state) => state.userReducer
@@ -38,10 +39,7 @@ export const UsersList = () => {
     }
   }, [user]);
   const pageCount = useMemo(() => {
-    setHasMore(users.length > 0);
-
     const pageCount = Math.ceil(users.length / 10);
-
     const data = users?.slice(0, 10);
     setData(data);
     return pageCount;
@@ -121,7 +119,11 @@ export const UsersList = () => {
                       marginBottom: "0px",
                     }}
                   >
-                    <Button variant="contained" color="error">
+                    <Button
+                      variant="contained"
+                      color="error"
+                      startIcon={<DeleteIcon color="error" />}
+                    >
                       Delete
                     </Button>
                     <UpdateUserByAdmin updateUser={user} />

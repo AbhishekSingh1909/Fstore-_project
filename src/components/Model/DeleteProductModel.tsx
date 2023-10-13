@@ -1,37 +1,26 @@
 import {
-  Alert,
   Box,
   Button,
-  Collapse,
   Dialog,
   DialogActions,
   DialogTitle,
   InputAdornment,
-  MenuItem,
-  Stack,
   TextField,
   IconButton,
   Tooltip,
 } from "@mui/material";
-import React, { useEffect } from "react";
+import React from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CancelIcon from "@mui/icons-material/Cancel";
-import CloseIcon from "@mui/icons-material/Close";
 
 import { useAppDispatch } from "../../app/hooks/useAppDispatch";
-import { useAppSelector } from "../../app/hooks/useAppSelector";
 import Product from "../../types/Product";
 import { deleteProductAsync } from "../../redux/products/deleteProductAsync";
 import { ToastContainer, toast } from "react-toastify";
 
 export const DeleteProductModel = ({ product }: { product: Product }) => {
   const [open, setOpen] = React.useState(false);
-  const [openAlert, setOpenAlert] = React.useState(true);
-  const [showMessage, setShowMessage] = React.useState(false);
-
   const dispatch = useAppDispatch();
-
-  const { products, error } = useAppSelector((state) => state.productReducer);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -39,10 +28,6 @@ export const DeleteProductModel = ({ product }: { product: Product }) => {
 
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const onCloseAlert = () => {
-    setOpenAlert(false);
   };
 
   const deletedProduct = async () => {
@@ -129,54 +114,6 @@ export const DeleteProductModel = ({ product }: { product: Product }) => {
             </Button>
           </DialogActions>
         </Dialog>
-      </Box>
-      <Box>
-        {error && showMessage && (
-          <Stack sx={{ width: "100%" }} spacing={2}>
-            <Collapse in={openAlert}>
-              <Alert
-                severity="error"
-                action={
-                  <IconButton
-                    aria-label="close"
-                    color="inherit"
-                    size="small"
-                    onClick={() => {
-                      onCloseAlert();
-                    }}
-                  >
-                    <CloseIcon fontSize="inherit" />
-                  </IconButton>
-                }
-              >
-                Product is not created <br /> because {error}
-              </Alert>
-            </Collapse>
-          </Stack>
-        )}
-        {products && showMessage && (
-          <Stack sx={{ width: "100%" }} spacing={2}>
-            <Collapse in={openAlert}>
-              <Alert
-                severity="success"
-                action={
-                  <IconButton
-                    aria-label="close"
-                    color="inherit"
-                    size="small"
-                    onClick={() => {
-                      onCloseAlert();
-                    }}
-                  >
-                    <CloseIcon fontSize="inherit" />
-                  </IconButton>
-                }
-              >
-                Product has been updated successfully
-              </Alert>
-            </Collapse>
-          </Stack>
-        )}
       </Box>
     </main>
   );

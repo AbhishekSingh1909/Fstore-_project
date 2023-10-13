@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Box,
   Button,
   Card,
@@ -32,18 +31,11 @@ export const AddtoCart = () => {
   const { cartItems } = useAppSelector((state) => state.cartReducer);
   const { user } = useAppSelector((state) => state.authReducer);
   const dispatch = useAppDispatch();
-  const addToCart = (id: number) => {
-    dispatch(increaseQuantity(id));
+
+  const addToCart = async (id: number) => {
+    await dispatch(increaseQuantity(id));
   };
 
-  useEffect(() => {
-    console.log("come here");
-    if (user) {
-      const userId = JSON.stringify(user.id);
-      const Items = JSON.stringify(cartItems);
-      localStorage.setItem(userId, Items);
-    }
-  }, [cartItems, user]);
   const removeFromCart = (id: number) => {
     dispatch(decreaseQunatity(id));
   };
@@ -176,16 +168,6 @@ export const AddtoCart = () => {
                     </Stack>
                   </CardActions>
                 </Box>
-                {/* <Avatar
-                  variant="square"
-                  src={item?.images[0]}
-                  alt={item?.title}
-                  sx={{
-                    maxWidth: "50%",
-                    objectFit: "cover",
-                    marginLeft: "40px",
-                  }}
-                ></Avatar> */}
               </SecondryBox>
             ))}
           </Box>

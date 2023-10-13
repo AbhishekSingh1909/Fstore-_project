@@ -32,7 +32,6 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(createUsersAsync.fulfilled, (state, action) => {
-        console.log("createUsersAsync.fulfilled");
         const foundIndex = state.users.findIndex(
           (p) => p.id === action.payload.id
         );
@@ -44,7 +43,6 @@ const userSlice = createSlice({
         }
       })
       .addCase(createUsersAsync.rejected, (state, action) => {
-        console.log("createUsersAsync.rejected");
         state.error = action.payload?.message;
         state.loading = false;
         state.singleUser = undefined;
@@ -58,16 +56,13 @@ const userSlice = createSlice({
         const foundIndex = state.users.findIndex(
           (user) => user.id === action.payload.id
         );
-        console.log("update foundInex", foundIndex);
         if (foundIndex > -1) {
           state.users[foundIndex] = action.payload;
           state.singleUser = action.payload;
           state.error = undefined;
-          console.log("update user state.singleUser", state.singleUser);
         }
       })
       .addCase(updateUserAsync.rejected, (state, action) => {
-        console.log("updateUserAsync.rejected");
         if (action.payload instanceof AxiosError) {
           state.error = action.payload.message;
           state.loading = false;

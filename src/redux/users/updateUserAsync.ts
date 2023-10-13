@@ -12,11 +12,9 @@ export const updateUserAsync = createAsyncThunk(
         `https://api.escuelajs.co/api/v1/users/${user.id}`,
         user.updateUser
       );
-      console.log("response.data for update", response.data);
       return response.data;
     } catch (e) {
       const error = e as AxiosError;
-      console.log("error for update", error.message);
       return rejectWithValue(error);
     }
   }

@@ -2,7 +2,6 @@ import {
   Box,
   Button,
   Container,
-  CssBaseline,
   Dialog,
   DialogActions,
   DialogTitle,
@@ -24,18 +23,14 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CancelIcon from "@mui/icons-material/Cancel";
 
-import { Role, User } from "../../../types/User";
+import { User } from "../../../types/User";
 import { UpdateUser, UpdateUserDto } from "../../../types/UpdateUser";
 import { useAppDispatch } from "../../../app/hooks/useAppDispatch";
 import { updateUserAsync } from "../../../redux/users/updateUserAsync";
-import { useAppSelector } from "../../../app/hooks/useAppSelector";
 import { resetUser } from "../../../redux/users/userReducer";
-import { useNavigate } from "react-router-dom";
 
 export const UpdateUserByAdmin = ({ updateUser }: { updateUser: User }) => {
   const [open, setOpen] = useState(false);
-  const [openAlert, setOpenAlert] = useState(true);
-  const [showMessage, setShowMessage] = useState(false);
   const [role, setRole] = useState(updateUser.role.toString());
 
   const defaultValues: DefaultValues<FormValues> = {
@@ -68,8 +63,6 @@ export const UpdateUserByAdmin = ({ updateUser }: { updateUser: User }) => {
   });
 
   const dispatch = useAppDispatch();
-  const { singleUser, error } = useAppSelector((state) => state.userReducer);
-  const navigate = useNavigate();
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -89,8 +82,6 @@ export const UpdateUserByAdmin = ({ updateUser }: { updateUser: User }) => {
 
   const onFormSubmit: SubmitHandler<FormValues> = async (data, event) => {
     event?.preventDefault();
-    // console.log(data);
-    console.log("submit forn click");
     const updateUserDto: UpdateUserDto = {
       name: data.name,
       email: data.email,
@@ -113,28 +104,10 @@ export const UpdateUserByAdmin = ({ updateUser }: { updateUser: User }) => {
     }
     setOpen(false);
     dispatch(resetUser());
-    // navigate("../users", { replace: true });
   };
   const handleRoleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRole(event.target.value);
   };
-  //   useEffect(() => {
-  //     dispatch(resetUser());
-  //     if (error) {
-  //       toast.error("Can't update user , because " + error, {
-  //         position: toast.POSITION.TOP_RIGHT,
-  //       });
-  //       setOpen(false);
-  //     }
-  //     if (singleUser) {
-  //       console.log("show update message");
-  //       toast.success("details are updated", {
-  //         position: toast.POSITION.TOP_RIGHT,
-  //       });
-  //       setOpen(false);
-  //       console.log("update profile user", singleUser);
-  //     }
-  //   }, [error, singleUser]);
   return (
     <Fragment>
       <ToastContainer />
