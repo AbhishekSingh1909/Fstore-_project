@@ -150,6 +150,8 @@ const productsSlice = createSlice({
     builder
       .addCase(getProductsByCategoryAsync.fulfilled, (state, action) => {
         state.products = action.payload;
+        state.loading = false;
+        state.error = undefined;
       })
       .addCase(getProductsByCategoryAsync.pending, (state, action) => {
         state.loading = true;
