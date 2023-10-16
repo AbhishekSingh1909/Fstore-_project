@@ -1,12 +1,11 @@
 import { rest } from "msw";
 import { setupServer } from "msw/lib/node";
+import { AxiosError } from "axios";
 
-import { categorydata } from "../dataSeed/categoryData.Seed";
 import { usersData } from "../dataSeed/usersData.Seed";
 import { CreateNewUser } from "../../types/CreateNewUser";
 import { User } from "../../types/User";
 import { UpdateUser, UpdateUserDto } from "../../types/UpdateUser";
-import { AxiosError } from "axios";
 
 export const handlers = [
   rest.get("https://api.escuelajs.co/api/v1/users", (req, res, ctx) => {
@@ -37,7 +36,6 @@ export const handlers = [
       const input: UpdateUserDto = await req.json();
       const { id } = req.params;
       const user = usersData.find((u) => u.id === Number(id));
-      console.log("server user", user);
       if (user) {
         const updateUser: UpdateUser = {
           id: user.id,

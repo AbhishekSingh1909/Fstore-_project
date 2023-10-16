@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import CarouselImages from "./CarouseImages";
 import { useAppSelector } from "../app/hooks/useAppSelector";
 import { useAppDispatch } from "../app/hooks/useAppDispatch";
-import { getAllProductsAsync } from "../redux/products/productReducer";
+import { getAllProductsAsync } from "../redux/reducers/product/productReducer";
 
 const Home = () => {
   const images: string[] = [

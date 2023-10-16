@@ -21,15 +21,15 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CancelIcon from "@mui/icons-material/Cancel";
+import { useNavigate } from "react-router-dom";
 
 import { User } from "../../../types/User";
 import { UpdateUser, UpdateUserDto } from "../../../types/UpdateUser";
 import { FormValues, formSchema } from "../../../types/FormValues";
 import { useAppDispatch } from "../../../app/hooks/useAppDispatch";
-import { updateUserAsync } from "../../../redux/users/updateUserAsync";
+import { updateUserAsync } from "../../../redux/reducers/user/updateUserAsync";
 import { useAppSelector } from "../../../app/hooks/useAppSelector";
-import { resetUser } from "../../../redux/users/userReducer";
-import { useNavigate } from "react-router-dom";
+import { resetUser } from "../../../redux/reducers/user/userReducer";
 
 export const UpdateProfileModel = ({ updateUser }: { updateUser: User }) => {
   const [open, setOpen] = useState(false);
@@ -83,7 +83,6 @@ export const UpdateProfileModel = ({ updateUser }: { updateUser: User }) => {
       toast.error("Can't update user , because " + error, {
         position: toast.POSITION.TOP_RIGHT,
       });
-      setOpen(true);
     }
     if (singleUser) {
       toast.success("details are updated", {
@@ -91,6 +90,7 @@ export const UpdateProfileModel = ({ updateUser }: { updateUser: User }) => {
       });
       setOpen(false);
     }
+    setOpen(false);
     dispatch(resetUser());
   }, [error, singleUser]);
   return (
@@ -99,7 +99,7 @@ export const UpdateProfileModel = ({ updateUser }: { updateUser: User }) => {
       <Container maxWidth="xs">
         <Button
           variant="contained"
-          endIcon={<SendIcon color="secondary" />}
+          endIcon={<SendIcon />}
           onClick={handleClickOpen}
           size="large"
         >

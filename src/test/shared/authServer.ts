@@ -8,10 +8,6 @@ import { AxiosError } from "axios";
 // and return the response 'John Smith' after 150ms
 // when receiving a get request to the `/api/user` endpoint
 export const handlers = [
-  //   rest.get("/api/user", (req, res, ctx) => {
-  //     return res(ctx.json("John Smith"), ctx.delay(150));
-  //   }),
-
   rest.post(
     "https://api.escuelajs.co/api/v1/auth/login",
     async (req, res, ctx) => {

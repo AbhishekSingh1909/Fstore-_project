@@ -18,11 +18,11 @@ import {
 } from "@mui/material";
 import { useAppDispatch } from "../app/hooks/useAppDispatch";
 import { useAppSelector } from "../app/hooks/useAppSelector";
-import { logOut } from "../redux/userAuthentication/authReducer";
+import { logOut } from "../redux/reducers/userAuthentication/authReducer";
 import { useState } from "react";
 import { StyledBadge } from "../custom-component/StyledCartButton";
 import { CartItem } from "../types/CartItem";
-import { clearCart } from "../redux/cart/cartReducer";
+import { clearCart } from "../redux/reducers/cart/cartReducer";
 
 const Header = () => {
   const { user } = useAppSelector((state) => state.authReducer);

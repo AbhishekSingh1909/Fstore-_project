@@ -1,7 +1,4 @@
 import { useEffect, useMemo, useState } from "react";
-import { useAppDispatch } from "../app/hooks/useAppDispatch";
-import { useAppSelector } from "../app/hooks/useAppSelector";
-import { getAllUsersAsync } from "../redux/users/getAllUsersAsync";
 import { useNavigate } from "react-router-dom";
 import {
   Box,
@@ -15,6 +12,9 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
+import { useAppDispatch } from "../app/hooks/useAppDispatch";
+import { useAppSelector } from "../app/hooks/useAppSelector";
+import { getAllUsersAsync } from "../redux/reducers/user/getAllUsersAsync";
 import UpdateUserByAdmin from "../components/user/Model/UpdateUser";
 import { User } from "../types/User";
 import ErrorMessage from "../components/ErrorMessage";
@@ -96,7 +96,6 @@ export const UsersList = () => {
                   width: "30%",
                   hight: "10%",
                   padding: "1em",
-                  alignItems: "center",
                 }}
               >
                 <CardContent
@@ -113,19 +112,19 @@ export const UsersList = () => {
                     sx={{
                       display: "flex",
                       flexDirection: "row",
-
-                      gap: "20px",
-                      margin: "20px",
-                      marginBottom: "0px",
+                      marginTop: "10px",
                     }}
                   >
-                    <Button
-                      variant="contained"
-                      color="error"
-                      startIcon={<DeleteIcon color="error" />}
-                    >
-                      Delete
-                    </Button>
+                    <Container maxWidth="xs">
+                      <Button
+                        variant="contained"
+                        color="error"
+                        startIcon={<DeleteIcon />}
+                      >
+                        Delete
+                      </Button>
+                    </Container>
+
                     <UpdateUserByAdmin updateUser={user} />
                   </Box>
                 </CardContent>
@@ -146,8 +145,9 @@ export const UsersList = () => {
             <Pagination
               count={pageCount}
               page={page}
-              onChange={handleChange}
               color="primary"
+              sx={{ margin: "20px", padding: "20px" }}
+              onChange={handleChange}
             />
           </Stack>
         )}

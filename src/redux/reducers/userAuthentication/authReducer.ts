@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { User, UserAuth } from "../../../types/User";
 
-import { JWTToken, User, UserAuth } from "../../types/User";
 import { userLogInAsync } from "./userLogInAsync";
 import { authenticateUserAsync } from "./authenticateUserAsync";
 
@@ -28,7 +28,6 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(userLogInAsync.fulfilled, (state, action) => {
-        console.log("fulfilled", action.payload);
         state.user = action.payload;
         state.loading = false;
       })

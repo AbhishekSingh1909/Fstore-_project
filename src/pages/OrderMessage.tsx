@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
 import { useAppSelector } from "../app/hooks/useAppSelector";
 import { useDispatch } from "react-redux";
-import { clearCart } from "../redux/cart/cartReducer";
+import { clearCart } from "../redux/reducers/cart/cartReducer";
 import { useNavigate } from "react-router-dom";
 
 interface State extends SnackbarOrigin {

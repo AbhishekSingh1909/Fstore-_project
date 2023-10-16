@@ -27,14 +27,6 @@ export const formSchema = yup.object({
   avatar: yup.string().nullable(),
 });
 
-function requiredWhenDefined(this: any) {
-  return this.nullable() // Allow the value to be null
-    .default("-") // If undefined, set the value to something that will pass validation
-    .required(); // Make it required so that "" or null will yield an error
-}
-
-// Yup.addMethod(Yup.string, "requiredWhenDefined", requiredWhenDefined);
-
 export const defaultValues: DefaultValues<FormValues> = {
   name: "",
   email: "",

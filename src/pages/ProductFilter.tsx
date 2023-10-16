@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 
-import { getProductCategoriesAsync } from "../redux/productCategories/getProductCategoriesAsync";
+import { getProductCategoriesAsync } from "../redux/reducers/category/getProductCategoriesAsync";
 
 import { useAppDispatch } from "../app/hooks/useAppDispatch";
 import { useAppSelector } from "../app/hooks/useAppSelector";

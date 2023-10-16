@@ -77,7 +77,8 @@ export const Profile = () => {
           <Stack direction="row" spacing={2}>
             <Button
               variant="contained"
-              startIcon={<DeleteIcon color="error" />}
+              color="error"
+              startIcon={<DeleteIcon />}
               size="large"
             >
               Delete

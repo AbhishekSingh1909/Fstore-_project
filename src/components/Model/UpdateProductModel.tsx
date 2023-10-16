@@ -18,7 +18,7 @@ import { ToastContainer, toast } from "react-toastify";
 
 import { useAppSelector } from "../../app/hooks/useAppSelector";
 import { useAppDispatch } from "../../app/hooks/useAppDispatch";
-import { updateProductAsync } from "../../redux/products/productReducer";
+import { updateProductAsync } from "../../redux/reducers/product/productReducer";
 import UpdateProduct, { ProductDto } from "../../types/UpdateProduct";
 import Product from "../../types/Product";
 

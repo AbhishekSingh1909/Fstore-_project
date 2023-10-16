@@ -21,12 +21,11 @@ import { useAppDispatch } from "../app/hooks/useAppDispatch";
 import {
   getAllProductsAsync,
   sortByPrice,
-} from "../redux/products/productReducer";
-import { getProductsByCategoryAsync } from "../redux/products/getProductsByCategoryAsync";
-import { addToCart } from "../redux/cart/cartReducer";
+} from "../redux/reducers/product/productReducer";
+import { getProductsByCategoryAsync } from "../redux/reducers/product/getProductsByCategoryAsync";
+import { addToCart } from "../redux/reducers/cart/cartReducer";
 import Product from "../types/Product";
 import getFilteredProducts from "../selectors/getFilteredProducts";
-
 import UpdateProductModel from "../components/Model/UpdateProductModel";
 import { DeleteProductModel } from "../components/Model/DeleteProductModel";
 import ErrorMessage from "../components/ErrorMessage";
@@ -49,7 +48,6 @@ const ProductsPage = ({ categoryId, sortPrice }: ProductProps) => {
   );
   useEffect(() => {
     if (categoryId) {
-      console.log("categoryId", categoryId);
       dispatch(getProductsByCategoryAsync(categoryId));
     } else {
       dispatch(getAllProductsAsync());

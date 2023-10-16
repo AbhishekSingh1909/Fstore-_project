@@ -1,4 +1,4 @@
-import { getProductCategoriesAsync } from "../../redux/productCategories/getProductCategoriesAsync";
+import { getProductCategoriesAsync } from "../../redux/reducers/category/getProductCategoriesAsync";
 import { createStore } from "../../redux/store";
 import server from "../shared/server";
 

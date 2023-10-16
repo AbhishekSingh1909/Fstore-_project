@@ -12,10 +12,10 @@ import {
 
 import Product from "../types/Product";
 import { useAppDispatch } from "../app/hooks/useAppDispatch";
-import { addToCart } from "../redux/cart/cartReducer";
+import { addToCart } from "../redux/reducers/cart/cartReducer";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getSingleProductByIdAsync } from "../redux/products/getSingleProductByIdAsync";
+import { getSingleProductByIdAsync } from "../redux/reducers/product/getSingleProductByIdAsync";
 import { useAppSelector } from "../app/hooks/useAppSelector";
 
 const FetchSingleProduct = () => {

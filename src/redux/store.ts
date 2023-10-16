@@ -11,15 +11,11 @@ import {
   persistStore,
 } from "redux-persist";
 
-import productReducer from "./products/productReducer";
-import ProductCategoryReducer from "./productCategories/categoryReducer";
-import cartReducer from "./cart/cartReducer";
-import authReducer from "./userAuthentication/authReducer";
-import userReducer from "./users/userReducer";
-
-// const store = configureStore({
-//   reducer: { productReducer },
-// });
+import productReducer from "./reducers/product/productReducer";
+import ProductCategoryReducer from "./reducers/category/categoryReducer";
+import cartReducer from "./reducers/cart/cartReducer";
+import authReducer from "./reducers/userAuthentication/authReducer";
+import userReducer from "./reducers/user/userReducer";
 
 const preConfig = {
   key: "root",
@@ -52,18 +48,10 @@ export const createStore = () => {
       }),
   });
 };
-// const store = configureStore({
-//   reducer: persistedReducer,
-//   middleware: (getDefaultMiddleware) =>
-//     getDefaultMiddleware({
-//       serializableCheck: {
-//         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-//       },
-//     }),
-// });
 
 //get Store
 const store = createStore();
+
 //to get the state from all reducers
 export type AppState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;

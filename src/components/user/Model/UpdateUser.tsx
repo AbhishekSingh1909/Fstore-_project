@@ -9,7 +9,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import SendIcon from "@mui/icons-material/Send";
 import {
   Controller,
@@ -26,8 +26,8 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import { User } from "../../../types/User";
 import { UpdateUser, UpdateUserDto } from "../../../types/UpdateUser";
 import { useAppDispatch } from "../../../app/hooks/useAppDispatch";
-import { updateUserAsync } from "../../../redux/users/updateUserAsync";
-import { resetUser } from "../../../redux/users/userReducer";
+import { updateUserAsync } from "../../../redux/reducers/user/updateUserAsync";
+import { resetUser } from "../../../redux/reducers/user/userReducer";
 
 export const UpdateUserByAdmin = ({ updateUser }: { updateUser: User }) => {
   const [open, setOpen] = useState(false);
@@ -166,7 +166,6 @@ export const UpdateUserByAdmin = ({ updateUser }: { updateUser: User }) => {
               <Typography color="red">{errors.email.message}</Typography>
             )}
             <Controller
-              //defaultValue={updateUser.password}
               render={({ field }) => (
                 <TextField
                   required

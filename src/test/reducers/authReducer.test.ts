@@ -1,7 +1,6 @@
 import { createStore } from "../../redux/store";
-import { userAccess_token } from "../../redux/userAuthentication/authReducer";
-import { authenticateUserAsync } from "../../redux/userAuthentication/authenticateUserAsync";
-import { userLogInAsync } from "../../redux/userAuthentication/userLogInAsync";
+import { authenticateUserAsync } from "../../redux/reducers/userAuthentication/authenticateUserAsync";
+import { userLogInAsync } from "../../redux/reducers/userAuthentication/userLogInAsync";
 import { userToken, usersData } from "../dataSeed/usersData.Seed";
 import authServer from "../shared/authServer";
 

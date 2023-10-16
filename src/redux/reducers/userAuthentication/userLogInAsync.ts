@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { JWTToken, LoginCredential, User } from "../../types/User";
+import { JWTToken, LoginCredential, User } from "../../../types/User";
+
 import axios, { AxiosError } from "axios";
 import { authenticateUserAsync } from "./authenticateUserAsync";
 
@@ -15,9 +16,7 @@ export const userLogInAsync = createAsyncThunk<
         `https://api.escuelajs.co/api/v1/auth/login`,
         loginParams
       );
-      console.log("response.data", response.data);
       const { access_token } = response.data;
-      //localStorage.setItem("access_token", access_token);
       const userAuthentication = await dispatch(
         authenticateUserAsync(access_token)
       );
@@ -32,7 +31,6 @@ export const userLogInAsync = createAsyncThunk<
         return userAuthentication.payload as User;
       }
     } catch (e) {
-      console.log("Axiox error");
       const error = e as AxiosError;
       return rejectWithValue(error);
     }

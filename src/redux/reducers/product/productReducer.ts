@@ -2,8 +2,8 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 
 import { getProductsByCategoryAsync } from "./getProductsByCategoryAsync";
-import UpdateProduct from "../../types/UpdateProduct";
-import Product from "../../types/Product";
+import UpdateProduct from "../../../types/UpdateProduct";
+import Product from "../../../types/Product";
 import { createProductAsync } from "./createProductAsync";
 import { deleteProductAsync } from "./deleteProductAsync";
 

@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError, AxiosResponse } from "axios";
 
-import Product from "../../types/Product";
+import Product from "../../../types/Product";
 
 export const getSingleProductByIdAsync = createAsyncThunk<
   Product,

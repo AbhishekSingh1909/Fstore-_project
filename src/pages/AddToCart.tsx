@@ -22,7 +22,7 @@ import {
   decreaseQunatity,
   detetFromCart,
   increaseQuantity,
-} from "../redux/cart/cartReducer";
+} from "../redux/reducers/cart/cartReducer";
 import { CartItem } from "../types/CartItem";
 import { Fragment } from "react";
 import { CheckOut } from "./OrderMessage";

@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError, AxiosResponse } from "axios";
 
-import Category from "../../types/Category";
+import Category from "../../../types/Category";
 
 export const getProductCategoriesAsync = createAsyncThunk<
   Category[],
@@ -12,7 +12,6 @@ export const getProductCategoriesAsync = createAsyncThunk<
     const response = await axios.get(
       `https://api.escuelajs.co/api/v1/categories`
     );
-    console.log("response.data", response.data);
     return response.data;
   } catch (e) {
     const error = e as AxiosError;

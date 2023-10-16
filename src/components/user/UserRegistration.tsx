@@ -20,7 +20,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { useAppDispatch } from "../../app/hooks/useAppDispatch";
-import { createUsersAsync } from "../../redux/users/createUserAsync";
+import { createUsersAsync } from "../../redux/reducers/user/createUserAsync";
 import Footer from "../Footer";
 import FormBoxFlex from "../../custom-component/FormBoxFlex";
 import { FormValues, defaultValues, formSchema } from "../../types/FormValues";

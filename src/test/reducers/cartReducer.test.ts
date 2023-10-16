@@ -4,7 +4,7 @@ import cartReducer, {
   decreaseQunatity,
   detetFromCart,
   increaseQuantity,
-} from "../../redux/cart/cartReducer";
+} from "../../redux/reducers/cart/cartReducer";
 import { CartItem } from "../../types/CartItem";
 import { cartItemsData } from "../dataSeed/cartItemData.Seed";
 import { productsData } from "../dataSeed/productData.Seed";

@@ -1,7 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { User } from "../../types/User";
-import { createUsersAsync } from "./createUserAsync";
 import { AxiosError } from "axios";
+import { createSlice } from "@reduxjs/toolkit";
+
+import { User } from "../../../types/User";
+import { createUsersAsync } from "./createUserAsync";
 import { updateUserAsync } from "./updateUserAsync";
 import { getAllUsersAsync } from "./getAllUsersAsync";
 import { getSingleUsersAsync } from "./getSingleUserAsync";

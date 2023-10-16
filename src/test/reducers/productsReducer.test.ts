@@ -3,17 +3,17 @@ import productReducer, {
   getAllProductsAsync,
   sortByPrice,
   updateProductAsync,
-} from "../../redux/products/productReducer";
+} from "../../redux/reducers/product/productReducer";
 import { createStore } from "../../redux/store";
 import Product from "../../types/Product";
 import { productsData } from "../dataSeed/productData.Seed";
 import server from "../shared/server";
-import { deleteProductAsync } from "../../redux/products/deleteProductAsync";
+import { deleteProductAsync } from "../../redux/reducers/product/deleteProductAsync";
 import { CreateProduct } from "../../types/CreateProduct";
-import { createProductAsync } from "../../redux/products/createProductAsync";
+import { createProductAsync } from "../../redux/reducers/product/createProductAsync";
 import UpdateProduct from "../../types/UpdateProduct";
-import { getProductsByCategoryAsync } from "../../redux/products/getProductsByCategoryAsync";
-import { getSingleProductByIdAsync } from "../../redux/products/getSingleProductByIdAsync";
+import { getProductsByCategoryAsync } from "../../redux/reducers/product/getProductsByCategoryAsync";
+import { getSingleProductByIdAsync } from "../../redux/reducers/product/getSingleProductByIdAsync";
 
 let store = createStore();
 

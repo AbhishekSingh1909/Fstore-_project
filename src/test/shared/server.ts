@@ -5,7 +5,7 @@ import { productsData } from "../dataSeed/productData.Seed";
 import { CreateProduct } from "../../types/CreateProduct";
 import Product from "../../types/Product";
 import { categorydata } from "../dataSeed/categoryData.Seed";
-import UpdateProduct, { ProductDto } from "../../types/UpdateProduct";
+import { ProductDto } from "../../types/UpdateProduct";
 
 // We use msw to intercept the network request during the test,
 // and return the response 'John Smith' after 150ms

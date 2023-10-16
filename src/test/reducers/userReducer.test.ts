@@ -1,8 +1,8 @@
 import { createStore } from "../../redux/store";
-import { createUsersAsync } from "../../redux/users/createUserAsync";
-import { getAllUsersAsync } from "../../redux/users/getAllUsersAsync";
-import { getSingleUsersAsync } from "../../redux/users/getSingleUserAsync";
-import { updateUserAsync } from "../../redux/users/updateUserAsync";
+import { createUsersAsync } from "../../redux/reducers/user/createUserAsync";
+import { getAllUsersAsync } from "../../redux/reducers/user/getAllUsersAsync";
+import { getSingleUsersAsync } from "../../redux/reducers/user/getSingleUserAsync";
+import { updateUserAsync } from "../../redux/reducers/user/updateUserAsync";
 import { CreateNewUser } from "../../types/CreateNewUser";
 import { UpdateUser, UpdateUserDto } from "../../types/UpdateUser";
 import { usersData } from "../dataSeed/usersData.Seed";
@@ -41,7 +41,6 @@ describe("Test user reducer async actions", () => {
     };
     await store.dispatch(createUsersAsync(user));
     const createdUser = store.getState().userReducer.users;
-    console.log("createdUser", createdUser);
     expect(store.getState().userReducer.users.length).toBe(1);
   });
   test("should update a user", async () => {
@@ -57,7 +56,6 @@ describe("Test user reducer async actions", () => {
       updateUser: updateUserDto,
     };
     const action = await store.dispatch(updateUserAsync(updateUser));
-    console.log("action", action.payload);
 
     expect(action.payload).toMatchObject({
       id: 1,

@@ -12,12 +12,12 @@ import React from "react";
 import SendIcon from "@mui/icons-material/Send";
 import CancelIcon from "@mui/icons-material/Cancel";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
+import { ToastContainer, toast } from "react-toastify";
 
 import { useAppDispatch } from "../../app/hooks/useAppDispatch";
 import { useAppSelector } from "../../app/hooks/useAppSelector";
-import { createProductAsync } from "../../redux/products/createProductAsync";
+import { createProductAsync } from "../../redux/reducers/product/createProductAsync";
 import { CreateProduct } from "../../types/CreateProduct";
-import { ToastContainer, toast } from "react-toastify";
 
 export const CreateProductModel = () => {
   const [open, setOpen] = React.useState(false);
@@ -48,7 +48,6 @@ export const CreateProductModel = () => {
       categoryId: categoryId,
       images: [image || "https://i.imgur.com/kTPCFG2.jpeg"],
     };
-    console.log("product need to create", product);
     const result = await dispatch(createProductAsync(product));
     if (result.meta.requestStatus === "fulfilled") {
       toast.success(`product ${product.title} has been created successfully`);
@@ -61,6 +60,7 @@ export const CreateProductModel = () => {
     const id = event.target.value;
     setCategoryId(+id);
   };
+
   return (
     <main>
       <ToastContainer />
