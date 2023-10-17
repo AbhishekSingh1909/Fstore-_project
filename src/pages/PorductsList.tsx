@@ -176,23 +176,6 @@ const ProductsPage = ({ categoryId, sortPrice }: ProductProps) => {
                   <Typography sx={{ textAlign: "center" }}>
                     {p.price} €
                   </Typography>
-                  {user?.role === "admin" && (
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <Stack spacing={1}>
-                        <UpdateProductModel product={p} />
-                      </Stack>
-                      <Stack spacing={1}>
-                        <DeleteProductModel product={p} />
-                      </Stack>
-                    </Box>
-                  )}
                 </CardContent>
                 <Box
                   sx={{

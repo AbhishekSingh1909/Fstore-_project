@@ -88,7 +88,7 @@ export const AddtoCart = () => {
           <Box sx={{ marginTop: "10px", padding: "10px" }}>
             {cartItems.map((item) => (
               <SecondryBox>
-                <Box sx={{ flex: "1" }}>
+                <Box sx={{ flex: "1" }} key={item?.id}>
                   {item?.title && (
                     <Typography variant="h6"> {item?.title}</Typography>
                   )}

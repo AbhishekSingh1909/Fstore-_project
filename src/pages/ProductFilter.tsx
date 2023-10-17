@@ -72,12 +72,6 @@ const ProductCategory = () => {
               marginTop: "2em",
             }}
           >
-            {user?.role === "admin" && (
-              <Box sx={{ width: "60%" }}>
-                <CreateProductModel />
-              </Box>
-            )}
-
             <FormControl fullWidth>
               <InputLabel id="demo-select-price-sorting-standard-label">
                 By Price

@@ -45,6 +45,10 @@ export const UsersList = () => {
     return pageCount;
   }, [users]);
 
+  const handleNavigateBack = () => {
+    navigate(-1);
+  };
+
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
 
@@ -77,6 +81,17 @@ export const UsersList = () => {
   return (
     <main>
       <Container>
+        <Box
+          sx={{
+            display: "flex",
+            margin: "1em",
+            marginRight: "auto",
+          }}
+        >
+          <Button variant="contained" onClick={handleNavigateBack}>
+            Back
+          </Button>
+        </Box>
         <Typography variant="h4"> Users</Typography>
 
         {data?.length > 0 && (

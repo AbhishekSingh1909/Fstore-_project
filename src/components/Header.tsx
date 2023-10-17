@@ -84,8 +84,8 @@ const Header = () => {
               Products
             </Button>
             {user && user.role === "admin" && (
-              <Button component={Link} to="/users">
-                Users
+              <Button component={Link} to="/dashbord">
+                Admin DashBoard
               </Button>
             )}
           </NavButtonGroup>

@@ -42,7 +42,6 @@ export const updateProductAsync = createAsyncThunk<
 >(
   "products/updateProductAsync",
   async (params: UpdateProduct, { rejectWithValue }) => {
-    console.log("parameters", params);
     try {
       const response = await axios.put(
         `https://api.escuelajs.co/api/v1/products/${params.id}`,

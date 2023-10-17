@@ -70,7 +70,7 @@ const FetchSingleProduct = () => {
 
               {product && (
                 <Typography variant="h6" color="text.secondary">
-                  Price : {product.price}
+                  Price : {product.price}€
                 </Typography>
               )}
             </CardContent>

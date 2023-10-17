@@ -45,6 +45,14 @@ export const createStore = () => {
         serializableCheck: {
           ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
         },
+        // to ignore unwanted middleware which cause slow down in application
+        immutableCheck: {
+          ignoredPaths: [
+            "ignoredPath",
+            "ignoredNested.one",
+            "ignoredNested.two",
+          ],
+        },
       }),
   });
 };

@@ -10,6 +10,8 @@ import { CustomError } from "./pages/Error";
 import { UsersList } from "./pages/UsersList";
 import FetchSingleProduct from "./pages/Product";
 import ProductCategory from "./pages/ProductFilter";
+import { AdminDashboard } from "./components/AdminDashBoard";
+import ProductTableList from "./pages/ProductsTableList";
 
 const App = () => {
   const route = createBrowserRouter([
@@ -34,9 +36,20 @@ const App = () => {
           path: "AddToCart",
           element: <AddtoCart />,
         },
+
         {
-          path: "users",
-          element: <UsersList />,
+          path: "dashbord",
+          element: <AdminDashboard />,
+          children: [
+            {
+              path: "",
+              element: <ProductTableList />,
+            },
+            {
+              path: "users",
+              element: <UsersList />,
+            },
+          ],
         },
 
         {
