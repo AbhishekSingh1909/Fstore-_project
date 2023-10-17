@@ -10,7 +10,7 @@ export const HeaderDashBoard = () => {
 
   useEffect(() => {
     if (!user || (user && user.role !== "admin")) {
-      navigate("NotAuthorized", { replace: true });
+      navigate("../NotAuthorized", { replace: true });
     }
   }, [user]);
   return (
@@ -28,7 +28,7 @@ export const HeaderDashBoard = () => {
         <Button component={Link} to="" size="large">
           Products
         </Button>
-        <Button component={Link} to="./users" size="large">
+        <Button component={Link} to="../users" size="large">
           Users
         </Button>
       </Box>

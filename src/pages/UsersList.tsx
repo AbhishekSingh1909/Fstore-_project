@@ -34,10 +34,10 @@ export const UsersList = () => {
       if (user.role === "admin") {
         dispatch(getAllUsersAsync());
       } else {
-        navigate("NotAuthorized", { replace: true });
+        navigate("../NotAuthorized", { replace: true });
       }
     } else {
-      navigate("NotAuthorized", { replace: true });
+      navigate("../NotAuthorized", { replace: true });
     }
   }, [user]);
   const pageCount = useMemo(() => {

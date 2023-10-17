@@ -29,8 +29,6 @@ import { getProductsByCategoryAsync } from "../redux/reducers/product/getProduct
 import { addToCart } from "../redux/reducers/cart/cartReducer";
 import Product from "../types/Product";
 import getFilteredProducts from "../selectors/getFilteredProducts";
-import UpdateProductModel from "../components/Model/UpdateProductModel";
-import { DeleteProductModel } from "../components/Model/DeleteProductModel";
 import ErrorMessage from "../components/ErrorMessage";
 
 interface ProductProps {

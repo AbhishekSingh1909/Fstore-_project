@@ -10,7 +10,7 @@ export const AdminDashboard = () => {
 
   useEffect(() => {
     if (!user || (user && user.role !== "admin")) {
-      navigate("NotAuthorized", { replace: true });
+      navigate("../NotAuthorized", { replace: true });
     }
   }, [user]);
   return (

@@ -49,7 +49,7 @@ const ProductTableList = () => {
       dispatch(getAllProductsAsync());
       dispatch(getProductCategoriesAsync());
     } else {
-      navigate("NotAuthorized", { replace: true });
+      navigate("../NotAuthorized", { replace: true });
     }
   }, [user]);
 
