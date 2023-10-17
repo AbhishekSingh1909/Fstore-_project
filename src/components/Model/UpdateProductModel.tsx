@@ -13,25 +13,37 @@ import {
   InputAdornment,
   MenuItem,
   Tooltip,
+  Typography,
 } from "@mui/material";
 import { ToastContainer, toast } from "react-toastify";
+import { DefaultValues, SubmitHandler, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import { useAppSelector } from "../../app/hooks/useAppSelector";
 import { useAppDispatch } from "../../app/hooks/useAppDispatch";
 import { updateProductAsync } from "../../redux/reducers/product/productReducer";
 import UpdateProduct, { ProductDto } from "../../types/UpdateProduct";
 import Product from "../../types/Product";
+import {
+  FormValues,
+  formSchema,
+} from "../../types/FormValidation/ProductFormValues";
 
 export default function UpdateProductModel({ product }: { product: Product }) {
   const [open, setOpen] = React.useState(false);
-  const [title, setTitle] = React.useState(product.title);
-  const [desc, setDesc] = React.useState(product.description);
-  const [price, setPrice] = React.useState(product.price);
-  const [categoryId, setCategoryId] = React.useState(product.category.id);
   const dispatch = useAppDispatch();
+
   const categories = useAppSelector(
     (state) => state.ProductCategoryReducer.categories
   );
+
+  const defaultValues: DefaultValues<FormValues> = {
+    title: product.title,
+    description: product.description,
+    price: product.price,
+    categoryId: product.category.id,
+    images: product.images[0],
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -40,28 +52,35 @@ export default function UpdateProductModel({ product }: { product: Product }) {
     setOpen(false);
   };
 
-  const categoryHandleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const id = event.target.value;
-    setCategoryId(+id);
-  };
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<FormValues>({
+    defaultValues,
+    resolver: yupResolver(formSchema),
+  });
 
-  const saveChanges = async () => {
+  const onFormSubmit: SubmitHandler<FormValues> = async (data, event) => {
+    event?.preventDefault();
+
     const productDto: ProductDto = {
-      title: title,
-      description: desc,
-      price: price,
-      categoryId: categoryId,
+      title: data.title,
+      description: data.description,
+      price: data.price,
+      categoryId: data.categoryId,
     };
     const updatedProduct: UpdateProduct = {
       id: product.id,
       updateProduct: productDto,
     };
-
     const result = await dispatch(updateProductAsync(updatedProduct));
     if (result.meta.requestStatus === "fulfilled") {
       toast.success(`${product.title} has been updated successfully`);
     } else if (result.meta.requestStatus === "rejected") {
       toast.error(`${product.title} could not updated`);
+      reset(defaultValues);
     }
     setOpen(false);
   };
@@ -78,38 +97,46 @@ export default function UpdateProductModel({ product }: { product: Product }) {
         <Dialog open={open} fullWidth>
           <Box
             component="form"
-            display="flex"
-            flexDirection="column"
-            padding="2em"
+            onSubmit={handleSubmit(onFormSubmit)}
+            sx={{ mt: 1 }}
           >
             <DialogTitle>Update the Product</DialogTitle>
             <TextField
               required
+              fullWidth
               id="title"
+              margin="normal"
               label="Title"
               defaultValue={product.title}
-              variant="filled"
-              onChange={(e) => setTitle(e.target.value)}
+              {...register("title")}
             />
+            {errors.title && (
+              <Typography color="red">{errors.title.message}</Typography>
+            )}
 
             <TextField
-              id="desc"
+              required
+              fullWidth
+              margin="normal"
+              id="description"
               label="Description"
               multiline
               maxRows={4}
               variant="filled"
               defaultValue={product.description}
-              onChange={(e) => setDesc(e.target.value)}
-              sx={{ marginTop: "20px" }}
+              {...register("description")}
             />
+            {errors.description && (
+              <Typography color="red">{errors.description.message}</Typography>
+            )}
             <TextField
-              id="select-category"
+              required
+              fullWidth
               select
-              variant="filled"
-              defaultValue={product.category.name}
-              value={categoryId}
-              onChange={categoryHandleChange}
-              sx={{ marginTop: "20px" }}
+              id="categoryId"
+              label="Category"
+              defaultValue={product.category.id}
+              {...register("categoryId")}
             >
               {categories.map((c) => (
                 <MenuItem key={c.id} value={c.id}>
@@ -117,37 +144,41 @@ export default function UpdateProductModel({ product }: { product: Product }) {
                 </MenuItem>
               ))}
             </TextField>
+            {errors.categoryId && (
+              <Typography color="red">{errors.categoryId.message}</Typography>
+            )}
             <TextField
+              required
+              fullWidth
+              margin="normal"
+              label=" Price"
               id="price"
-              label="Price"
-              variant="filled"
-              defaultValue={`${product.price}`}
-              onChange={(e) => setPrice(+e.target.value)}
-              sx={{ marginTop: "20px" }}
+              defaultValue={product.price}
+              {...register("price")}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">€</InputAdornment>
                 ),
               }}
             />
+            {errors.price && (
+              <Typography color="red">{errors.price.message}</Typography>
+            )}
+
+            <DialogActions>
+              <Button
+                variant="contained"
+                endIcon={<CancelIcon />}
+                onClick={handleClose}
+                color="error"
+              >
+                Cancel
+              </Button>
+              <Button variant="contained" type="submit" endIcon={<SendIcon />}>
+                Save
+              </Button>
+            </DialogActions>
           </Box>
-          <DialogActions>
-            <Button
-              variant="contained"
-              endIcon={<CancelIcon />}
-              onClick={handleClose}
-              color="error"
-            >
-              Cancel
-            </Button>
-            <Button
-              variant="contained"
-              endIcon={<SendIcon />}
-              onClick={saveChanges}
-            >
-              Save
-            </Button>
-          </DialogActions>
         </Dialog>
       </Box>
     </main>

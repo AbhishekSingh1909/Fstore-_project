@@ -7,11 +7,13 @@ import {
   InputAdornment,
   MenuItem,
   TextField,
+  Typography,
 } from "@mui/material";
 import React from "react";
 import SendIcon from "@mui/icons-material/Send";
 import CancelIcon from "@mui/icons-material/Cancel";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 
 import { useAppDispatch } from "../../app/hooks/useAppDispatch";
@@ -19,18 +21,30 @@ import { useAppSelector } from "../../app/hooks/useAppSelector";
 import { createProductAsync } from "../../redux/reducers/product/createProductAsync";
 import { CreateProduct } from "../../types/CreateProduct";
 
+import {
+  FormValues,
+  defaultValues,
+  formSchema,
+} from "../../types/FormValidation/ProductFormValues";
+import { yupResolver } from "@hookform/resolvers/yup";
+
 export const CreateProductModel = () => {
   const [open, setOpen] = React.useState(false);
-  const [title, setTitle] = React.useState("");
-  const [desc, setDesc] = React.useState("");
-  const [categoryId, setCategoryId] = React.useState<number>(1);
-  const [price, setPrice] = React.useState(0);
-  const [image, setImage] = React.useState("");
 
   const dispatch = useAppDispatch();
   const categories = useAppSelector(
     (state) => state.ProductCategoryReducer.categories
   );
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<FormValues>({
+    defaultValues,
+    resolver: yupResolver(formSchema),
+  });
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -40,13 +54,14 @@ export const CreateProductModel = () => {
     setOpen(false);
   };
 
-  const saveChanges = async () => {
+  const onFormSubmit: SubmitHandler<FormValues> = async (data, event) => {
+    event?.preventDefault();
     const product: CreateProduct = {
-      title: title,
-      description: desc,
-      price: price,
-      categoryId: categoryId,
-      images: [image || "https://i.imgur.com/kTPCFG2.jpeg"],
+      title: data.title,
+      description: data.description,
+      price: data.price,
+      categoryId: data.categoryId,
+      images: [data.images || "https://i.imgur.com/kTPCFG2.jpeg"],
     };
     const result = await dispatch(createProductAsync(product));
     if (result.meta.requestStatus === "fulfilled") {
@@ -54,11 +69,8 @@ export const CreateProductModel = () => {
     } else if (result.meta.requestStatus === "rejected") {
       toast.error(`product ${product.title} could not created`);
     }
+    reset(defaultValues);
     setOpen(false);
-  };
-  const categoryHandleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const id = event.target.value;
-    setCategoryId(+id);
   };
 
   return (
@@ -76,35 +88,45 @@ export const CreateProductModel = () => {
         <Dialog open={open} fullWidth>
           <Box
             component="form"
-            display="flex"
-            flexDirection="column"
-            padding="2em"
+            onSubmit={handleSubmit(onFormSubmit)}
+            sx={{ mt: 1 }}
           >
             <DialogTitle>Create New Product</DialogTitle>
-            <TextField
-              id="title"
-              label="Title"
-              variant="filled"
-              onChange={(e) => setTitle(e.target.value)}
-            />
 
             <TextField
-              id="desc"
-              label="Description"
+              required
+              fullWidth
+              id="title"
+              margin="normal"
+              label="Enter Product Title"
+              {...register("title")}
+            />
+            {errors.title && (
+              <Typography color="red">{errors.title.message}</Typography>
+            )}
+
+            <TextField
+              required
+              fullWidth
+              margin="normal"
+              id="description"
+              label="Product Description"
               multiline
               maxRows={4}
-              variant="filled"
-              onChange={(e) => setDesc(e.target.value)}
-              sx={{ marginTop: "20px" }}
+              {...register("description")}
             />
+            {errors.description && (
+              <Typography color="red">{errors.description.message}</Typography>
+            )}
+
             <TextField
-              id="select-category"
-              label="Category"
+              required
+              fullWidth
               select
-              variant="filled"
-              value={categoryId}
-              onChange={categoryHandleChange}
-              sx={{ marginTop: "20px" }}
+              id="categoryId"
+              label="Category"
+              defaultValue={1}
+              {...register("categoryId")}
             >
               {categories?.map((c) => (
                 <MenuItem key={c.id} value={c.id}>
@@ -112,43 +134,50 @@ export const CreateProductModel = () => {
                 </MenuItem>
               ))}
             </TextField>
+            {errors.categoryId && (
+              <Typography color="red">{errors.categoryId.message}</Typography>
+            )}
+
             <TextField
+              required
+              fullWidth
+              margin="normal"
+              label=" Price"
               id="price"
-              label="Price"
-              variant="filled"
-              onChange={(e) => setPrice(+e.target.value)}
-              sx={{ marginTop: "20px" }}
+              {...register("price")}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">€</InputAdornment>
                 ),
               }}
             />
+            {errors.price && (
+              <Typography color="red">{errors.price.message}</Typography>
+            )}
             <TextField
+              required
+              fullWidth
+              margin="normal"
               id="image"
-              label="Image Url"
+              label="Enter Image Url"
               variant="filled"
-              onChange={(e) => setImage(e.target.value)}
-              sx={{ marginTop: "20px" }}
+              {...register("images")}
             />
+
+            <DialogActions>
+              <Button
+                variant="contained"
+                endIcon={<CancelIcon />}
+                onClick={handleClose}
+                color="error"
+              >
+                Cancel
+              </Button>
+              <Button variant="contained" endIcon={<SendIcon />} type="submit">
+                Save
+              </Button>
+            </DialogActions>
           </Box>
-          <DialogActions>
-            <Button
-              variant="contained"
-              endIcon={<CancelIcon />}
-              onClick={handleClose}
-              color="error"
-            >
-              Cancel
-            </Button>
-            <Button
-              variant="contained"
-              endIcon={<SendIcon />}
-              onClick={saveChanges}
-            >
-              Save
-            </Button>
-          </DialogActions>
         </Dialog>
       </Box>
     </main>

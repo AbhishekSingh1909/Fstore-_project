@@ -7,21 +7,12 @@ import Button from "@mui/material/Button";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 import { Link, useNavigate } from "react-router-dom";
-import {
-  Badge,
-  Box,
-  IconButton,
-  Menu,
-  MenuItem,
-  Stack,
-  Toolbar,
-} from "@mui/material";
+import { IconButton, Menu, MenuItem, Stack, Toolbar } from "@mui/material";
 import { useAppDispatch } from "../app/hooks/useAppDispatch";
 import { useAppSelector } from "../app/hooks/useAppSelector";
 import { logOut } from "../redux/reducers/userAuthentication/authReducer";
 import { useState } from "react";
 import { StyledBadge } from "../custom-component/StyledCartButton";
-import { CartItem } from "../types/CartItem";
 import { clearCart } from "../redux/reducers/cart/cartReducer";
 
 const Header = () => {
@@ -29,7 +20,6 @@ const Header = () => {
   const { cartItems } = useAppSelector((state) => state.cartReducer);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [openMenu, setMenu] = useState(false);
-  const [items, setItems] = useState<CartItem[]>();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -55,6 +45,8 @@ const Header = () => {
   };
 
   const handleProfile = () => {
+    setMenu(false);
+    setAnchorEl(null);
     navigate("profile", { replace: true });
   };
   return (

@@ -227,10 +227,9 @@ export const UpdateUserByAdmin = ({ updateUser }: { updateUser: User }) => {
                   fullWidth
                   select
                   defaultValue={updateUser.role}
-                  value={role}
-                  onChange={handleRoleChange}
                   margin="normal"
                   label="role"
+                  {...field}
                 >
                   <MenuItem key={"admin"} value={"admin"}>
                     {"admin"}

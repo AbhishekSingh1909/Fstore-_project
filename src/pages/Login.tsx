@@ -17,17 +17,45 @@ import Button from "@mui/material/Button";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { purple } from "@mui/material/colors";
 import { Navigate, useNavigate } from "react-router-dom";
+import {
+  Controller,
+  DefaultValues,
+  SubmitHandler,
+  useForm,
+} from "react-hook-form";
+import * as yup from "yup";
 
 import { useAppDispatch } from "../app/hooks/useAppDispatch";
 import { userLogInAsync } from "../redux/reducers/userAuthentication/userLogInAsync";
 import { useAppSelector } from "../app/hooks/useAppSelector";
 import Footer from "../components/Footer";
+import { LoginCredential } from "../types/User";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const Login = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [showError, setShowError] = useState(false);
   const { user, error, loading } = useAppSelector((state) => state.authReducer);
+
+  const defaultValues: DefaultValues<LoginCredential> = {
+    email: "",
+    password: "",
+  };
+
+  const formSchema = yup.object({
+    email: yup.string().email("Email is not correct").required("Required"),
+    password: yup.string().required("Required"),
+  });
+
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<LoginCredential>({
+    defaultValues,
+    resolver: yupResolver(formSchema),
+  });
 
   useEffect(() => {
     if (error) {
@@ -39,20 +67,17 @@ const Login = () => {
     setShowError(false);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const email = data.get("email") as string | null;
-    const password = data.get("password") as string | null;
-
-    if (email && password) {
-      dispatch(userLogInAsync({ email, password }));
-    }
-  };
-
   const userSinUp = () => {
     navigate("/register", { replace: true });
   };
+
+  const onFormSubmit: SubmitHandler<LoginCredential> = async (data, event) => {
+    event?.preventDefault();
+    const email = data.email;
+    const password = data.password;
+    dispatch(userLogInAsync({ email, password }));
+  };
+
   return (
     <Fragment>
       <Container maxWidth="xs">
@@ -73,48 +98,71 @@ const Login = () => {
           <Typography variant="h6">
             Please enter you email and password
           </Typography>
-
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Enter your email"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              id="outlined-password-input"
-              margin="normal"
-              required
-              fullWidth
-              label="Enter your password"
-              type="password"
-              name="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              disabled={loading}
-              sx={{ mt: 3, mb: 2 }}
+          <Box sx={{ mt: 1, width: "100%" }}>
+            <Box
+              component="form"
+              onSubmit={handleSubmit(onFormSubmit)}
+              sx={{ mt: 1, width: "100%" }}
             >
-              Login
-            </Button>
+              <Controller
+                render={({ field }) => (
+                  <TextField
+                    required
+                    fullWidth
+                    id="email"
+                    margin="normal"
+                    label="Enter your email"
+                    error={error !== undefined && errors.email !== undefined}
+                    variant="outlined"
+                    autoFocus
+                    {...field}
+                  />
+                )}
+                name="email"
+                control={control}
+              />
+              {errors.email && (
+                <Typography color="red" width="100%">
+                  {errors.email.message}
+                </Typography>
+              )}
+              <Controller
+                render={({ field }) => (
+                  <TextField
+                    required
+                    fullWidth
+                    id="password"
+                    type="password"
+                    margin="normal"
+                    label="Enter your password"
+                    variant="outlined"
+                    error={error !== undefined && errors.password !== undefined}
+                    {...field}
+                  />
+                )}
+                name="password"
+                control={control}
+              />
+              {errors.password && (
+                <Typography color="red" width="100%">
+                  {errors.password.message}
+                </Typography>
+              )}
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
 
+              <Button
+                fullWidth
+                type="submit"
+                variant="contained"
+                disabled={loading}
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Login
+              </Button>
+            </Box>
             <Grid
               item
               sx={{

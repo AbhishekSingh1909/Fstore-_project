@@ -66,15 +66,12 @@ const ProductsPage = ({ categoryId, sortPrice }: ProductProps) => {
     return () => clearTimeout(timeOutId);
   }, [search]);
 
-  const filterProducts = useAppSelector((state) =>
-    getFilteredProducts(state, debounceSearch)
-  );
-
-  const pageCount = useMemo(() => {
+  const { pageCount, filterProducts } = useMemo(() => {
+    const filterProducts = getFilteredProducts(products, debounceSearch);
     const pageCount = Math.ceil(filterProducts.length / 10);
     const data = filterProducts?.slice(0, 10);
     setData(data);
-    return pageCount;
+    return { pageCount, filterProducts };
   }, [products, debounceSearch]);
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
