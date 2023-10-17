@@ -1,14 +1,18 @@
 import { Link as RouterLink } from "react-router-dom";
-import { Button, Typography } from "@mui/material";
+import { Button, Container, CssBaseline, Typography } from "@mui/material";
+import { Fragment } from "react";
 
 export const NotAuthorized = () => {
   return (
-    <main>
-      <Typography>Access denied.</Typography>
-      <Typography>User does not have access right</Typography>
-      <Button component={RouterLink} to="/login">
-        Log in
-      </Button>
-    </main>
+    <Fragment>
+      <Container maxWidth="xs">
+        <CssBaseline />
+        <Typography>Access denied.</Typography>
+        <Typography>User does not have access right</Typography>
+        <Button component={RouterLink} to="/login">
+          Log in
+        </Button>
+      </Container>
+    </Fragment>
   );
 };

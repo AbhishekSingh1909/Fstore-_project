@@ -178,7 +178,7 @@ const ProductsPage = ({ categoryId, sortPrice }: ProductProps) => {
                 </CardContent>
                 <CardActions>
                   <Stack direction="row" spacing={2}>
-                    <Button onClick={(e) => handleAddToCart(p)}>
+                    <Button onClick={() => handleAddToCart(p)}>
                       Add To Cart
                     </Button>
                     <Button component={Link} to={`/product/${p.id}`}>

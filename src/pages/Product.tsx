@@ -4,8 +4,6 @@ import {
   Card,
   CardActions,
   CardContent,
-  CardMedia,
-  Container,
   CssBaseline,
   Grid,
   Stack,
@@ -85,7 +83,7 @@ const FetchSingleProduct = () => {
               </CardContent>
               <CardActions>
                 <Stack direction="row" spacing={2}>
-                  <Button onClick={(e) => handleAddToCart(product)}>
+                  <Button onClick={() => handleAddToCart(product)}>
                     Add To Cart
                   </Button>
                   <Button component={Link} to="/products">

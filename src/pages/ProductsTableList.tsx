@@ -30,7 +30,6 @@ import { CreateProductModel } from "../components/Model/CreateProductModel";
 import Product from "../types/Product";
 import getFilteredProducts from "../selectors/getFilteredProducts";
 import { getProductCategoriesAsync } from "../redux/reducers/category/getProductCategoriesAsync";
-import { NotAuthorized } from "./NotAuthorisedUser";
 
 const ProductTableList = () => {
   const [page, setPage] = useState(1);
@@ -50,9 +49,9 @@ const ProductTableList = () => {
       dispatch(getAllProductsAsync());
       dispatch(getProductCategoriesAsync());
     } else {
-      <NotAuthorized />;
+      navigate("NotAuthorized", { replace: true });
     }
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     const timeOutId = setTimeout(() => {

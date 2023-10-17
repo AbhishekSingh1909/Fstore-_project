@@ -12,6 +12,7 @@ import FetchSingleProduct from "./pages/Product";
 import ProductCategory from "./pages/ProductFilter";
 import { AdminDashboard } from "./components/AdminDashBoard";
 import ProductTableList from "./pages/ProductsTableList";
+import { NotAuthorized } from "./pages/NotAuthorisedUser";
 
 const App = () => {
   const route = createBrowserRouter([
@@ -55,6 +56,10 @@ const App = () => {
         {
           path: "product/:id",
           element: <FetchSingleProduct />,
+        },
+        {
+          path: "NotAuthorized",
+          element: <NotAuthorized />,
         },
       ],
     },

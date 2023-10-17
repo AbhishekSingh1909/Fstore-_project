@@ -1,7 +1,18 @@
 import { Box, Button, Container } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppSelector } from "../app/hooks/useAppSelector";
+import { useEffect } from "react";
+import { NotAuthorized } from "../pages/NotAuthorisedUser";
 
 export const HeaderDashBoard = () => {
+  const { user } = useAppSelector((state) => state.authReducer);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user || (user && user.role !== "admin")) {
+      navigate("NotAuthorized", { replace: true });
+    }
+  }, [user]);
   return (
     <Container>
       <Box
