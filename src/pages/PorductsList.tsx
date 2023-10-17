@@ -11,6 +11,9 @@ import {
   IconButton,
   InputBase,
   Paper,
+  Card,
+  CardMedia,
+  CardActions,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { Link } from "react-router-dom";
@@ -148,51 +151,42 @@ const ProductsPage = ({ categoryId, sortPrice }: ProductProps) => {
             }}
           >
             {data?.map((p) => (
-              <Box
-                key={p.id + "" + p.title}
-                sx={{
-                  width: "30%",
-                  hight: "10%",
-                  padding: "1em",
-                  alignItems: "center",
-                }}
-              >
-                <CardContent
-                  sx={{
-                    backgroundColor: "grey",
-                    color: "rgb(255, 236, 179)",
-                    borderRadius: "5px",
-                  }}
-                >
-                  <Typography>{p.title}</Typography>
-                  <Box>
-                    <Avatar
-                      alt="Remy Sharp"
-                      src={p.images[0]}
-                      variant="square"
-                      sx={{ display: "block", width: "100%", height: "5%" }}
-                    />
-                  </Box>
-                  <Typography sx={{ textAlign: "center" }}>
-                    {p.price} €
-                  </Typography>
+              <Card sx={{ Width: "80%", margin: "20px" }} key={p.id}>
+                <CardMedia
+                  component="img"
+                  alt={p?.title}
+                  height="194"
+                  image={p?.images[0]}
+                />
+                <CardContent>
+                  {p && (
+                    <Typography gutterBottom variant="h6" component="div">
+                      Title : {p.title}
+                    </Typography>
+                  )}
+                  {p && (
+                    <Typography color="text.secondary">
+                      Category : {p.category.name}
+                    </Typography>
+                  )}
+
+                  {p && (
+                    <Typography color="text.secondary">
+                      Price : {p.price}€
+                    </Typography>
+                  )}
                 </CardContent>
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-around",
-                    width: "100%",
-                  }}
-                >
-                  <Button onClick={(e) => handleAddToCart(p)}>
-                    Add To Cart
-                  </Button>
-                  <Button component={Link} to={`/product/${p.id}`}>
-                    More Details
-                  </Button>
-                </Box>
-              </Box>
+                <CardActions>
+                  <Stack direction="row" spacing={2}>
+                    <Button onClick={(e) => handleAddToCart(p)}>
+                      Add To Cart
+                    </Button>
+                    <Button component={Link} to={`/product/${p.id}`}>
+                      View
+                    </Button>
+                  </Stack>
+                </CardActions>
+              </Card>
             ))}
           </Box>
         )}

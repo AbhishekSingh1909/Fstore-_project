@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Button,
   Card,
   CardActions,
@@ -6,9 +7,11 @@ import {
   CardMedia,
   Container,
   CssBaseline,
+  Grid,
   Stack,
   Typography,
 } from "@mui/material";
+import Carousel from "react-material-ui-carousel";
 
 import Product from "../types/Product";
 import { useAppDispatch } from "../app/hooks/useAppDispatch";
@@ -19,7 +22,7 @@ import { getSingleProductByIdAsync } from "../redux/reducers/product/getSinglePr
 import { useAppSelector } from "../app/hooks/useAppSelector";
 
 const FetchSingleProduct = () => {
-  const { products, error, loading } = useAppSelector(
+  const { products, error, loading, product } = useAppSelector(
     (state) => state.productReducer
   );
 
@@ -37,56 +40,63 @@ const FetchSingleProduct = () => {
     dispatch(addToCart(product));
   };
   return (
-    <Container maxWidth="xs">
+    <Grid container spacing={6}>
       <CssBaseline />
-
-      {products &&
-        products.map((product) => (
-          <Card sx={{ maxWidth: 345, margin: "20px" }}>
-            <CardMedia
-              component="img"
-              alt={product?.title}
-              height="194"
-              image={product?.images[0]}
+      <Grid item xs={5}>
+        <Carousel>
+          {product?.images.map((image, index) => (
+            <img
+              key={index}
+              src={image}
+              alt={`${product.title} Image ${index + 1}`}
+              style={{ width: "60%", height: "60%", margin: "20px" }}
             />
-            <CardContent>
-              {product && (
-                <Typography gutterBottom variant="h5" component="div">
-                  Title : {product.title}
-                </Typography>
-              )}
+          ))}
+        </Carousel>
+      </Grid>
+      <Grid item xs={6}>
+        {products &&
+          products.map((product) => (
+            <Card sx={{ maxWidth: 345, margin: "20px" }}>
+              <CardContent>
+                {product && (
+                  <Typography gutterBottom variant="h5" component="div">
+                    Title : {product.title}
+                  </Typography>
+                )}
 
-              {product && (
-                <Typography variant="h6" color="text.secondary">
-                  Discription : {product.description}
-                </Typography>
-              )}
+                {product && (
+                  <Typography variant="h6" color="text.secondary">
+                    Discription : {product.description}
+                  </Typography>
+                )}
 
-              {product && (
-                <Typography variant="h6" color="text.secondary">
-                  Category : {product.category.name}
-                </Typography>
-              )}
+                {product && (
+                  <Typography variant="h6" color="text.secondary">
+                    Category : {product.category.name}
+                  </Typography>
+                )}
 
-              {product && (
-                <Typography variant="h6" color="text.secondary">
-                  Price : {product.price}€
-                </Typography>
-              )}
-            </CardContent>
-            <CardActions>
-              <Stack direction="row" spacing={2}>
-                <Button onClick={(e) => handleAddToCart(product)}>
-                  Add To Cart
-                </Button>
-                <Button component={Link} to="/products">
-                  Back
-                </Button>
-              </Stack>
-            </CardActions>
-          </Card>
-        ))}
-    </Container>
+                {product && (
+                  <Typography variant="h6" color="text.secondary">
+                    Price : {product.price}€
+                  </Typography>
+                )}
+              </CardContent>
+              <CardActions>
+                <Stack direction="row" spacing={2}>
+                  <Button onClick={(e) => handleAddToCart(product)}>
+                    Add To Cart
+                  </Button>
+                  <Button component={Link} to="/products">
+                    Back
+                  </Button>
+                </Stack>
+              </CardActions>
+            </Card>
+          ))}
+      </Grid>
+    </Grid>
   );
 };
 
