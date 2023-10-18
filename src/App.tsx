@@ -12,7 +12,7 @@ import FetchSingleProduct from "./pages/Product";
 import ProductCategory from "./pages/ProductFilter";
 import { AdminDashboard } from "./components/AdminDashBoard";
 import ProductTableList from "./pages/ProductsTableList";
-import { NotAuthorized } from "./pages/NotAuthorisedUser";
+import { NotAuthorized } from "./pages/NotAuthorizedUser";
 
 const App = () => {
   const route = createBrowserRouter([

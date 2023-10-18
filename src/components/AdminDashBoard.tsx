@@ -2,7 +2,7 @@ import { Fragment, useEffect } from "react";
 import { HeaderDashBoard } from "./DashBoardHeader";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../app/hooks/useAppSelector";
-import { NotAuthorized } from "../pages/NotAuthorisedUser";
+import { NotAuthorized } from "../pages/NotAuthorizedUser";
 
 export const AdminDashboard = () => {
   const { user } = useAppSelector((state) => state.authReducer);

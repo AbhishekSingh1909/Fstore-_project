@@ -6,7 +6,6 @@ const FormBoxFlex = styled(Box)(({ theme }) => ({
   flexDirection: "column",
   alignItems: "center",
   color: "CaptionText",
-  // backgroundColor: "#dedede",
 }));
 
 export default FormBoxFlex;
