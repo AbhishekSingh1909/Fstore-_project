@@ -30,6 +30,9 @@ import { CreateProductModel } from "../components/Model/CreateProductModel";
 import Product from "../types/Product";
 import getFilteredProducts from "../selectors/getFilteredProducts";
 import { getProductCategoriesAsync } from "../redux/reducers/category/getProductCategoriesAsync";
+import { authenticateUserAsync } from "../redux/reducers/userAuthentication/authenticateUserAsync";
+import { NotAuthorized } from "./NotAuthorizedUser";
+import Login from "./Login";
 
 const ProductTableList = () => {
   const [page, setPage] = useState(1);
@@ -39,19 +42,20 @@ const ProductTableList = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  const access_token = localStorage.getItem("access_token");
+
   const { products, error, loading } = useAppSelector(
     (state) => state.productReducer
   );
   const { user } = useAppSelector((state) => state.authReducer);
 
   useEffect(() => {
-    if (user && user.role === "admin") {
+    if (access_token !== null) {
+      dispatch(authenticateUserAsync(access_token));
       dispatch(getAllProductsAsync());
       dispatch(getProductCategoriesAsync());
-    } else {
-      navigate("../NotAuthorized", { replace: true });
     }
-  }, [user]);
+  }, [access_token]);
 
   useEffect(() => {
     const timeOutId = setTimeout(() => {
@@ -88,6 +92,13 @@ const ProductTableList = () => {
   const handleSeachChange = (search: string) => {
     setSearch(search);
   };
+
+  if (user && user && user.role !== "admin") {
+    return <NotAuthorized />;
+  }
+  if (!user) {
+    return <Login />;
+  }
 
   if (loading) {
     return (

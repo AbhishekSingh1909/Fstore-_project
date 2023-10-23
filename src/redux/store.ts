@@ -21,7 +21,12 @@ const preConfig = {
   key: "root",
   storage,
 
-  blacklist: ["productReducer", "ProductCategoryReducer"],
+  blacklist: [
+    "productReducer",
+    "ProductCategoryReducer",
+    "userReducer",
+    "authReducer",
+  ],
 };
 
 const rootReducer = combineReducers({

@@ -3,16 +3,13 @@ import { HeaderDashBoard } from "./DashBoardHeader";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../app/hooks/useAppSelector";
 import { NotAuthorized } from "../pages/NotAuthorizedUser";
+import { useAppDispatch } from "../app/hooks/useAppDispatch";
+import { authenticateUserAsync } from "../redux/reducers/userAuthentication/authenticateUserAsync";
 
 export const AdminDashboard = () => {
+  const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.authReducer);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!user || (user && user.role !== "admin")) {
-      navigate("../NotAuthorized", { replace: true });
-    }
-  }, [user]);
   return (
     <Fragment>
       <HeaderDashBoard />

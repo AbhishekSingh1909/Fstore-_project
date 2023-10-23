@@ -17,6 +17,7 @@ export const userLogInAsync = createAsyncThunk<
         loginParams
       );
       const { access_token } = response.data;
+      localStorage.setItem("access_token", access_token);
       const userAuthentication = await dispatch(
         authenticateUserAsync(access_token)
       );

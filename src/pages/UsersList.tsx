@@ -18,6 +18,9 @@ import { getAllUsersAsync } from "../redux/reducers/user/getAllUsersAsync";
 import UpdateUserByAdmin from "../components/user/Model/UpdateUser";
 import { User } from "../types/User";
 import ErrorMessage from "../components/ErrorMessage";
+import { authenticateUserAsync } from "../redux/reducers/userAuthentication/authenticateUserAsync";
+import { NotAuthorized } from "./NotAuthorizedUser";
+import Login from 
 
 export const UsersList = () => {
   const [page, setPage] = useState(1);
@@ -26,20 +29,17 @@ export const UsersList = () => {
   const { users, error, loading } = useAppSelector(
     (state) => state.userReducer
   );
+  const access_token = localStorage.getItem("access_token");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) {
-      if (user.role === "admin") {
-        dispatch(getAllUsersAsync());
-      } else {
-        navigate("../NotAuthorized", { replace: true });
-      }
-    } else {
-      navigate("../NotAuthorized", { replace: true });
+    if (access_token !== null) {
+      dispatch(authenticateUserAsync(access_token));
+      dispatch(getAllUsersAsync());
     }
-  }, [user]);
+  }, [access_token]);
+
   const pageCount = useMemo(() => {
     const pageCount = Math.ceil(users.length / 10);
     const data = users?.slice(0, 10);
@@ -62,6 +62,13 @@ export const UsersList = () => {
     const data = users?.slice(startIndex, value * 10);
     setData(data);
   };
+
+  if (user && user && user.role !== "admin") {
+    return <NotAuthorized />;
+  }
+  if (!user) {
+    return <Login />;
+  }
   if (loading) {
     return (
       <Box
