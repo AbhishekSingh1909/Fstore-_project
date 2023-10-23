@@ -10,15 +10,13 @@ import { useAppDispatch } from "../app/hooks/useAppDispatch";
 import { authenticateUserAsync } from "../redux/reducers/userAuthentication/authenticateUserAsync";
 
 const Root = () => {
+  const access_token = localStorage.getItem("access_token");
   const dispatch = useAppDispatch();
   useEffect(() => {
-    console.log("comes from here");
-    const access_token = localStorage.getItem("access_token");
     if (access_token !== null) {
-      console.log("access token", access_token);
       dispatch(authenticateUserAsync(access_token));
     }
-  }, []);
+  }, [access_token]);
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={onlineStoreSiteTheme}>
