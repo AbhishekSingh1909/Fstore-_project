@@ -20,7 +20,7 @@ import { User } from "../types/User";
 import ErrorMessage from "../components/ErrorMessage";
 import { authenticateUserAsync } from "../redux/reducers/userAuthentication/authenticateUserAsync";
 import { NotAuthorized } from "./NotAuthorizedUser";
-import Login from 
+import Login from "./Login";
 
 export const UsersList = () => {
   const [page, setPage] = useState(1);
