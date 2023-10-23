@@ -14,9 +14,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { ToastContainer, toast } from "react-toastify";
 
-import { useAppDispatch } from "../../app/hooks/useAppDispatch";
-import Product from "../../types/Product";
-import { deleteProductAsync } from "../../redux/reducers/product/deleteProductAsync";
+import { useAppDispatch } from "../../../app/hooks/useAppDispatch";
+import Product from "../../../types/Product";
+import { deleteProductAsync } from "../../../redux/reducers/product/deleteProductAsync";
 
 export const DeleteProductModel = ({ product }: { product: Product }) => {
   const [open, setOpen] = React.useState(false);

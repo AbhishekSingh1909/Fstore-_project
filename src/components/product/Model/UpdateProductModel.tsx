@@ -19,15 +19,15 @@ import { ToastContainer, toast } from "react-toastify";
 import { DefaultValues, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { useAppSelector } from "../../app/hooks/useAppSelector";
-import { useAppDispatch } from "../../app/hooks/useAppDispatch";
-import { updateProductAsync } from "../../redux/reducers/product/productReducer";
-import UpdateProduct, { ProductDto } from "../../types/UpdateProduct";
-import Product from "../../types/Product";
+import { useAppSelector } from "../../../app/hooks/useAppSelector";
+import { useAppDispatch } from "../../../app/hooks/useAppDispatch";
+import { updateProductAsync } from "../../../redux/reducers/product/productReducer";
+import UpdateProduct, { ProductDto } from "../../../types/UpdateProduct";
+import Product from "../../../types/Product";
 import {
   FormValues,
   formSchema,
-} from "../../types/FormValidation/ProductFormValues";
+} from "../../../types/FormValidation/ProductFormValues";
 
 export default function UpdateProductModel({ product }: { product: Product }) {
   const [open, setOpen] = React.useState(false);

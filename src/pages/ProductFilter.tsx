@@ -14,7 +14,7 @@ import { getProductCategoriesAsync } from "../redux/reducers/category/getProduct
 import { useAppDispatch } from "../app/hooks/useAppDispatch";
 import { useAppSelector } from "../app/hooks/useAppSelector";
 import ProductsPage from "./PorductsList";
-import { CreateProductModel } from "../components/Model/CreateProductModel";
+import { CreateProductModel } from "../components/product/Model/CreateProductModel";
 import ErrorMessage from "../components/ErrorMessage";
 
 const ProductCategory = () => {

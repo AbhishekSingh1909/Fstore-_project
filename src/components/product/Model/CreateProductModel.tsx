@@ -16,16 +16,16 @@ import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOu
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 
-import { useAppDispatch } from "../../app/hooks/useAppDispatch";
-import { useAppSelector } from "../../app/hooks/useAppSelector";
-import { createProductAsync } from "../../redux/reducers/product/createProductAsync";
-import { CreateProduct } from "../../types/CreateProduct";
+import { useAppDispatch } from "../../../app/hooks/useAppDispatch";
+import { useAppSelector } from "../../../app/hooks/useAppSelector";
+import { createProductAsync } from "../../../redux/reducers/product/createProductAsync";
+import { CreateProduct } from "../../../types/CreateProduct";
 
 import {
   FormValues,
   defaultValues,
   formSchema,
-} from "../../types/FormValidation/ProductFormValues";
+} from "../../../types/FormValidation/ProductFormValues";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 export const CreateProductModel = () => {
