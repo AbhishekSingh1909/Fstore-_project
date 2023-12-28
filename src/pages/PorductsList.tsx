@@ -32,7 +32,7 @@ import getFilteredProducts from "../selectors/getFilteredProducts";
 import ErrorMessage from "../components/ErrorMessage";
 
 interface ProductProps {
-  categoryId: number | undefined;
+  categoryId: string | undefined;
   sortPrice: string;
 }
 
@@ -51,6 +51,7 @@ const ProductsPage = ({ categoryId, sortPrice }: ProductProps) => {
     if (categoryId) {
       dispatch(getProductsByCategoryAsync(categoryId));
     } else {
+      console.log("start from here all products")
       dispatch(getAllProductsAsync());
     }
   }, [categoryId]);
@@ -77,12 +78,12 @@ const ProductsPage = ({ categoryId, sortPrice }: ProductProps) => {
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
+    debugger;
 
     // show the count at per page
     // 0 - 10
     // 11 - 20
     const startIndex = (value - 1) * 10;
-
     const data = filterProducts?.slice(startIndex, value * 10);
     setData(data);
   };
@@ -149,7 +150,7 @@ const ProductsPage = ({ categoryId, sortPrice }: ProductProps) => {
             }}
           >
             {data?.map((p) => (
-              <Card sx={{ Width: "80%", margin: "20px" }} key={p.id}>
+              <Card sx={{ width: "30%", marginTop: "20px" }} key={p.id}>
                 <CardMedia
                   component="img"
                   alt={p?.title}
@@ -158,7 +159,7 @@ const ProductsPage = ({ categoryId, sortPrice }: ProductProps) => {
                 />
                 <CardContent>
                   {p && (
-                    <Typography gutterBottom variant="h6" component="div">
+                    <Typography gutterBottom variant="h5" component="div" sx={{ width: '100%', wordBreak: 'break-word' }}>
                       Title : {p.title}
                     </Typography>
                   )}
@@ -176,9 +177,11 @@ const ProductsPage = ({ categoryId, sortPrice }: ProductProps) => {
                 </CardContent>
                 <CardActions>
                   <Stack direction="row" spacing={2}>
-                    <Button onClick={() => handleAddToCart(p)}>
-                      Add To Cart
-                    </Button>
+                    {user?.role !== 'Admin' && (
+                      <Button onClick={() => handleAddToCart(p)}>
+                        Add To Cart
+                      </Button>
+                    )}
                     <Button component={Link} to={`/product/${p.id}`}>
                       View
                     </Button>

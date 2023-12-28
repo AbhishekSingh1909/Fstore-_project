@@ -13,18 +13,18 @@ export const handlers = [
   }),
   rest.get("https://api.escuelajs.co/api/v1/users/:id", (req, res, ctx) => {
     const { id } = req.params;
-    const user = usersData.find((u) => u.id === Number(id));
+    const user = usersData.find((u) => u.id === id);
     return res(ctx.json(user));
   }),
   rest.post("https://api.escuelajs.co/api/v1/users/", async (req, res, ctx) => {
     const input: CreateNewUser = await req.json();
     const user: User = {
-      id: usersData.length + 1,
+      id: "4990a687-05b1-4957-a7d6-5684322b152e",
       name: input.name,
       email: input.email,
       password: input.password,
       avatar: input.avatar,
-      role: "customer",
+      role: "Customer",
     };
     usersData.push(user);
     return res(ctx.json(user));
@@ -35,7 +35,7 @@ export const handlers = [
     async (req, res, ctx) => {
       const input: UpdateUserDto = await req.json();
       const { id } = req.params;
-      const user = usersData.find((u) => u.id === Number(id));
+      const user = usersData.find((u) => u.id === id);
       if (user) {
         const updateUser: UpdateUser = {
           id: user.id,

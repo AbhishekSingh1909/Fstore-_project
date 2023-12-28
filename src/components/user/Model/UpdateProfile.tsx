@@ -17,6 +17,7 @@ import {
   SubmitHandler,
   useForm,
 } from "react-hook-form";
+import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -25,11 +26,11 @@ import { useNavigate } from "react-router-dom";
 
 import { User } from "../../../types/User";
 import { UpdateUser, UpdateUserDto } from "../../../types/UpdateUser";
-import { FormValues, formSchema } from "../../../types/FormValues";
 import { useAppDispatch } from "../../../app/hooks/useAppDispatch";
 import { updateUserAsync } from "../../../redux/reducers/user/updateUserAsync";
 import { useAppSelector } from "../../../app/hooks/useAppSelector";
 import { resetUser } from "../../../redux/reducers/user/userReducer";
+import { updateUserProfileAsync } from "../../../redux/reducers/userAuthentication/updateUserProfileAsync";
 
 export const UpdateProfileModel = ({ updateUser }: { updateUser: User }) => {
   const [open, setOpen] = useState(false);
@@ -37,10 +38,21 @@ export const UpdateProfileModel = ({ updateUser }: { updateUser: User }) => {
   const defaultValues: DefaultValues<FormValues> = {
     name: updateUser.name,
     email: updateUser.email,
-    password: updateUser.password,
-    confirm: updateUser.password,
     avatar: updateUser.avatar,
+    role: updateUser.role,
   };
+
+  const formSchema = yup.object({
+    name: yup.string().max(30).required("Required"),
+    email: yup
+      .string()
+      .email("Email is not correct")
+      .max(255)
+      .required("Required"),
+    avatar: yup.string().nullable(),
+    role: yup.string().required(),
+  });
+
   const dispatch = useAppDispatch();
   const { singleUser, error } = useAppSelector((state) => state.userReducer);
   const navigate = useNavigate();
@@ -66,7 +78,6 @@ export const UpdateProfileModel = ({ updateUser }: { updateUser: User }) => {
     const updateUserDto: UpdateUserDto = {
       name: data.name,
       email: data.email,
-      password: data.password,
       role: updateUser.role,
       avatar:
         data.avatar ?? "https://api.lorem.space/image/face?w=640&h=480&r=867",
@@ -76,23 +87,21 @@ export const UpdateProfileModel = ({ updateUser }: { updateUser: User }) => {
       id: updateUser.id,
       updateUser: updateUserDto,
     };
-    await dispatch(updateUserAsync(user));
-  };
-  useEffect(() => {
-    if (error) {
-      toast.error("Can't update user , because " + error, {
+    debugger;
+    const result = await dispatch(updateUserProfileAsync(user));
+    if (result.meta.requestStatus === "fulfilled") {
+      toast.success("User details are updated successfully", {
         position: toast.POSITION.TOP_RIGHT,
       });
-    }
-    if (singleUser) {
-      toast.success("details are updated", {
+    } else if (result.meta.requestStatus === "rejected") {
+      toast.error("Can't update the user", {
         position: toast.POSITION.TOP_RIGHT,
       });
-      setOpen(false);
+      reset(defaultValues);
     }
     setOpen(false);
     dispatch(resetUser());
-  }, [error, singleUser]);
+  };
   return (
     <Fragment>
       <ToastContainer />
@@ -138,6 +147,7 @@ export const UpdateProfileModel = ({ updateUser }: { updateUser: User }) => {
               render={({ field }) => (
                 <TextField
                   required
+                  disabled
                   fullWidth
                   margin="normal"
                   label="Enter your email"
@@ -150,7 +160,7 @@ export const UpdateProfileModel = ({ updateUser }: { updateUser: User }) => {
             {errors.email && (
               <Typography color="red">{errors.email.message}</Typography>
             )}
-            <Controller
+            {/* <Controller
               render={({ field }) => (
                 <TextField
                   required
@@ -186,7 +196,7 @@ export const UpdateProfileModel = ({ updateUser }: { updateUser: User }) => {
             />
             {errors.confirm && (
               <Typography color="red">{errors.confirm.message}</Typography>
-            )}
+            )} */}
 
             <Controller
               render={({ field }) => (
@@ -246,3 +256,9 @@ export const UpdateProfileModel = ({ updateUser }: { updateUser: User }) => {
     </Fragment>
   );
 };
+interface FormValues {
+  name: string;
+  email: string;
+  avatar?: string | undefined | null;
+  role: string;
+}

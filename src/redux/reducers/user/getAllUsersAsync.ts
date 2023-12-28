@@ -8,10 +8,18 @@ export const getAllUsersAsync = createAsyncThunk<
   void,
   { rejectValue: AxiosError }
 >("users/getAllUsers", async (_, { rejectWithValue }) => {
+  const access_token = localStorage.getItem("access_token");
+  const config = {
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+    },
+  };
+  debugger;
   try {
     const response = await axios.get<User[]>(
-      "https://api.escuelajs.co/api/v1/users"
+      "http://localhost:5216/api/v1/users", config
     );
+    debugger;
     return response.data;
   } catch (e) {
     const error = e as AxiosError;

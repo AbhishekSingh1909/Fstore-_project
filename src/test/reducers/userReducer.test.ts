@@ -47,12 +47,12 @@ describe("Test user reducer async actions", () => {
     const updateUserDto: UpdateUserDto = {
       name: "Nik Jones",
       email: "nico.Jones@gmail.com",
-      password: "ABCDE",
+      // password: "ABCDE",
       avatar: "https://api.lorem.space/image/face?w=640&h=480&r=867",
       role: "customer",
     };
     const updateUser: UpdateUser = {
-      id: 1,
+      id: "c6a2dc3a-167b-4006-878a-806b2b2386c2",
       updateUser: updateUserDto,
     };
     const action = await store.dispatch(updateUserAsync(updateUser));
@@ -71,12 +71,12 @@ describe("Test user reducer async actions", () => {
     const updateUserDto: UpdateUserDto = {
       name: "Nik Jones",
       email: "nico.Jones@gmail.com",
-      password: "ABCDE",
+      // password: "ABCDE",
       avatar: "https://api.lorem.space/image/face?w=640&h=480&r=867",
       role: "customer",
     };
     const updateUser: UpdateUser = {
-      id: 83,
+      id: "88616690-4a22-4b10-a5d6-40120c483fa0",
       updateUser: updateUserDto,
     };
     await store.dispatch(updateUserAsync(updateUser));

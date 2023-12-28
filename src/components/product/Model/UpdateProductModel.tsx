@@ -69,6 +69,7 @@ export default function UpdateProductModel({ product }: { product: Product }) {
       title: data.title,
       description: data.description,
       price: data.price,
+      inventory: data.inventory,
       categoryId: data.categoryId,
     };
     const updatedProduct: UpdateProduct = {
@@ -163,6 +164,19 @@ export default function UpdateProductModel({ product }: { product: Product }) {
             />
             {errors.price && (
               <Typography color="red">{errors.price.message}</Typography>
+            )}
+
+            <TextField
+              required
+              fullWidth
+              margin="normal"
+              label=" inventory"
+              id="inventory"
+              defaultValue={product.inventory}
+              {...register("inventory")}
+            />
+            {errors.inventory && (
+              <Typography color="red">{errors.inventory.message}</Typography>
             )}
 
             <DialogActions>

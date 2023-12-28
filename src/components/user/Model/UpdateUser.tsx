@@ -36,8 +36,6 @@ export const UpdateUserByAdmin = ({ updateUser }: { updateUser: User }) => {
   const defaultValues: DefaultValues<FormValues> = {
     name: updateUser.name,
     email: updateUser.email,
-    password: updateUser.password,
-    confirm: updateUser.password,
     avatar: updateUser.avatar,
     role: updateUser.role,
   };
@@ -48,15 +46,6 @@ export const UpdateUserByAdmin = ({ updateUser }: { updateUser: User }) => {
       .string()
       .email("Email is not correct")
       .max(255)
-      .required("Required"),
-    password: yup
-      .string()
-      .min(8)
-      .max(20)
-      .required("Please create a stronger password"),
-    confirm: yup
-      .string()
-      .oneOf([yup.ref("password")], "Passwords must match")
       .required("Required"),
     avatar: yup.string().nullable(),
     role: yup.string().required(),
@@ -85,7 +74,6 @@ export const UpdateUserByAdmin = ({ updateUser }: { updateUser: User }) => {
     const updateUserDto: UpdateUserDto = {
       name: data.name,
       email: data.email,
-      password: data.password,
       role: data.role,
       avatar:
         data.avatar ?? "https://api.lorem.space/image/face?w=640&h=480&r=867",
@@ -137,6 +125,7 @@ export const UpdateUserByAdmin = ({ updateUser }: { updateUser: User }) => {
               render={({ field }) => (
                 <TextField
                   required
+                  disabled
                   fullWidth
                   margin="normal"
                   label="Enter your name"
@@ -153,6 +142,7 @@ export const UpdateUserByAdmin = ({ updateUser }: { updateUser: User }) => {
               render={({ field }) => (
                 <TextField
                   required
+                  disabled
                   fullWidth
                   margin="normal"
                   label="Enter your email"
@@ -165,7 +155,7 @@ export const UpdateUserByAdmin = ({ updateUser }: { updateUser: User }) => {
             {errors.email && (
               <Typography color="red">{errors.email.message}</Typography>
             )}
-            <Controller
+            {/* <Controller
               render={({ field }) => (
                 <TextField
                   required
@@ -201,12 +191,13 @@ export const UpdateUserByAdmin = ({ updateUser }: { updateUser: User }) => {
             />
             {errors.confirm && (
               <Typography color="red">{errors.confirm.message}</Typography>
-            )}
+            )} */}
 
             <Controller
               render={({ field }) => (
                 <TextField
                   required
+                  disabled
                   fullWidth
                   margin="normal"
                   label="Enter Image Url"
@@ -231,11 +222,11 @@ export const UpdateUserByAdmin = ({ updateUser }: { updateUser: User }) => {
                   label="role"
                   {...field}
                 >
-                  <MenuItem key={"admin"} value={"admin"}>
-                    {"admin"}
+                  <MenuItem key={"Admin"} value={"Admin"}>
+                    {"Admin"}
                   </MenuItem>
-                  <MenuItem key={"customer"} value={"customer"}>
-                    {"customer"}
+                  <MenuItem key={"Customer"} value={"Customer"}>
+                    {"Customer"}
                   </MenuItem>
                 </TextField>
               )}
@@ -291,8 +282,6 @@ export default UpdateUserByAdmin;
 interface FormValues {
   name: string;
   email: string;
-  password: string;
-  confirm: string;
   avatar?: string | undefined | null;
   role: string;
 }

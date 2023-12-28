@@ -13,6 +13,7 @@ import ProductCategory from "./pages/ProductFilter";
 import { AdminDashboard } from "./components/AdminDashBoard";
 import ProductTableList from "./pages/ProductsTableList";
 import { NotAuthorized } from "./pages/NotAuthorizedUser";
+import { OrderMessage } from "./pages/OrderMessage";
 
 const App = () => {
   const route = createBrowserRouter([
@@ -61,6 +62,10 @@ const App = () => {
           path: "NotAuthorized",
           element: <NotAuthorized />,
         },
+        {
+          path: "orderMessage",
+          element: <OrderMessage />
+        }
       ],
     },
     {

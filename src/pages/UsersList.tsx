@@ -21,6 +21,7 @@ import ErrorMessage from "../components/ErrorMessage";
 import { authenticateUserAsync } from "../redux/reducers/userAuthentication/authenticateUserAsync";
 import { NotAuthorized } from "./NotAuthorizedUser";
 import Login from "./Login";
+import DeleteUserByAdmin from "../components/user/Model/DeleteUser";
 
 export const UsersList = () => {
   const [page, setPage] = useState(1);
@@ -36,11 +37,12 @@ export const UsersList = () => {
   useEffect(() => {
     if (access_token !== null) {
       dispatch(authenticateUserAsync(access_token));
-      dispatch(getAllUsersAsync());
     }
+    dispatch(getAllUsersAsync());
   }, [access_token]);
 
   const pageCount = useMemo(() => {
+    debugger;
     const pageCount = Math.ceil(users.length / 10);
     const data = users?.slice(0, 10);
     setData(data);
@@ -63,7 +65,7 @@ export const UsersList = () => {
     setData(data);
   };
 
-  if (user && user && user.role !== "admin") {
+  if (user && user.role !== "Admin") {
     return <NotAuthorized />;
   }
   if (!user) {
@@ -139,7 +141,7 @@ export const UsersList = () => {
                       marginTop: "10px",
                     }}
                   >
-                    <Container maxWidth="xs">
+                    {/* <Container maxWidth="xs">
                       <Button
                         variant="contained"
                         color="error"
@@ -147,8 +149,8 @@ export const UsersList = () => {
                       >
                         Delete
                       </Button>
-                    </Container>
-
+                    </Container> */}
+                    <DeleteUserByAdmin deleteUser={user} />
                     <UpdateUserByAdmin updateUser={user} />
                   </Box>
                 </CardContent>

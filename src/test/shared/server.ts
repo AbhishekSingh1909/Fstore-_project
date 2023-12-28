@@ -11,12 +11,12 @@ import { ProductDto } from "../../types/UpdateProduct";
 // and return the response 'John Smith' after 150ms
 // when receiving a get request to the `/api/user` endpoint
 export const handlers = [
-  rest.get("https://api.escuelajs.co/api/v1/products", (req, res, ctx) => {
+  rest.get("http://localhost:5216/api/v1/products", (req, res, ctx) => {
     return res(ctx.json(productsData));
   }),
-  rest.get("https://api.escuelajs.co/api/v1/products/:id", (req, res, ctx) => {
+  rest.get("http://localhost:5216/api/v1/products:id", (req, res, ctx) => {
     const { id } = req.params;
-    const product = productsData.find((p) => p.id === Number(id));
+    const product = productsData.find((p) => p.id === id);
     if (product) {
       return res(ctx.json(product));
     }
@@ -25,7 +25,7 @@ export const handlers = [
     "https://api.escuelajs.co/api/v1/categories/:id/products",
     (req, res, ctx) => {
       const { id } = req.params;
-      const products = productsData.filter((p) => p.category.id === Number(id));
+      const products = productsData.filter((p) => p.category.id === id);
       if (products) {
         return res(ctx.json(products));
       }
@@ -38,7 +38,7 @@ export const handlers = [
     "https://api.escuelajs.co/api/v1/products/:id",
     (req, res, ctx) => {
       const { id } = req.params;
-      const index = productsData.find((p) => p.id === Number(id));
+      const index = productsData.find((p) => p.id === id);
       if (index) {
         return res(ctx.json(true));
       } else {
@@ -51,14 +51,19 @@ export const handlers = [
     async (req, res, ctx) => {
       const input: CreateProduct = await req.json();
       const category = categorydata.find((c) => c.id === input.categoryId);
+      // const images = imageData.filter((m) => {
+      //   const items = input.images.find((i) => i.productId == m.productId);
+      //   return items;
+      // })
       if (category && input.price > 0) {
         const newProduct: Product = {
-          id: productsData.length + 1,
+          id: "05f91d02-b419-4535-9f7c-840f31615df2",
           title: input.title,
           price: input.price,
           description: input.description,
-          images: input.images,
+          images: input.images?.map(i => i.imageUrl),
           category,
+          inventory: input.inventory
         };
         productsData.push(newProduct);
         return res(ctx.json(newProduct));
@@ -83,7 +88,7 @@ export const handlers = [
       const updateProduct: ProductDto = await req.json();
 
       const { id } = req.params;
-      const foundIndex = productsData.findIndex((p) => p.id === Number(id));
+      const foundIndex = productsData.findIndex((p) => p.id === id);
       if (foundIndex !== -1 && updateProduct.price > 0) {
         return res(
           ctx.json({

@@ -83,7 +83,7 @@ const Header = () => {
             <Button component={Link} to="/products">
               Products
             </Button>
-            {user && user.role === "admin" && (
+            {user && user.role === "Admin" && (
               <Button component={Link} to="/dashbord">
                 Admin DashBoard
               </Button>

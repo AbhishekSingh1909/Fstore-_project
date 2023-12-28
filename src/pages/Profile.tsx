@@ -15,19 +15,34 @@ import { useAppSelector } from "../app/hooks/useAppSelector";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useMemo } from "react";
 import { UpdateProfileModel } from "../components/user/Model/UpdateProfile";
+import { useAppDispatch } from "../app/hooks/useAppDispatch";
+import { deleteUserProfileAsync } from "../redux/reducers/userAuthentication/deleteUserProfileAsync";
+import { toast } from "react-toastify";
+import { clearCart } from "../redux/reducers/cart/cartReducer";
 
 export const Profile = () => {
   const { user } = useAppSelector((state) => state.authReducer);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch()
   const { users, singleUser } = useAppSelector((state) => state.userReducer);
 
+  const handledeleteUser = async () => {
+    const result = await dispatch(deleteUserProfileAsync());
+    if (result.meta.requestStatus === "fulfilled") {
+      toast.success("User is unregister successfully");
+      dispatch(clearCart());
+    } else if (result.meta.requestStatus === "rejected") {
+      toast.error("Error while unregister the User");
+    }
+  };
   useEffect(() => {
     if (!user) {
-      navigate("login", { replace: true });
+      navigate("../login", { replace: true });
     }
   }, [user]);
 
   const currentUser = useMemo(() => {
+    debugger;
     if (users.length > 0) {
       const findUser = users.find((u) => u.id === user?.id);
       if (findUser) {
@@ -61,11 +76,11 @@ export const Profile = () => {
             </Typography>
           )}
 
-          {currentUser && (
+          {/* {currentUser && (
             <Typography variant="h6" color="text.secondary">
               Password : {currentUser.password}
             </Typography>
-          )}
+          )} */}
 
           {currentUser && (
             <Typography variant="h6" color="text.secondary">
@@ -80,6 +95,7 @@ export const Profile = () => {
               color="error"
               startIcon={<DeleteIcon />}
               size="large"
+              onClick={handledeleteUser}
             >
               Delete
             </Button>

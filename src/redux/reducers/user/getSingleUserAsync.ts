@@ -5,7 +5,7 @@ import { User } from "../../../types/User";
 
 export const getSingleUsersAsync = createAsyncThunk<
   User,
-  number,
+  string,
   { rejectValue: AxiosError }
 >("users/getSingleUser", async (userId, { rejectWithValue }) => {
   try {

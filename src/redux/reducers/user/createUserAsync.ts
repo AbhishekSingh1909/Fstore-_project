@@ -11,7 +11,7 @@ export const createUsersAsync = createAsyncThunk<
 >("users/createUsersAsync", async (user, { rejectWithValue }) => {
   try {
     const response = await axios.post(
-      `https://api.escuelajs.co/api/v1/users/`,
+      `http://localhost:5216/api/v1/users`,
       user
     );
     return response.data;

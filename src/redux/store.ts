@@ -16,6 +16,7 @@ import ProductCategoryReducer from "./reducers/category/categoryReducer";
 import cartReducer from "./reducers/cart/cartReducer";
 import authReducer from "./reducers/userAuthentication/authReducer";
 import userReducer from "./reducers/user/userReducer";
+import orderReducer from "./reducers/order/orderReducer";
 
 const preConfig = {
   key: "root",
@@ -26,6 +27,7 @@ const preConfig = {
     "ProductCategoryReducer",
     "userReducer",
     "authReducer",
+    "orderReducer"
   ],
 };
 
@@ -35,6 +37,7 @@ const rootReducer = combineReducers({
   cartReducer,
   authReducer,
   userReducer,
+  orderReducer
 });
 
 const persistedReducer: Reducer<AppState, any> = persistReducer(

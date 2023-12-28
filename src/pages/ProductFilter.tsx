@@ -20,7 +20,7 @@ import ErrorMessage from "../components/ErrorMessage";
 const ProductCategory = () => {
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.authReducer);
-  const [categoryId, setCategoryId] = useState<number>(0);
+  const [categoryId, setCategoryId] = useState("");
   const [priceSort, setPricePriceSort] = useState("");
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const ProductCategory = () => {
 
   const filterHandleChange = (event: SelectChangeEvent) => {
     const id = event.target.value;
-    setCategoryId(+id);
+    setCategoryId(id);
   };
 
   const priceHandleChange = (event: SelectChangeEvent) => {
@@ -98,7 +98,8 @@ const ProductCategory = () => {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={categoryId === 0 ? "" : categoryId.toString()}
+                value={categoryId === null || categoryId === undefined || categoryId.trim() === '' ? "00000000-0000-0000-0000-000000000000" : categoryId}
+
                 label="Categories"
                 onChange={filterHandleChange}
               >

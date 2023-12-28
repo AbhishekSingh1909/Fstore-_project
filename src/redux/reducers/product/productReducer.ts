@@ -25,9 +25,12 @@ export const getAllProductsAsync = createAsyncThunk<
   { rejectValue: AxiosError }
 >("products/getAllProductsAsync", async (_, { rejectWithValue }) => {
   try {
+    debugger;
     const response = await axios.get(
-      `https://api.escuelajs.co/api/v1/products`
+      `http://localhost:5216/api/v1/products`
     );
+    //console.log(response.data);
+
     return response.data;
   } catch (e) {
     const error = e as AxiosError;
@@ -42,10 +45,18 @@ export const updateProductAsync = createAsyncThunk<
 >(
   "products/updateProductAsync",
   async (params: UpdateProduct, { rejectWithValue }) => {
+    const access_token = localStorage.getItem("access_token");
+    const config = {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    };
     try {
-      const response = await axios.put(
-        `https://api.escuelajs.co/api/v1/products/${params.id}`,
-        params.updateProduct
+      debugger;
+      // `http://localhost:5216/api/v1/categories/${id}/products`
+      const response = await axios.patch(
+        `http://localhost:5216/api/v1/products/${params.id}`,
+        params.updateProduct, config
       );
       if (!response.data) {
         throw new Error("Could not update product");
@@ -132,9 +143,9 @@ const productsSlice = createSlice({
       });
     builder
       .addCase(deleteProductAsync.fulfilled, (state, action) => {
-        if (typeof action.payload === "number") {
+        if (typeof action.payload === "string") {
           state.products = state.products.filter(
-            (p) => p.id !== action.payload
+            (p) => p.id !== action.payload.toString()
           );
         }
       })

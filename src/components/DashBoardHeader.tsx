@@ -19,7 +19,7 @@ export const HeaderDashBoard = () => {
     }
   }, [access_token]);
 
-  if (user && user && user.role !== "admin") {
+  if (user && user && user.role !== "Admin") {
     return <NotAuthorized />;
   }
   if (!user) {

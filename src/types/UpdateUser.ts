@@ -1,12 +1,11 @@
 export interface UpdateUser {
-  id: number;
+  id: string;
   updateUser: Partial<UpdateUserDto>;
 }
 
 export interface UpdateUserDto {
   name: string;
   email: string;
-  password: string;
   avatar: string;
   role: string;
 }

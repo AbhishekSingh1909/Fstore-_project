@@ -1,18 +1,25 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 
-import { CreateProduct } from "../../../types/CreateProduct";
+import { CreateProductWithAccessToken } from "../../../types/CreateProduct";
 import Product from "../../../types/Product";
 
 export const createProductAsync = createAsyncThunk<
   Product,
-  CreateProduct,
+  CreateProductWithAccessToken,
   { rejectValue: AxiosError }
 >("products/createProduct", async (product, { rejectWithValue }) => {
+  debugger;
+  const config = {
+    headers: {
+      Authorization: `Bearer ${product.access_token}`,
+    },
+  };
+
   try {
     const response = await axios.post(
-      `https://api.escuelajs.co/api/v1/products/`,
-      product
+      "http://localhost:5216/api/v1/products",
+      product.createProduct, config
     );
     return response.data;
   } catch (e) {

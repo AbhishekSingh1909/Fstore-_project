@@ -93,7 +93,7 @@ const ProductTableList = () => {
     setSearch(search);
   };
 
-  if (user && user && user.role !== "admin") {
+  if (user && user && user.role !== "Admin") {
     return <NotAuthorized />;
   }
   if (!user) {
@@ -179,7 +179,7 @@ const ProductTableList = () => {
                     <TableCell>{product.description}</TableCell>
                     <TableCell>{`${product.price}€`}</TableCell>
                     <TableCell>
-                      {user?.role === "admin" && (
+                      {user?.role === "Admin" && (
                         <Box
                           sx={{
                             display: "flex",

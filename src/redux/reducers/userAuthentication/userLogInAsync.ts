@@ -9,14 +9,14 @@ export const userLogInAsync = createAsyncThunk<
   LoginCredential,
   { rejectValue: AxiosError }
 >(
-  "users/userLogInAsync",
+  "auth/userLogInAsync",
   async (loginParams: LoginCredential, { rejectWithValue, dispatch }) => {
     try {
-      const response = await axios.post<JWTToken>(
-        `https://api.escuelajs.co/api/v1/auth/login`,
+      const response = await axios.post<string>(
+        `http://localhost:5216/api/v1/auth/login`,
         loginParams
       );
-      const { access_token } = response.data;
+      const access_token = response.data;
       localStorage.setItem("access_token", access_token);
       const userAuthentication = await dispatch(
         authenticateUserAsync(access_token)

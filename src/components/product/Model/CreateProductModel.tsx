@@ -19,7 +19,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { useAppDispatch } from "../../../app/hooks/useAppDispatch";
 import { useAppSelector } from "../../../app/hooks/useAppSelector";
 import { createProductAsync } from "../../../redux/reducers/product/createProductAsync";
-import { CreateProduct } from "../../../types/CreateProduct";
+import { CreateProduct, CreateProductWithAccessToken } from "../../../types/CreateProduct";
 
 import {
   FormValues,
@@ -27,6 +27,7 @@ import {
   formSchema,
 } from "../../../types/FormValidation/ProductFormValues";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { CreateProductImage } from "../../../types/CreateProductImage";
 
 export const CreateProductModel = () => {
   const [open, setOpen] = React.useState(false);
@@ -56,14 +57,23 @@ export const CreateProductModel = () => {
 
   const onFormSubmit: SubmitHandler<FormValues> = async (data, event) => {
     event?.preventDefault();
+    const createImages: CreateProductImage = {
+      imageUrl: data.images || "https://i.imgur.com/kTPCFG2.jpeg"
+    };
     const product: CreateProduct = {
       title: data.title,
       description: data.description,
       price: data.price,
+      inventory: data.inventory,
       categoryId: data.categoryId,
-      images: [data.images || "https://i.imgur.com/kTPCFG2.jpeg"],
+      images: [createImages],
     };
-    const result = await dispatch(createProductAsync(product));
+
+    const product_accessToken: CreateProductWithAccessToken = {
+      createProduct: product,
+      access_token: localStorage.getItem("access_token")
+    };
+    const result = await dispatch(createProductAsync(product_accessToken));
     if (result.meta.requestStatus === "fulfilled") {
       toast.success(`product ${product.title} has been created successfully`);
     } else if (result.meta.requestStatus === "rejected") {
@@ -153,6 +163,17 @@ export const CreateProductModel = () => {
             />
             {errors.price && (
               <Typography color="red">{errors.price.message}</Typography>
+            )}
+            <TextField
+              required
+              fullWidth
+              margin="normal"
+              label="Stock"
+              id="inventory"
+              {...register("inventory")}
+            />
+            {errors.inventory && (
+              <Typography color="red">{errors.inventory.message}</Typography>
             )}
             <TextField
               required
