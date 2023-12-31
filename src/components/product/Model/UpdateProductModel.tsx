@@ -38,10 +38,10 @@ export default function UpdateProductModel({ product }: { product: Product }) {
   );
 
   const defaultValues: DefaultValues<FormValues> = {
-    title: product.title,
-    description: product.description,
-    price: product.price,
-    categoryId: product.category.id,
+    title: product?.title,
+    description: product?.description,
+    price: product?.price,
+    categoryId: product?.category?.id,
     images: product.images[0],
   };
 
@@ -73,7 +73,7 @@ export default function UpdateProductModel({ product }: { product: Product }) {
       categoryId: data.categoryId,
     };
     const updatedProduct: UpdateProduct = {
-      id: product.id,
+      id: product?.id,
       updateProduct: productDto,
     };
     const result = await dispatch(updateProductAsync(updatedProduct));
@@ -108,7 +108,7 @@ export default function UpdateProductModel({ product }: { product: Product }) {
               id="title"
               margin="normal"
               label="Title"
-              defaultValue={product.title}
+              defaultValue={product?.title}
               {...register("title")}
             />
             {errors.title && (
@@ -124,7 +124,7 @@ export default function UpdateProductModel({ product }: { product: Product }) {
               multiline
               maxRows={4}
               variant="filled"
-              defaultValue={product.description}
+              defaultValue={product?.description}
               {...register("description")}
             />
             {errors.description && (
@@ -136,12 +136,12 @@ export default function UpdateProductModel({ product }: { product: Product }) {
               select
               id="categoryId"
               label="Category"
-              defaultValue={product.category.id}
+              defaultValue={product?.category?.id}
               {...register("categoryId")}
             >
-              {categories.map((c) => (
-                <MenuItem key={c.id} value={c.id}>
-                  {c.name}
+              {categories?.map((c) => (
+                <MenuItem key={c?.id} value={c?.id}>
+                  {c?.name}
                 </MenuItem>
               ))}
             </TextField>
@@ -154,7 +154,7 @@ export default function UpdateProductModel({ product }: { product: Product }) {
               margin="normal"
               label=" Price"
               id="price"
-              defaultValue={product.price}
+              defaultValue={product?.price}
               {...register("price")}
               InputProps={{
                 startAdornment: (
@@ -172,7 +172,7 @@ export default function UpdateProductModel({ product }: { product: Product }) {
               margin="normal"
               label=" inventory"
               id="inventory"
-              defaultValue={product.inventory}
+              defaultValue={product?.inventory}
               {...register("inventory")}
             />
             {errors.inventory && (

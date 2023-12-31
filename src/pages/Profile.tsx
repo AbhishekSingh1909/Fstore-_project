@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Card,
   CardActions,
@@ -19,6 +20,7 @@ import { useAppDispatch } from "../app/hooks/useAppDispatch";
 import { deleteUserProfileAsync } from "../redux/reducers/userAuthentication/deleteUserProfileAsync";
 import { toast } from "react-toastify";
 import { clearCart } from "../redux/reducers/cart/cartReducer";
+import { UpdatePasswordModel } from "../components/user/Model/UpdatePassword";
 
 export const Profile = () => {
   const { user } = useAppSelector((state) => state.authReducer);
@@ -101,8 +103,17 @@ export const Profile = () => {
             </Button>
             {currentUser && <UpdateProfileModel updateUser={currentUser} />}
           </Stack>
+
         </CardActions>
       </Card>
+      <Box sx={{
+        display: "flex",
+        flexDirection: "row",
+        marginLeft: "20%",
+        marginBottom: "10%"
+      }}>
+        <UpdatePasswordModel />
+      </Box>
     </Container>
   );
 };

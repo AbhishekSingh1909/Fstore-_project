@@ -64,7 +64,7 @@ export const DeleteProductModel = ({ product }: { product: Product }) => {
               id="title"
               label="Title"
               variant="filled"
-              value={product.title}
+              value={product?.title}
             />
 
             <TextField
@@ -73,14 +73,14 @@ export const DeleteProductModel = ({ product }: { product: Product }) => {
               multiline
               maxRows={4}
               variant="filled"
-              value={product.description}
+              value={product?.description}
               sx={{ marginTop: "20px" }}
             />
             <TextField
               id="select-category"
               label="Category"
               variant="filled"
-              value={product.category.name}
+              value={product?.category?.name}
               sx={{ marginTop: "20px" }}
             ></TextField>
             <TextField
@@ -88,7 +88,7 @@ export const DeleteProductModel = ({ product }: { product: Product }) => {
               label="Price"
               variant="filled"
               sx={{ marginTop: "20px" }}
-              value={product.price}
+              value={product?.price}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">€</InputAdornment>

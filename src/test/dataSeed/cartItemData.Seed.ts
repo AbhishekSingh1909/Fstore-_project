@@ -1,5 +1,5 @@
 import { CartItem } from "../../types/CartItem";
-import Image from "../../types/Image";
+import Image from "../../types/Images";
 
 const image: Image = {
   id: "aac9ef7f-3eba-4948-bbca-9ed34be1ea1c",
@@ -8,7 +8,7 @@ const image: Image = {
 }
 export const cartItemsData: CartItem[] = [
   {
-    id: "01a6ace4-f9fb-481b-928b-5906bf951b91",
+    id: "0678f309-9add-4ca1-8b8b-6462f61cf8b3",
     title: "Electronic Metal Keyboard",
     price: 41,
     description:

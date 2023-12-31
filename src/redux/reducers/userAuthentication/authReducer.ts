@@ -6,6 +6,7 @@ import { authenticateUserAsync } from "./authenticateUserAsync";
 import { updateUserProfileAsync } from "./updateUserProfileAsync";
 import { AxiosError } from "axios";
 import { deleteUserProfileAsync } from "./deleteUserProfileAsync";
+import { updatePasswordAsync } from "./updatePasswordAsync";
 
 export type AuthType = {
   user?: User;
@@ -57,7 +58,6 @@ const authSlice = createSlice({
       });
     builder
       .addCase(updateUserProfileAsync.fulfilled, (state, action) => {
-        debugger;
         state.user = action.payload;
         state.loading = false;
       })
@@ -88,6 +88,24 @@ const authSlice = createSlice({
         }
       })
       .addCase(deleteUserProfileAsync.pending, (state, action) => {
+        state.loading = true;
+        state.error = undefined;
+      });
+    builder
+      .addCase(updatePasswordAsync.fulfilled, (state, action) => {
+        debugger;
+        if (typeof action.payload === 'boolean') {
+          state.error = undefined;
+          state.loading = false;
+        }
+      })
+      .addCase(updatePasswordAsync.rejected, (state, action) => {
+        if (action.payload instanceof AxiosError) {
+          state.error = action.payload?.message;
+          state.loading = false;
+        }
+      })
+      .addCase(updatePasswordAsync.pending, (state, action) => {
         state.loading = true;
         state.error = undefined;
       });

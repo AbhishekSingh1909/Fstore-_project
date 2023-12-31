@@ -87,7 +87,6 @@ export const UpdateProfileModel = ({ updateUser }: { updateUser: User }) => {
       id: updateUser.id,
       updateUser: updateUserDto,
     };
-    debugger;
     const result = await dispatch(updateUserProfileAsync(user));
     if (result.meta.requestStatus === "fulfilled") {
       toast.success("User details are updated successfully", {
@@ -147,7 +146,6 @@ export const UpdateProfileModel = ({ updateUser }: { updateUser: User }) => {
               render={({ field }) => (
                 <TextField
                   required
-                  disabled
                   fullWidth
                   margin="normal"
                   label="Enter your email"
