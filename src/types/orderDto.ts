@@ -18,7 +18,7 @@ export interface Order {
     id: string,
     userId: string,
     user: User,
-    orderStatus: OrderStatus
+    status: OrderStatus
     orderProducts: OrderProductReadDTO[]
 }
 

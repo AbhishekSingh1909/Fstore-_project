@@ -20,7 +20,6 @@ export const updateUserProfileAsync = createAsyncThunk<
             "http://localhost:5216/api/v1/users/profile",
             user.updateUser, config
         );
-        debugger;
         return response.data;
     } catch (e) {
         const error = e as AxiosError;

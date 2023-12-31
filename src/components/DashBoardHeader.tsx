@@ -43,6 +43,9 @@ export const HeaderDashBoard = () => {
         <Button component={Link} to="./users" size="large">
           Users
         </Button>
+        <Button component={Link} to="./ordersList" size="large">
+          Orders
+        </Button>
       </Box>
     </Container>
   );

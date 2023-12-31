@@ -9,3 +9,7 @@ export interface UpdateUserDto {
   avatar: string;
   role: string;
 }
+
+export interface UpdateUserPassword {
+  Password: string;
+}

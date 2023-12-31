@@ -69,7 +69,7 @@ describe("Test Async Thunk actions in product reducer ", () => {
   test("get all products by category", async () => {
     await store.dispatch(getProductsByCategoryAsync("08b76f82-87bf-4bea-9de7-d2725dfb05cf"));
     const products = store.getState().productReducer.products;
-    expect(products.length).toBe(3);
+    expect(products.length).toBe(2);
   });
   test("get a product by product Id", async () => {
     await store.dispatch(getSingleProductByIdAsync("0678f309-9add-4ca1-8b8b-6462f61cf8b3"));
@@ -78,11 +78,11 @@ describe("Test Async Thunk actions in product reducer ", () => {
   });
   test("delete an existing item", async () => {
     const resultAction = await store.dispatch(deleteProductAsync("0678f309-9add-4ca1-8b8b-6462f61cf8b3"));
-    expect(resultAction.payload).toBe(1);
+    expect(resultAction.payload).toBe('0678f309-9add-4ca1-8b8b-6462f61cf8b3');
   });
   test("delete an item which is not exist", async () => {
     await store.dispatch(deleteProductAsync("0678f309-9add-4ca1-8b8b-6462f61cf8b4"));
-
+    console.log('delete product has problem');
     expect(store.getState().productReducer.error).toBe(
       "Could not delete product"
     );
@@ -114,7 +114,7 @@ describe("Test Async Thunk actions in product reducer ", () => {
       title: "test product",
       description: "test product",
       price: 100,
-      categoryId: "08b76f82-87bf-4bea-9de7-d2725dfb05cf",
+      categoryId: "00c76f82-17bf-4bea-9de7-d2725dfb05cf",
       inventory: 10,
       images: [createProductImage],
     };
@@ -154,21 +154,21 @@ describe("Test Async Thunk actions in product reducer ", () => {
     };
     const action = await store.dispatch(updateProductAsync(input));
     expect(action.payload).toMatchObject({
-      id: 1,
+      id: "086bdb0f-1087-45ad-a5e8-2d9b767dac44",
       title: "Newly updated product",
       price: 200,
       category: {
-        id: 2,
-        name: "Electronics",
-        image: "https://i.imgur.com/RQL19O6.jpeg",
+        id: "08b76f82-87bf-4bea-9de7-d2725dfb05cf",
+        name: "Furniture",
+        image: "https://i.imgur.com/imQx3Az.jpeg",
       },
       images: [
-        "https://i.imgur.com/wUBxCQh.jpeg",
-        "https://i.imgur.com/9aM8pz3.jpeg",
-        "https://i.imgur.com/ZDMM36B.jpeg",
+        "https://i.imgur.com/CCnU4YX.jpeg",
+        "https://i.imgur.com/JANnz25.jpeg",
+        "https://i.imgur.com/ioc7lwM.jpeg"
       ],
       description:
-        "The beautiful range of Apple Natural\u00E9 that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients",
+        "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016",
     });
     // expect(store.getState().products)
   });
@@ -181,7 +181,6 @@ describe("Test Async Thunk actions in product reducer ", () => {
       },
     };
     const action = await store.dispatch(updateProductAsync(input));
-
     expect(action.payload).toMatchObject({
       message: [
         "price must be a positive number",

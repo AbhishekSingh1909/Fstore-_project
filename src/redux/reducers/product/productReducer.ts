@@ -53,7 +53,6 @@ export const updateProductAsync = createAsyncThunk<
     };
     try {
       debugger;
-      // `http://localhost:5216/api/v1/categories/${id}/products`
       const response = await axios.patch(
         `http://localhost:5216/api/v1/products/${params.id}`,
         params.updateProduct, config
