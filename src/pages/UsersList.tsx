@@ -42,7 +42,6 @@ export const UsersList = () => {
   }, [access_token]);
 
   const pageCount = useMemo(() => {
-    debugger;
     const pageCount = Math.ceil(users.length / 10);
     const data = users?.slice(0, 10);
     setData(data);

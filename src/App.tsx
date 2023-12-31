@@ -14,6 +14,8 @@ import { AdminDashboard } from "./components/AdminDashBoard";
 import ProductTableList from "./pages/ProductsTableList";
 import { NotAuthorized } from "./pages/NotAuthorizedUser";
 import { OrderMessage } from "./pages/OrderMessage";
+import OrdersList from "./pages/OrdersList";
+import ProductImages from "./pages/productImages";
 
 const App = () => {
   const route = createBrowserRouter([
@@ -46,11 +48,21 @@ const App = () => {
             {
               path: "",
               element: <ProductTableList />,
+
+            },
+            {
+              path: "productImage/:id",
+              element: <ProductImages />
             },
             {
               path: "users",
               element: <UsersList />,
             },
+            {
+              path: "ordersList",
+              element: <OrdersList />
+
+            }
           ],
         },
 
