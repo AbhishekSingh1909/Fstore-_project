@@ -76,6 +76,7 @@ export const handlers = [
             price: input.price,
             description: input.description,
             images: input.images?.map(i => i.imageUrl),
+            categoryId: category?.id,
             category,
             inventory: input.inventory
           };

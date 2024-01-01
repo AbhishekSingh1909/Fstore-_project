@@ -25,7 +25,9 @@ import {
 } from "../redux/reducers/cart/cartReducer";
 import { CartItem } from "../types/CartItem";
 import { Fragment } from "react";
+
 import { CheckOut } from "./OrderCheckOut";
+
 
 export const AddtoCart = () => {
   const { cartItems } = useAppSelector((state) => state.cartReducer);
@@ -53,7 +55,7 @@ export const AddtoCart = () => {
     dispatch(detetFromCart(id));
   };
   const calculateTotal = (items: CartItem[]) =>
-    items.reduce((acc, item) => acc + item.quantity * item.price, 0);
+    items.reduce((acc, item) => Math.round((acc + item.quantity * item.price) * 100) / 100, 0);
 
   return (
     <Fragment>
@@ -201,6 +203,7 @@ export const AddtoCart = () => {
                 Total: {calculateTotal(cartItems)} €
               </Typography>
               <CheckOut cartItems={cartItems} />
+
             </Box>
           )}
         </Wrapper>

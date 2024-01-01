@@ -1,3 +1,5 @@
+import { UserAddress } from "./Address";
+
 export interface User {
   id: string;
   name: string;
@@ -5,6 +7,7 @@ export interface User {
   email: string;
   password: string;
   avatar: string;
+  address: UserAddress | null
 }
 
 export type JWTToken = {

@@ -18,6 +18,7 @@ import authReducer from "./reducers/userAuthentication/authReducer";
 import userReducer from "./reducers/user/userReducer";
 import orderReducer from "./reducers/order/orderReducer";
 import imageReducer from "./reducers/image/imageReducer";
+import addressReducer from "./reducers/address/addressReducer";
 
 const preConfig = {
   key: "root",
@@ -29,7 +30,8 @@ const preConfig = {
     "userReducer",
     "authReducer",
     "orderReducer",
-    "imageReducer"
+    "imageReducer",
+    "addressReducer"
   ],
 };
 
@@ -40,7 +42,8 @@ const rootReducer = combineReducers({
   authReducer,
   userReducer,
   orderReducer,
-  imageReducer
+  imageReducer,
+  addressReducer
 });
 
 const persistedReducer: Reducer<AppState, any> = persistReducer(

@@ -41,7 +41,7 @@ export default function UpdateProductModel({ product }: { product: Product }) {
     title: product?.title,
     description: product?.description,
     price: product?.price,
-    categoryId: product?.category?.id,
+    categoryId: product?.categoryId,
     images: product.images[0],
   };
 
@@ -136,7 +136,7 @@ export default function UpdateProductModel({ product }: { product: Product }) {
               select
               id="categoryId"
               label="Category"
-              defaultValue={product?.category?.id}
+              defaultValue={product?.categoryId}
               {...register("categoryId")}
             >
               {categories?.map((c) => (

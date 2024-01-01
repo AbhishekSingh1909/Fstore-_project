@@ -9,7 +9,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import SendIcon from "@mui/icons-material/Send";
 import CancelIcon from "@mui/icons-material/Cancel";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
@@ -28,6 +28,7 @@ import {
 } from "../../../types/FormValidation/ProductFormValues";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CreateProductImage } from "../../../types/CreateProductImage";
+import { getProductCategoriesAsync } from "../../../redux/reducers/category/getProductCategoriesAsync";
 
 export const CreateProductModel = () => {
   const [open, setOpen] = React.useState(false);
@@ -184,6 +185,9 @@ export const CreateProductModel = () => {
               variant="filled"
               {...register("images")}
             />
+            {errors.images && (
+              <Typography color="red">{errors.images.message}</Typography>
+            )}
 
             <DialogActions>
               <Button

@@ -26,6 +26,7 @@ import FormBoxFlex from "../../custom-component/FormBoxFlex";
 import { FormValues, defaultValues, formSchema } from "../../types/FormValues";
 import { CreateNewUser } from "../../types/CreateNewUser";
 import ButtonBoxFlex from "../../custom-component/ButtonBoxFlex";
+import { AxiosError } from "axios";
 
 const UserRegister = () => {
   const navigate = useNavigate();
@@ -56,7 +57,14 @@ const UserRegister = () => {
         userSignIn();
       }, 1000);
     } else if (result.meta.requestStatus === "rejected") {
-      toast.error("Opps! User registration has failed");
+      if (result?.payload instanceof AxiosError) {
+        if (result.payload?.response) {
+          toast.error(`Opps! User registration has failed because ${result.payload?.response?.data as string}`);
+        }
+        else {
+          toast.error(`Opps! User registration has failed because ${result.payload?.message}`);
+        }
+      }
     }
   };
   const userSignIn = () => {

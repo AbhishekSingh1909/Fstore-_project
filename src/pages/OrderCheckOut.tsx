@@ -12,6 +12,8 @@ import { useAppDispatch } from "../app/hooks/useAppDispatch";
 import { useEffect } from "react";
 import { createOrderAsync } from "../redux/reducers/order/createOrderAsync";
 import { toast } from "react-toastify";
+import { getAllOrdersAsync } from "../redux/reducers/order/getAllOrdersAsync";
+import { resetOrder } from "../redux/reducers/order/orderReducer";
 
 interface State extends SnackbarOrigin {
   open: boolean;
@@ -44,15 +46,8 @@ export const CheckOut = ({ cartItems }: { cartItems: CartItem[] }) => {
       navigate("../login", { replace: true });
     } else {
       if (cartItems !== null) {
-        const result = await dispatch(createOrderAsync(createOrder));
-        if (result.meta.requestStatus === "fulfilled") {
-          toast.success(`${user.name}'s order has been created successfully`);
-          navigate('/orderMessage');
-          // setState({ ...newState, open: true });
-          dispatch(clearCart());
-        } else if (result.meta.requestStatus === "rejected") {
-          toast.error(` Error while creating order of ${user.name}`);
-        }
+        dispatch(resetOrder())
+        navigate('/checkOutPage');
       }
     }
   };

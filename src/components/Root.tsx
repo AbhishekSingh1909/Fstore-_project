@@ -19,11 +19,12 @@ const Root = () => {
   }, [access_token]);
   return (
     <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={onlineStoreSiteTheme}>
-        <Header />
-        <Outlet />
-        <Footer />
-      </ThemeProvider>
+      {/* <ThemeProvider theme={onlineStoreSiteTheme}>
+        
+      </ThemeProvider> */}
+      <Header />
+      <Outlet />
+      <Footer />
     </StyledEngineProvider>
   );
 };

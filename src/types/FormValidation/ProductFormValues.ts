@@ -24,7 +24,7 @@ export const formSchema = yup.object({
     .required("Required"),
   description: yup.string().required("Required"),
   categoryId: yup.string().required("Required"),
-  images: yup.string().nullable(),
+  images: yup.string().url("must be valid an Image url").nullable(),
 });
 
 export const defaultValues: DefaultValues<FormValues> = {

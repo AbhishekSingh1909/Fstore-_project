@@ -18,6 +18,7 @@ export const cartItemsData: CartItem[] = [
       "https://i.imgur.com/9aM8pz3.jpeg",
       "https://i.imgur.com/ZDMM36B.jpeg",
     ],
+    categoryId: "4289efbf-5e58-43de-9294-c633d7f89e37",
     category: {
       id: "01e41dce-3ed5-4736-aca0-be70a80c44be",
       name: "Furniture",

@@ -53,6 +53,7 @@ export const handlers = [
       password: input.password,
       avatar: input.avatar,
       role: "Customer",
+      address: null
     };
     usersData.push(user);
     return res(ctx.json(user));

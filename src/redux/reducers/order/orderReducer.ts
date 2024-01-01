@@ -45,8 +45,14 @@ const orderSlice = createSlice({
             }
         })
             .addCase(createOrderAsync.rejected, (state, action) => {
-                if (action.payload instanceof AxiosError)
-                    state.error = action.payload.message;
+                if (action.payload instanceof AxiosError) {
+                    if (action.payload?.response) {
+                        state.error = action.payload.response?.data as string;
+                    }
+                    else {
+                        state.error = action.payload.message;
+                    }
+                }
                 state.loading = false;
                 state.order = undefined;
             })
@@ -62,9 +68,16 @@ const orderSlice = createSlice({
             state.loading = false;
         })
             .addCase(getAllOrdersAsync.rejected, (state, action) => {
-                if (action.payload instanceof AxiosError)
-                    state.error = action.payload.message;
+                if (action.payload instanceof AxiosError) {
+                    if (action.payload?.response) {
+                        state.error = action.payload.response?.data as string;
+                    }
+                    else {
+                        state.error = action.payload.message;
+                    }
+                }
                 state.loading = false;
+                state.order = undefined;
             })
             .addCase(getAllOrdersAsync.pending, (state, action) => {
                 state.loading = true;

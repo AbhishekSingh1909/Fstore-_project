@@ -8,7 +8,7 @@ export const authenticateUserAsync = createAsyncThunk<
   string,
   { rejectValue: AxiosError }
 >("authenticateUserAsync", async (access_token, { rejectWithValue }) => {
-  debugger;
+
   const config = {
     headers: {
       Authorization: `Bearer ${access_token}`,
@@ -19,7 +19,6 @@ export const authenticateUserAsync = createAsyncThunk<
       `http://localhost:5216/api/v1/users/profile`,
       config
     );
-    debugger;
     return response.data;
   } catch (e) {
     const error = e as AxiosError;

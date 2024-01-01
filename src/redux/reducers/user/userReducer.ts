@@ -7,7 +7,6 @@ import { updateUserAsync } from "./updateUserAsync";
 import { getAllUsersAsync } from "./getAllUsersAsync";
 import { getSingleUsersAsync } from "./getSingleUserAsync";
 import { deleteUserAsync } from "./deleteUserAsync";
-import { updateUserProfileAsync } from "../userAuthentication/updateUserProfileAsync";
 
 const initialState: {
   users: User[];
