@@ -46,7 +46,7 @@ const rootReducer = combineReducers({
   addressReducer
 });
 
-const persistedReducer: Reducer<AppState, any> = persistReducer(
+const persistedReducer = persistReducer(
   preConfig,
   rootReducer
 );
