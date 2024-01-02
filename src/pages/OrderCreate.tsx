@@ -16,7 +16,7 @@ const OrderCreatePage = () => {
     const today = new Date();
     React.useEffect(() => {
         if (cartItems && cartItems?.length > 0) {
-            debugger;
+
             const orders_Products = cartItems?.map((m) => {
                 const orderPrducts: OrderProductCreateDTO = {
                     productId: m.id,
@@ -46,7 +46,7 @@ const OrderCreatePage = () => {
         );
     }
     if (error) {
-        debugger
+
         return <ErrorMessage message={error} />;
     }
     return (

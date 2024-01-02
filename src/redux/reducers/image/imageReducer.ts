@@ -23,7 +23,6 @@ const imageSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(getProductAllImagesAsync.fulfilled, (state, action) => {
-            debugger;
             state.images = action.payload;
             state.error = undefined;
             state.loading = false;
@@ -38,7 +37,6 @@ const imageSlice = createSlice({
                 state.error = undefined;
             })
         builder.addCase(createProductImageAsync.fulfilled, (state, action) => {
-            debugger;
             const foundIndex = state.images.findIndex(
                 (p) => p.id === action.payload.id
             );
@@ -57,7 +55,6 @@ const imageSlice = createSlice({
                 state.loading = true;
             })
         builder.addCase(updateProductImagesAsync.fulfilled, (state, action) => {
-            debugger;
             const foundIndex = state.images.findIndex(
                 (p) => p.id === action.payload.id
             );
@@ -76,7 +73,6 @@ const imageSlice = createSlice({
                 state.loading = true;
             })
         builder.addCase(deleteProductImageAsync.fulfilled, (state, action) => {
-            debugger;
             if (typeof action.payload === "string") {
                 state.images = state.images.filter(
                     (p) => p.id !== action.payload.toString()

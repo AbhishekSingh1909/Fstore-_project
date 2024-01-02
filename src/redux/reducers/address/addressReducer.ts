@@ -53,7 +53,6 @@ const addressSlice = createSlice({
                 state.loading = false;
             })
         builder.addCase(updateAddressAsync.fulfilled, (state, action) => {
-            debugger;
             state.address = action.payload;
             state.loading = false;
         })

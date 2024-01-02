@@ -33,7 +33,6 @@ const ProductImages = () => {
     }, [id])
 
     const handleDeleteImage = async (image: Images) => {
-        debugger;
         if (image !== null && image !== undefined) {
             const result = await dispatch(deleteProductImageAsync(image.id));
             if (result.meta.requestStatus === "fulfilled") {

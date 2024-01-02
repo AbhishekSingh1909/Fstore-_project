@@ -18,7 +18,7 @@ export const deleteUserProfileAsync = createAsyncThunk<
             "https://fakestore.azurewebsites.net/api/v1/users/profile",
             config
         );
-        debugger;
+
         return response.data;
     } catch (e) {
         const error = e as AxiosError;

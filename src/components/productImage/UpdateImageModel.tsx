@@ -54,7 +54,7 @@ export default function UpdateImageModel({ images }: { images: Images }) {
 
     const onFormSubmit: SubmitHandler<FormValues> = async (data, event) => {
         event?.preventDefault();
-        debugger;
+
         const imageUrl: CreateProductImage = {
             imageUrl: data?.imageUrl
         };

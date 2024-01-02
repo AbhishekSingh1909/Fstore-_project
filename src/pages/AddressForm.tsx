@@ -65,7 +65,7 @@ export default function AddressForm() {
         resolver: yupResolver(formSchema),
     });
     const onFormSubmit: SubmitHandler<FormValues> = async (data, event) => {
-        debugger;
+
         event?.preventDefault();
 
         const createAddress: CreateAddress = {
@@ -76,7 +76,7 @@ export default function AddressForm() {
             country: data.country
         }
         const result = await dispatch(createAddressAsync(createAddress));
-        debugger;
+
         if (result.meta.requestStatus === "fulfilled") {
             setFlag(true);
         } else if (result.meta.requestStatus === "rejected") {
@@ -86,11 +86,11 @@ export default function AddressForm() {
     };
 
     if (!user) {
-        debugger;
+
         navigate("../login", { replace: true });
     }
     if (loading) {
-        debugger;
+
         return (
             <Box
                 sx={{

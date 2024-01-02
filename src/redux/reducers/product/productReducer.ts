@@ -52,14 +52,11 @@ export const updateProductAsync = createAsyncThunk<
       },
     };
     try {
-      debugger;
-      // http://localhost:5216/
-      //`https://fakestore.azurewebsites.net/api/v1/products/${params.id}`
       const response = await axios.patch(
         `https://fakestore.azurewebsites.net/api/v1/products/${params.id}`,
         params.updateProduct, config
       );
-      debugger;
+
       if (!response.data) {
         console.log("product updated1", response.data);
         console.log("throw error");
@@ -133,7 +130,7 @@ const productsSlice = createSlice({
       });
     builder
       .addCase(updateProductAsync.fulfilled, (state, action) => {
-        debugger;
+
         const foundIndex = state.products.findIndex(
           (p) => p.id === action.payload.id
         );
@@ -143,7 +140,7 @@ const productsSlice = createSlice({
         }
       })
       .addCase(updateProductAsync.rejected, (state, action) => {
-        debugger;
+
         if (action.payload instanceof AxiosError) {
           state.error = action.payload.message;
         }

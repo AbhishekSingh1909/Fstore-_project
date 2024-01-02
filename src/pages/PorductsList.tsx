@@ -78,7 +78,6 @@ const ProductsPage = ({ categoryId, sortPrice }: ProductProps) => {
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
-    debugger;
 
     // show the count at per page
     // 0 - 10

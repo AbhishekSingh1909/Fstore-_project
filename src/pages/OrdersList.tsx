@@ -44,7 +44,7 @@ const OrdersList = () => {
     );
     const { user } = useAppSelector((state) => state.authReducer);
     useEffect(() => {
-        debugger;
+
         if (access_token !== null) {
             dispatch(authenticateUserAsync(access_token));
             dispatch(getAllOrdersAsync());

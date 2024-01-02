@@ -47,7 +47,7 @@ export const UpdatePasswordModel = () => {
         const updatePassword: UpdateUserPassword = {
             Password: data.password
         };
-        debugger;
+
         const result = await dispatch(updatePasswordAsync(updatePassword));
         if (result.meta.requestStatus === "fulfilled") {
             toast.success("User password is updated successfully", {

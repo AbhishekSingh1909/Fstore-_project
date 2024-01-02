@@ -45,7 +45,6 @@ export const CreateImageModel = ({ id }: { id: string }) => {
     };
 
     const onFormSubmit: SubmitHandler<FormValues> = async (data, event) => {
-        debugger;
         event?.preventDefault();
         const createImage: CreateProductImageDto = {
             imageUrl: data.imageUrl,

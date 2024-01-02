@@ -73,7 +73,7 @@ const authSlice = createSlice({
       });
     builder
       .addCase(deleteUserProfileAsync.fulfilled, (state, action) => {
-        debugger;
+
         if (typeof action.payload === 'boolean' && action.payload) {
           state.user = undefined;
           state.error = undefined;
@@ -93,7 +93,7 @@ const authSlice = createSlice({
       });
     builder
       .addCase(updatePasswordAsync.fulfilled, (state, action) => {
-        debugger;
+
         if (typeof action.payload === 'boolean') {
           state.error = undefined;
           state.loading = false;

@@ -34,7 +34,6 @@ const orderSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(createOrderAsync.fulfilled, (state, action) => {
-            debugger;
             const foundIndex = state.orders.findIndex(
                 (p) => p.id === action.payload.id
             );

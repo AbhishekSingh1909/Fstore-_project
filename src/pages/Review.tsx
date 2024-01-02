@@ -31,7 +31,6 @@ export default function Review() {
     nextWeek.setDate(today.getDate() + 7);
 
     React.useEffect(() => {
-        debugger;
         dispatch(getAddressAsync());
     }, [])
 

@@ -49,7 +49,7 @@ export const CheckoutPage = () => {
     console.log("user has value", user);
     const today = new Date();
     const handleNext = () => {
-        debugger;
+
         setActiveStep(activeStep + 1);
         if ((activeStep === steps.length - 1) && (cartItems && cartItems.length > 0)) {
             const orders_Products = cartItems?.map((m) => {
@@ -68,18 +68,18 @@ export const CheckoutPage = () => {
     };
 
     const handleBack = () => {
-        debugger;
+
         setActiveStep(activeStep - 1);
     };
     if (!user) {
-        debugger;
+
         navigate("../login", { replace: true });
     }
     if (user && user && user.role !== "Customer") {
         return <NotAuthorized />;
     }
     if (loading) {
-        debugger;
+
         return (
             <Box
                 sx={{
@@ -94,7 +94,7 @@ export const CheckoutPage = () => {
         );
     }
     if (error) {
-        debugger
+
         return <ErrorMessage message={error} />;
     }
     return (
