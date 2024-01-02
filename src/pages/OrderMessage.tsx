@@ -1,63 +1,60 @@
-import * as React from "react";
-
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
+import { Box, Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import { OrderProductReadDTO } from "../types/orderDto";
 import { useAppSelector } from "../app/hooks/useAppSelector";
-import { useDispatch } from "react-redux";
-import { clearCart } from "../redux/reducers/cart/cartReducer";
-import { useNavigate } from "react-router-dom";
 
-interface State extends SnackbarOrigin {
-  open: boolean;
-}
+export const OrderMessage = () => {
+    const { orders, error, loading, order } = useAppSelector((state) => state.orderReducer)
+    const calculateTotal = (items: OrderProductReadDTO[]) =>
+        items.reduce((acc, item) => acc + item?.quntity * item?.price, 0);
+    const today = new Date();
 
-export const CheckOut = () => {
-  const { user } = useAppSelector((state) => state.authReducer);
-  const [state, setState] = React.useState<State>({
-    open: false,
-    vertical: "top",
-    horizontal: "center",
-  });
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { vertical, horizontal, open } = state;
+    // Add 7 days to the current date
+    const nextWeek = new Date(today);
+    nextWeek.setDate(today.getDate() + 7);
+    return (
+        <Container>
+            <Typography variant="h6" gutterBottom>
+                {`Dear customer, your order has been placed on ${today.toLocaleDateString()} and will be delivered on ${nextWeek.toLocaleDateString()}.`}
+            </Typography>
+            <Paper elevation={3} style={{ marginTop: "20px" }}>
+                <TableContainer>
+                    <Table aria-label="Order table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Item</TableCell>
+                                <TableCell>Quantity</TableCell>
+                                <TableCell>Price</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {order &&
+                                order.orderProducts?.map((o) => (
+                                    <TableRow key={order?.id}>
+                                        <TableCell>{o?.product?.title}</TableCell>
+                                        <TableCell>{o?.quntity}</TableCell>
+                                        <TableCell>{`${Math.round((o?.quntity * o?.price) * 100) / 100}€`}</TableCell>
+                                    </TableRow>
+                                ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Paper>
+            {order && (
+                <Box
+                    sx={{
+                        display: "flex",
+                        marginLeft: "auto",
+                        marginTop: "2em",
+                        marginBottom: "2em",
+                    }}
+                >
+                    <Typography variant="h4">
+                        Total: {calculateTotal(order.orderProducts)} €
+                    </Typography>
+                </Box>
+            )}
 
-  const handleClick = (newState: SnackbarOrigin) => () => {
-    if (!user) {
-      navigate("../login", { replace: true });
-    } else {
-      setState({ ...newState, open: true });
-      dispatch(clearCart());
-    }
-  };
-  const handleClose = () => {
-    setState({ ...state, open: false });
-  };
+        </Container>
+    )
 
-  const buttons = (
-    <React.Fragment>
-      <Button
-        size="medium"
-        variant="contained"
-        onClick={handleClick({ vertical: "top", horizontal: "center" })}
-      >
-        CheckOut
-      </Button>
-    </React.Fragment>
-  );
-
-  return (
-    <Box>
-      {buttons}
-      <Snackbar
-        anchorOrigin={{ vertical, horizontal }}
-        open={open}
-        onClose={handleClose}
-        message="Dear customer, we are pleased to inform you that your order has been placed and will arrive at its destination soon."
-        autoHideDuration={5000}
-        key={vertical + horizontal}
-      />
-    </Box>
-  );
 };

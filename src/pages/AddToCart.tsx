@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { Wrapper } from "../custom-component/AddToCartPrimaryBox";
 import { useAppSelector } from "../app/hooks/useAppSelector";
@@ -25,18 +25,21 @@ import {
 } from "../redux/reducers/cart/cartReducer";
 import { CartItem } from "../types/CartItem";
 import { Fragment } from "react";
-import { CheckOut } from "./OrderMessage";
+
+import { CheckOut } from "./OrderCheckOut";
+
 
 export const AddtoCart = () => {
   const { cartItems } = useAppSelector((state) => state.cartReducer);
   const { user } = useAppSelector((state) => state.authReducer);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate()
 
-  const addToCart = async (id: number) => {
+  const addToCart = async (id: string) => {
     await dispatch(increaseQuantity(id));
   };
 
-  const removeFromCart = (id: number) => {
+  const removeFromCart = (id: string) => {
     dispatch(decreaseQunatity(id));
   };
 
@@ -44,29 +47,46 @@ export const AddtoCart = () => {
     dispatch(clearCart());
   };
 
-  const handleDeleteItem = (id: number) => {
+  const handleNavigateBack = () => {
+    navigate(-1);
+  };
+
+  const handleDeleteItem = (id: string) => {
     dispatch(detetFromCart(id));
   };
   const calculateTotal = (items: CartItem[]) =>
-    items.reduce((acc, item) => acc + item.quantity * item.price, 0);
+    items.reduce((acc, item) => Math.round((acc + item.quantity * item.price) * 100) / 100, 0);
 
   return (
     <Fragment>
       <Container maxWidth="xs">
         <CssBaseline />
         <Wrapper>
+
           {cartItems.length > 0 && (
-            <Button
-              size="medium"
-              variant="contained"
-              disableElevation
-              sx={{ display: "flex", marginTop: "10px", marginLeft: "auto" }}
-              onClick={() => emptyCart()}
-            >
-              Clear Cart
-            </Button>
+            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+              <Box sx={{ marginTop: "auto" }}>
+                <Button variant="contained" onClick={handleNavigateBack}>
+                  Back
+                </Button>
+              </Box>
+              <Box sx={{ marginTop: "auto" }}>
+                <Button
+                  size="medium"
+                  variant="contained"
+                  disableElevation
+                  sx={{ display: "flex", marginTop: "10px", marginLeft: "auto" }}
+                  onClick={() => emptyCart()}
+                >
+                  Clear Cart
+                </Button>
+              </Box>
+            </Box>
           )}
-          <Typography variant="h4">Your Cart</Typography>
+          <Box sx={{ margin: "2%" }}>
+            <Typography variant="h4">Your Cart</Typography>
+          </Box>
+
           {cartItems.length === 0 && (
             <Grid>
               <Typography variant="h6">No items in cart.</Typography>
@@ -98,7 +118,7 @@ export const AddtoCart = () => {
                   >
                     <Typography>Price: {item?.price} €</Typography>
                     <Typography>
-                      Total: {item?.price * item?.quantity} €
+                      Total:{Math.round((item?.price * item?.quantity) * 100) / 100} €
                     </Typography>
                   </Box>
                   <Box
@@ -182,7 +202,8 @@ export const AddtoCart = () => {
               <Typography variant="h4">
                 Total: {calculateTotal(cartItems)} €
               </Typography>
-              <CheckOut />
+              <CheckOut cartItems={cartItems} />
+
             </Box>
           )}
         </Wrapper>

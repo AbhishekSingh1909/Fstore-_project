@@ -3,7 +3,6 @@ import {
   Button,
   CircularProgress,
   Container,
-  IconButton,
   InputBase,
   Pagination,
   Paper,
@@ -15,10 +14,13 @@ import {
   TableHead,
   TableRow,
   Typography,
+  IconButton,
+  Tooltip
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import ImageIcon from '@mui/icons-material/Image';
 import { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useAppDispatch } from "../app/hooks/useAppDispatch";
 import { useAppSelector } from "../app/hooks/useAppSelector";
@@ -93,7 +95,11 @@ const ProductTableList = () => {
     setSearch(search);
   };
 
-  if (user && user && user.role !== "admin") {
+  const handleImageClick = () => {
+
+  }
+
+  if (user && user && user.role !== "Admin") {
     return <NotAuthorized />;
   }
   if (!user) {
@@ -179,20 +185,27 @@ const ProductTableList = () => {
                     <TableCell>{product.description}</TableCell>
                     <TableCell>{`${product.price}€`}</TableCell>
                     <TableCell>
-                      {user?.role === "admin" && (
+                      {user?.role === "Admin" && (
                         <Box
                           sx={{
                             display: "flex",
                             flexDirection: "row",
-                            alignItems: "center",
-                            justifyContent: "center",
+                            gap: "10",
+                            margin: "1em"
                           }}
                         >
-                          <Stack spacing={1}>
+                          <Stack sx={{ marginTop: "0.25em" }}>
                             <UpdateProductModel product={product} />
                           </Stack>
-                          <Stack spacing={1}>
+                          <Stack >
                             <DeleteProductModel product={product} />
+                          </Stack>
+                          <Stack>
+                            <Tooltip title="Image">
+                              <IconButton component={Link} to={`./productImage/${product.id}`} color="secondary" size="large">
+                                <ImageIcon />
+                              </IconButton>
+                            </Tooltip>
                           </Stack>
                         </Box>
                       )}

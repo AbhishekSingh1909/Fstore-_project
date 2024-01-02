@@ -31,6 +31,7 @@ import { useAppSelector } from "../app/hooks/useAppSelector";
 import Footer from "../components/Footer";
 import { LoginCredential } from "../types/User";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { ToastContainer, toast } from "react-toastify";
 
 const Login = () => {
   const dispatch = useAppDispatch();
@@ -57,17 +58,12 @@ const Login = () => {
     resolver: yupResolver(formSchema),
   });
 
-  useEffect(() => {
-    if (error) {
-      setShowError(true);
-    }
-  }, [error]);
 
   const handleErroClose = () => {
     setShowError(false);
   };
 
-  const userSinUp = () => {
+  const userSignUp = () => {
     navigate("/register", { replace: true });
   };
 
@@ -75,11 +71,17 @@ const Login = () => {
     event?.preventDefault();
     const email = data.email;
     const password = data.password;
-    dispatch(userLogInAsync({ email, password }));
+    const result = await dispatch(userLogInAsync({ email, password }));
+    if (result.meta.requestStatus === "fulfilled") {
+      toast.success(`Welcome ${user?.name}`);
+    } else if (result.meta.requestStatus === "rejected") {
+      toast.error(`user credential is not valid`);
+    }
   };
 
   return (
     <Fragment>
+      <ToastContainer />
       <Container maxWidth="xs">
         {user && <Navigate to="/" replace={true} />}
         <CssBaseline />
@@ -172,21 +174,13 @@ const Login = () => {
               }}
             >
               <Typography variant="h6">Don't have an account ?</Typography>
-              <Link component="button" variant="body2" onClick={userSinUp}>
+              <Link component="button" variant="body2" onClick={userSignUp}>
                 Sign Up
               </Link>
             </Grid>
           </Box>
         </Box>
       </Container>
-      <Snackbar
-        open={showError}
-        autoHideDuration={5000}
-        onClose={handleErroClose}
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      >
-        <Alert severity="error">user credential is not valid ,{error}</Alert>
-      </Snackbar>
       <Footer />
     </Fragment>
   );

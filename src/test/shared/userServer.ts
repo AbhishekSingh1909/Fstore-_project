@@ -8,43 +8,104 @@ import { User } from "../../types/User";
 import { UpdateUser, UpdateUserDto } from "../../types/UpdateUser";
 
 export const handlers = [
-  rest.get("https://api.escuelajs.co/api/v1/users", (req, res, ctx) => {
-    return res(ctx.json(usersData));
+  rest.get("https://fakestore.azurewebsites.net/api/v1/users", (req, res, ctx) => {
+
+    // Check for the authorization header in the request
+    const authorizationHeader = req.headers.get('Authorization');
+
+    if (authorizationHeader && authorizationHeader.startsWith('Bearer')) {
+      return res(ctx.json(usersData));
+    }
+    else {
+      console.log("error Unauthorized")
+      const error = new Error('Unauthorized');
+      return res(ctx.status(401), ctx.json(error));
+    }
   }),
-  rest.get("https://api.escuelajs.co/api/v1/users/:id", (req, res, ctx) => {
+  rest.get("https://fakestore.azurewebsites.net/api/v1/users/:id", (req, res, ctx) => {
     const { id } = req.params;
-    const user = usersData.find((u) => u.id === Number(id));
-    return res(ctx.json(user));
+
+    // Check for the authorization header in the request
+    const authorizationHeader = req.headers.get('Authorization');
+    if (authorizationHeader && authorizationHeader.startsWith('Bearer')) {
+      //   const user = usersData.find((u) => u.id === id);
+      // return res(ctx.json(user));
+      const user = usersData.find((u) => u.id === id);
+      if (user) {
+        return res(ctx.json(user));
+      }
+      else {
+        const error = new AxiosError();
+        return res(ctx.status(400), ctx.json(error));
+      }
+    }
+    else {
+      const error = new Error('Unauthorized');
+      return res(ctx.status(401), ctx.json(error));
+    }
   }),
-  rest.post("https://api.escuelajs.co/api/v1/users/", async (req, res, ctx) => {
+  rest.post("https://fakestore.azurewebsites.net/api/v1/users", async (req, res, ctx) => {
     const input: CreateNewUser = await req.json();
     const user: User = {
-      id: usersData.length + 1,
+      id: "4990a687-05b1-4957-a7d6-5684322b152e",
       name: input.name,
       email: input.email,
       password: input.password,
       avatar: input.avatar,
-      role: "customer",
+      role: "Customer",
+      address: null
     };
     usersData.push(user);
     return res(ctx.json(user));
   }),
 
-  rest.put(
-    "https://api.escuelajs.co/api/v1/users/:id",
+  rest.patch(
+    "https://fakestore.azurewebsites.net/api/v1/users/:id",
     async (req, res, ctx) => {
       const input: UpdateUserDto = await req.json();
       const { id } = req.params;
-      const user = usersData.find((u) => u.id === Number(id));
-      if (user) {
-        const updateUser: UpdateUser = {
-          id: user.id,
-          updateUser: input,
-        };
-        return res(ctx.json(updateUser));
-      } else {
-        const error = new AxiosError();
-        return res(ctx.status(400), ctx.json(error));
+      // Check for the authorization header in the request
+      const authorizationHeader = req.headers.get('Authorization');
+
+      if (authorizationHeader && authorizationHeader.startsWith('Bearer')) {
+        const user = usersData.find((u) => u.id === id);
+        if (user) {
+          const updateUser: UpdateUser = {
+            id: user.id,
+            updateUser: input,
+          };
+          return res(ctx.json(updateUser));
+        }
+        else {
+          const error = new AxiosError();
+          return res(ctx.status(400), ctx.json(error));
+        }
+      }
+      else {
+        const error = new Error('Unauthorized');
+        return res(ctx.status(401), ctx.json(error));
+      }
+
+    }
+  ),
+  rest.delete(
+    "https://fakestore.azurewebsites.net/api/v1/users/:id",
+    (req, res, ctx) => {
+      const { id } = req.params;
+      // Check for the authorization header in the request
+      const authorizationHeader = req.headers.get('Authorization');
+
+      if (authorizationHeader && authorizationHeader.startsWith('Bearer')) {
+        const user = usersData.find((u) => u.id === id);
+        if (user) {
+          return res(ctx.json(true));
+        } else {
+          return res(ctx.json(false));
+        }
+      }
+      else {
+        const error = new Error('Unauthorized');
+        return res(ctx.status(401), ctx.json(error));
       }
     }
   ),

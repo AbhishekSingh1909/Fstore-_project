@@ -8,6 +8,7 @@ export const authenticateUserAsync = createAsyncThunk<
   string,
   { rejectValue: AxiosError }
 >("authenticateUserAsync", async (access_token, { rejectWithValue }) => {
+
   const config = {
     headers: {
       Authorization: `Bearer ${access_token}`,
@@ -15,7 +16,7 @@ export const authenticateUserAsync = createAsyncThunk<
   };
   try {
     const response = await axios.get(
-      "https://api.escuelajs.co/api/v1/auth/profile",
+      `https://fakestore.azurewebsites.net/api/v1/users/profile`,
       config
     );
     return response.data;

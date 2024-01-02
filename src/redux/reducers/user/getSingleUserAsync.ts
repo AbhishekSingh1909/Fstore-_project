@@ -5,12 +5,18 @@ import { User } from "../../../types/User";
 
 export const getSingleUsersAsync = createAsyncThunk<
   User,
-  number,
+  string,
   { rejectValue: AxiosError }
 >("users/getSingleUser", async (userId, { rejectWithValue }) => {
+  const access_token = localStorage.getItem("access_token");
+  const config = {
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+    },
+  };
   try {
     const response = await axios.get<User>(
-      `https://api.escuelajs.co/api/v1/users/${userId}`
+      `https://fakestore.azurewebsites.net/api/v1/users/${userId}`, config
     );
     return response.data;
   } catch (e) {

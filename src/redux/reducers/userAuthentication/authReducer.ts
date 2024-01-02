@@ -3,6 +3,10 @@ import { User, UserAuth } from "../../../types/User";
 
 import { userLogInAsync } from "./userLogInAsync";
 import { authenticateUserAsync } from "./authenticateUserAsync";
+import { updateUserProfileAsync } from "./updateUserProfileAsync";
+import { AxiosError } from "axios";
+import { deleteUserProfileAsync } from "./deleteUserProfileAsync";
+import { updatePasswordAsync } from "./updatePasswordAsync";
 
 export type AuthType = {
   user?: User;
@@ -51,6 +55,59 @@ const authSlice = createSlice({
       .addCase(authenticateUserAsync.rejected, (state, action) => {
         state.error = action.payload?.message;
         state.loading = false;
+      });
+    builder
+      .addCase(updateUserProfileAsync.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.loading = false;
+      })
+      .addCase(updateUserProfileAsync.rejected, (state, action) => {
+        if (action.payload instanceof AxiosError) {
+          state.error = action.payload?.message;
+          state.loading = false;
+        }
+      })
+      .addCase(updateUserProfileAsync.pending, (state, action) => {
+        state.loading = true;
+        state.error = undefined;
+      });
+    builder
+      .addCase(deleteUserProfileAsync.fulfilled, (state, action) => {
+
+        if (typeof action.payload === 'boolean' && action.payload) {
+          state.user = undefined;
+          state.error = undefined;
+          state.loading = false;
+          localStorage.removeItem("access_token");
+        }
+      })
+      .addCase(deleteUserProfileAsync.rejected, (state, action) => {
+        if (action.payload instanceof AxiosError) {
+          state.error = action.payload?.message;
+          state.loading = false;
+        }
+      })
+      .addCase(deleteUserProfileAsync.pending, (state, action) => {
+        state.loading = true;
+        state.error = undefined;
+      });
+    builder
+      .addCase(updatePasswordAsync.fulfilled, (state, action) => {
+
+        if (typeof action.payload === 'boolean') {
+          state.error = undefined;
+          state.loading = false;
+        }
+      })
+      .addCase(updatePasswordAsync.rejected, (state, action) => {
+        if (action.payload instanceof AxiosError) {
+          state.error = action.payload?.message;
+          state.loading = false;
+        }
+      })
+      .addCase(updatePasswordAsync.pending, (state, action) => {
+        state.loading = true;
+        state.error = undefined;
       });
   },
 });

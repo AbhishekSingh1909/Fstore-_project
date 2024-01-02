@@ -31,17 +31,22 @@ import {
 
 export default function UpdateProductModel({ product }: { product: Product }) {
   const [open, setOpen] = React.useState(false);
+  const [c_id, setC_id] = React.useState(product?.categoryId);
   const dispatch = useAppDispatch();
 
   const categories = useAppSelector(
     (state) => state.ProductCategoryReducer.categories
   );
 
+
+  console.log("product", product);
+  console.log("category", c_id);
+
   const defaultValues: DefaultValues<FormValues> = {
-    title: product.title,
-    description: product.description,
-    price: product.price,
-    categoryId: product.category.id,
+    title: product?.title,
+    description: product?.description,
+    price: product?.price,
+    categoryId: product?.categoryId,
     images: product.images[0],
   };
 
@@ -51,7 +56,6 @@ export default function UpdateProductModel({ product }: { product: Product }) {
   const handleClose = () => {
     setOpen(false);
   };
-
   const {
     register,
     handleSubmit,
@@ -64,15 +68,15 @@ export default function UpdateProductModel({ product }: { product: Product }) {
 
   const onFormSubmit: SubmitHandler<FormValues> = async (data, event) => {
     event?.preventDefault();
-
     const productDto: ProductDto = {
       title: data.title,
       description: data.description,
       price: data.price,
+      inventory: data.inventory,
       categoryId: data.categoryId,
     };
     const updatedProduct: UpdateProduct = {
-      id: product.id,
+      id: product?.id,
       updateProduct: productDto,
     };
     const result = await dispatch(updateProductAsync(updatedProduct));
@@ -107,7 +111,7 @@ export default function UpdateProductModel({ product }: { product: Product }) {
               id="title"
               margin="normal"
               label="Title"
-              defaultValue={product.title}
+              defaultValue={product?.title}
               {...register("title")}
             />
             {errors.title && (
@@ -123,7 +127,7 @@ export default function UpdateProductModel({ product }: { product: Product }) {
               multiline
               maxRows={4}
               variant="filled"
-              defaultValue={product.description}
+              defaultValue={product?.description}
               {...register("description")}
             />
             {errors.description && (
@@ -131,16 +135,17 @@ export default function UpdateProductModel({ product }: { product: Product }) {
             )}
             <TextField
               required
+              disabled
               fullWidth
               select
               id="categoryId"
               label="Category"
-              defaultValue={product.category.id}
+              defaultValue={c_id}
               {...register("categoryId")}
             >
-              {categories.map((c) => (
-                <MenuItem key={c.id} value={c.id}>
-                  {c.name}
+              {categories?.map((c) => (
+                <MenuItem key={c?.id} value={c?.id}>
+                  {c?.name}
                 </MenuItem>
               ))}
             </TextField>
@@ -153,7 +158,7 @@ export default function UpdateProductModel({ product }: { product: Product }) {
               margin="normal"
               label=" Price"
               id="price"
-              defaultValue={product.price}
+              defaultValue={product?.price}
               {...register("price")}
               InputProps={{
                 startAdornment: (
@@ -163,6 +168,19 @@ export default function UpdateProductModel({ product }: { product: Product }) {
             />
             {errors.price && (
               <Typography color="red">{errors.price.message}</Typography>
+            )}
+
+            <TextField
+              required
+              fullWidth
+              margin="normal"
+              label=" inventory"
+              id="inventory"
+              defaultValue={product?.inventory}
+              {...register("inventory")}
+            />
+            {errors.inventory && (
+              <Typography color="red">{errors.inventory.message}</Typography>
             )}
 
             <DialogActions>

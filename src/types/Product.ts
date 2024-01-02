@@ -1,10 +1,12 @@
 import Category from "./Category";
 
 interface Product {
-  id: number;
+  id: string;
   title: string;
   price: number;
   description: string;
+  inventory: number;
+  categoryId: string;
   category: Category;
   images: string[];
 }

@@ -1,10 +1,13 @@
+import { UserAddress } from "./Address";
+
 export interface User {
-  id: number;
+  id: string;
   name: string;
-  role: "customer" | "admin";
+  role: "Customer" | "Admin";
   email: string;
   password: string;
   avatar: string;
+  address: UserAddress | null
 }
 
 export type JWTToken = {
@@ -23,6 +26,6 @@ export type UserAuth = {
 };
 
 export enum Role {
-  "admin",
-  "customer",
+  "Admin",
+  "Customer",
 }

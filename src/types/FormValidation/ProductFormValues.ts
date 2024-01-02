@@ -4,8 +4,9 @@ import * as yup from "yup";
 export interface FormValues {
   title: string;
   price: number;
+  inventory: number,
   description: string;
-  categoryId: number;
+  categoryId: string;
   images?: string | undefined | null;
 }
 
@@ -14,17 +15,23 @@ export const formSchema = yup.object({
   price: yup
     .number()
     .typeError("Price must be a number")
-    .positive("Price can't be negative")
+    .positive("Price can't be negative and zero")
+    .required("Required"),
+  inventory: yup
+    .number()
+    .typeError("inventory must be a number")
+    .positive("Price can't be negative and zero")
     .required("Required"),
   description: yup.string().required("Required"),
-  categoryId: yup.number().required("Required"),
-  images: yup.string().nullable(),
+  categoryId: yup.string().required("Required"),
+  images: yup.string().url("must be valid an Image url").nullable(),
 });
 
 export const defaultValues: DefaultValues<FormValues> = {
   title: "",
   price: undefined,
   description: "",
-  categoryId: 0,
+  inventory: undefined,
+  categoryId: "00000000-0000-0000-0000-000000000000",
   images: null,
 };

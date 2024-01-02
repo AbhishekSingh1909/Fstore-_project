@@ -19,7 +19,7 @@ export const HeaderDashBoard = () => {
     }
   }, [access_token]);
 
-  if (user && user && user.role !== "admin") {
+  if (user && user && user.role !== "Admin") {
     return <NotAuthorized />;
   }
   if (!user) {
@@ -42,6 +42,9 @@ export const HeaderDashBoard = () => {
         </Button>
         <Button component={Link} to="./users" size="large">
           Users
+        </Button>
+        <Button component={Link} to="./ordersList" size="large">
+          Orders
         </Button>
       </Box>
     </Container>

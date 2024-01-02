@@ -1,13 +1,14 @@
 interface UpdateProduct {
-  id: number;
+  id: string;
   updateProduct: Partial<ProductDto>;
 }
 
 export interface ProductDto {
   title: string;
   price: number;
+  inventory: number,
   description: string;
-  categoryId: number;
+  categoryId: string;
 }
 
 export default UpdateProduct;

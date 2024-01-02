@@ -14,6 +14,7 @@ import { logOut } from "../redux/reducers/userAuthentication/authReducer";
 import { useState } from "react";
 import { StyledBadge } from "../custom-component/StyledCartButton";
 import { clearCart } from "../redux/reducers/cart/cartReducer";
+import { resetAddress } from "../redux/reducers/address/addressReducer";
 
 const Header = () => {
   const { user } = useAppSelector((state) => state.authReducer);
@@ -29,6 +30,7 @@ const Header = () => {
   const handleLogOut = () => {
     dispatch(logOut());
     dispatch(clearCart());
+    dispatch(resetAddress());
     setMenu(false);
     setAnchorEl(null);
     navigate("/", { replace: true });
@@ -83,7 +85,7 @@ const Header = () => {
             <Button component={Link} to="/products">
               Products
             </Button>
-            {user && user.role === "admin" && (
+            {user && user.role === "Admin" && (
               <Button component={Link} to="/dashbord">
                 Admin DashBoard
               </Button>

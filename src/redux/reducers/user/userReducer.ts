@@ -6,6 +6,7 @@ import { createUsersAsync } from "./createUserAsync";
 import { updateUserAsync } from "./updateUserAsync";
 import { getAllUsersAsync } from "./getAllUsersAsync";
 import { getSingleUsersAsync } from "./getSingleUserAsync";
+import { deleteUserAsync } from "./deleteUserAsync";
 
 const initialState: {
   users: User[];
@@ -69,7 +70,12 @@ const userSlice = createSlice({
           state.loading = false;
           state.singleUser = undefined;
         }
+      })
+      .addCase(updateUserAsync.pending, (state, action) => {
+        state.loading = true;
+        state.error = undefined;
       });
+
     builder
       .addCase(getAllUsersAsync.fulfilled, (state, action) => {
         state.users = action.payload;
@@ -103,6 +109,27 @@ const userSlice = createSlice({
         state.loading = true;
         state.error = undefined;
       });
+    builder.addCase(deleteUserAsync.fulfilled, (state, action) => {
+      if (typeof action.payload === "string") {
+        state.users = state.users.filter(
+          (p) => p.id !== action.payload.toString()
+        );
+      }
+      state.error = undefined;
+      state.singleUser = undefined;
+      state.loading = false;
+    })
+      .addCase(deleteUserAsync.rejected, (state, action) => {
+        if (action.payload instanceof Error) {
+          state.error = action.payload.message;
+          state.singleUser = undefined;
+          state.error = undefined;
+        }
+      })
+      .addCase(deleteUserAsync.pending, (state, action) => {
+        state.loading = true;
+        state.error = undefined;
+      })
   },
 });
 

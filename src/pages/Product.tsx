@@ -1,5 +1,6 @@
 import {
   Avatar,
+  Box,
   Button,
   Card,
   CardActions,
@@ -18,19 +19,21 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getSingleProductByIdAsync } from "../redux/reducers/product/getSingleProductByIdAsync";
 import { useAppSelector } from "../app/hooks/useAppSelector";
+import UpdateProductModel from "../components/product/Model/UpdateProductModel";
+import { DeleteProductModel } from "../components/product/Model/DeleteProductModel";
 
 const FetchSingleProduct = () => {
+  const { user } = useAppSelector((state) => state.authReducer);
   const { products, error, loading, product } = useAppSelector(
     (state) => state.productReducer
   );
-
   const dispatch = useAppDispatch();
   const params = useParams();
   const id = params?.id;
 
   useEffect(() => {
     if (id) {
-      dispatch(getSingleProductByIdAsync(Number(id)));
+      dispatch(getSingleProductByIdAsync(id));
     }
   }, [id]);
 
@@ -83,9 +86,9 @@ const FetchSingleProduct = () => {
               </CardContent>
               <CardActions>
                 <Stack direction="row" spacing={2}>
-                  <Button onClick={() => handleAddToCart(product)}>
+                  {user?.role != 'Admin' && (<Button onClick={() => handleAddToCart(product)}>
                     Add To Cart
-                  </Button>
+                  </Button>)}
                   <Button component={Link} to="/products">
                     Back
                   </Button>
@@ -93,8 +96,11 @@ const FetchSingleProduct = () => {
               </CardActions>
             </Card>
           ))}
+
       </Grid>
+
     </Grid>
+
   );
 };
 

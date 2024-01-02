@@ -25,9 +25,12 @@ export const getAllProductsAsync = createAsyncThunk<
   { rejectValue: AxiosError }
 >("products/getAllProductsAsync", async (_, { rejectWithValue }) => {
   try {
+
     const response = await axios.get(
-      `https://api.escuelajs.co/api/v1/products`
+      `https://fakestore.azurewebsites.net/api/v1/products`
     );
+    //console.log(response.data);
+
     return response.data;
   } catch (e) {
     const error = e as AxiosError;
@@ -42,14 +45,24 @@ export const updateProductAsync = createAsyncThunk<
 >(
   "products/updateProductAsync",
   async (params: UpdateProduct, { rejectWithValue }) => {
+    const access_token = localStorage.getItem("access_token");
+    const config = {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    };
     try {
-      const response = await axios.put(
-        `https://api.escuelajs.co/api/v1/products/${params.id}`,
-        params.updateProduct
+      const response = await axios.patch(
+        `https://fakestore.azurewebsites.net/api/v1/products/${params.id}`,
+        params.updateProduct, config
       );
+
       if (!response.data) {
+        console.log("product updated1", response.data);
+        console.log("throw error");
         throw new Error("Could not update product");
       }
+      console.log("product updated", response.data);
       return response.data;
     } catch (e) {
       const error = e as AxiosError;
@@ -117,6 +130,7 @@ const productsSlice = createSlice({
       });
     builder
       .addCase(updateProductAsync.fulfilled, (state, action) => {
+
         const foundIndex = state.products.findIndex(
           (p) => p.id === action.payload.id
         );
@@ -126,15 +140,16 @@ const productsSlice = createSlice({
         }
       })
       .addCase(updateProductAsync.rejected, (state, action) => {
+
         if (action.payload instanceof AxiosError) {
           state.error = action.payload.message;
         }
       });
     builder
       .addCase(deleteProductAsync.fulfilled, (state, action) => {
-        if (typeof action.payload === "number") {
+        if (typeof action.payload === "string") {
           state.products = state.products.filter(
-            (p) => p.id !== action.payload
+            (p) => p.id !== action.payload.toString()
           );
         }
       })

@@ -25,7 +25,7 @@ const cartSlice = createSlice({
         state.cartItems.push(cartItem);
       }
     },
-    detetFromCart: (state, action: PayloadAction<number>) => {
+    detetFromCart: (state, action: PayloadAction<string>) => {
       const foundIndex = state.cartItems.findIndex(
         (item) => item.id === action.payload
       );
@@ -37,7 +37,7 @@ const cartSlice = createSlice({
       state.cartItems = [];
     },
 
-    decreaseQunatity: (state, action: PayloadAction<number>) => {
+    decreaseQunatity: (state, action: PayloadAction<string>) => {
       const foundIndex = state.cartItems.findIndex(
         (item) => item.id === action.payload
       );
@@ -49,7 +49,7 @@ const cartSlice = createSlice({
         }
       }
     },
-    increaseQuantity: (state, action: PayloadAction<number>) => {
+    increaseQuantity: (state, action: PayloadAction<string>) => {
       const foundIndex = state.cartItems.findIndex(
         (item) => item.id === action.payload
       );

@@ -13,6 +13,11 @@ import ProductCategory from "./pages/ProductFilter";
 import { AdminDashboard } from "./components/AdminDashBoard";
 import ProductTableList from "./pages/ProductsTableList";
 import { NotAuthorized } from "./pages/NotAuthorizedUser";
+import { OrderMessage } from "./pages/OrderMessage";
+import OrdersList from "./pages/OrdersList";
+import ProductImages from "./pages/productImages";
+import { CheckoutPage } from "./pages/Checkout";
+import OrderCreatePage from "./pages/OrderCreate";
 
 const App = () => {
   const route = createBrowserRouter([
@@ -45,11 +50,21 @@ const App = () => {
             {
               path: "",
               element: <ProductTableList />,
+
+            },
+            {
+              path: "productImage/:id",
+              element: <ProductImages />
             },
             {
               path: "users",
               element: <UsersList />,
             },
+            {
+              path: "ordersList",
+              element: <OrdersList />
+
+            }
           ],
         },
 
@@ -61,6 +76,18 @@ const App = () => {
           path: "NotAuthorized",
           element: <NotAuthorized />,
         },
+        {
+          path: "orderMessage",
+          element: <OrderMessage />
+        },
+        {
+          path: "orderCreate",
+          element: <OrderCreatePage />
+        },
+        {
+          path: "checkOutPage",
+          element: <CheckoutPage />
+        }
       ],
     },
     {

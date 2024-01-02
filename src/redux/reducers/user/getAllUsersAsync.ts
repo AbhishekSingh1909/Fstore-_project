@@ -8,10 +8,18 @@ export const getAllUsersAsync = createAsyncThunk<
   void,
   { rejectValue: AxiosError }
 >("users/getAllUsers", async (_, { rejectWithValue }) => {
+  const access_token = localStorage.getItem("access_token");
+  const config = {
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+    },
+  };
+
   try {
     const response = await axios.get<User[]>(
-      "https://api.escuelajs.co/api/v1/users"
+      "https://fakestore.azurewebsites.net/api/v1/users", config
     );
+
     return response.data;
   } catch (e) {
     const error = e as AxiosError;

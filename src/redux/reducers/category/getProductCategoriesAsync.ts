@@ -9,9 +9,11 @@ export const getProductCategoriesAsync = createAsyncThunk<
   { rejectValue: AxiosError }
 >("getProductCategoriesAsync", async (_, { rejectWithValue }) => {
   try {
+    console.log("get category");
     const response = await axios.get(
-      `https://api.escuelajs.co/api/v1/categories`
+      `https://fakestore.azurewebsites.net/api/v1/categories`
     );
+
     return response.data;
   } catch (e) {
     const error = e as AxiosError;
