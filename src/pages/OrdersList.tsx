@@ -118,14 +118,6 @@ const OrdersList = () => {
                     margin: "2em",
                 }}
             >
-                {/* <Box>
-                    <Button variant="contained" onClick={handleNavigateBack}>
-                        Back
-                    </Button>
-                </Box> */}
-                {/* <Box>
-                    <CreateProductModel />
-                </Box> */}
             </Box>
             <Container maxWidth="xs" sx={{ marginTop: "20px" }}>
                 <Paper

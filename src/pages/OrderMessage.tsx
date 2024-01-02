@@ -1,6 +1,5 @@
 import { Box, Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
-import { Order, OrderProductReadDTO } from "../types/orderDto";
-import { useLocation } from "react-router-dom";
+import { OrderProductReadDTO } from "../types/orderDto";
 import { useAppSelector } from "../app/hooks/useAppSelector";
 
 export const OrderMessage = () => {

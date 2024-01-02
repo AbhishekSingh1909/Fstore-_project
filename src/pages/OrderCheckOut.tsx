@@ -4,15 +4,10 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
 import { useAppSelector } from "../app/hooks/useAppSelector";
-import { clearCart } from "../redux/reducers/cart/cartReducer";
 import { useNavigate } from "react-router-dom";
 import { CartItem } from "../types/CartItem";
 import { CreateOrder, OrderProductCreateDTO } from "../types/orderDto";
 import { useAppDispatch } from "../app/hooks/useAppDispatch";
-import { useEffect } from "react";
-import { createOrderAsync } from "../redux/reducers/order/createOrderAsync";
-import { toast } from "react-toastify";
-import { getAllOrdersAsync } from "../redux/reducers/order/getAllOrdersAsync";
 import { resetOrder } from "../redux/reducers/order/orderReducer";
 
 interface State extends SnackbarOrigin {
@@ -70,14 +65,7 @@ export const CheckOut = ({ cartItems }: { cartItems: CartItem[] }) => {
   return (
     <Box>
       {buttons}
-      {/* <Snackbar
-        anchorOrigin={{ vertical, horizontal }}
-        open={open}
-        onClose={handleClose}
-        message="Dear customer, we are pleased to inform you that your order has been placed and will arrive at its destination soon."
-        autoHideDuration={5000}
-        key={vertical + horizontal}
-      /> */}
+
     </Box>
   );
 };

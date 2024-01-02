@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useAppDispatch } from "../app/hooks/useAppDispatch";
 import { useAppSelector } from "../app/hooks/useAppSelector";
 import React from "react";
