@@ -31,11 +31,16 @@ import {
 
 export default function UpdateProductModel({ product }: { product: Product }) {
   const [open, setOpen] = React.useState(false);
+  const [c_id, setC_id] = React.useState(product?.categoryId);
   const dispatch = useAppDispatch();
 
   const categories = useAppSelector(
     (state) => state.ProductCategoryReducer.categories
   );
+
+
+  console.log("product", product);
+  console.log("category", c_id);
 
   const defaultValues: DefaultValues<FormValues> = {
     title: product?.title,
@@ -51,7 +56,6 @@ export default function UpdateProductModel({ product }: { product: Product }) {
   const handleClose = () => {
     setOpen(false);
   };
-
   const {
     register,
     handleSubmit,
@@ -64,7 +68,6 @@ export default function UpdateProductModel({ product }: { product: Product }) {
 
   const onFormSubmit: SubmitHandler<FormValues> = async (data, event) => {
     event?.preventDefault();
-
     const productDto: ProductDto = {
       title: data.title,
       description: data.description,
@@ -132,11 +135,12 @@ export default function UpdateProductModel({ product }: { product: Product }) {
             )}
             <TextField
               required
+              disabled
               fullWidth
               select
               id="categoryId"
               label="Category"
-              defaultValue={product?.categoryId}
+              defaultValue={c_id}
               {...register("categoryId")}
             >
               {categories?.map((c) => (

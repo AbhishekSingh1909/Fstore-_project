@@ -3,7 +3,6 @@ import { setupServer } from "msw/node";
 
 import { usersData, userToken } from "../dataSeed/usersData.Seed";
 import { AxiosError } from "axios";
-import { Role, User } from "../../types/User";
 import { UpdateUser, UpdateUserDto } from "../../types/UpdateUser";
 
 // We use msw to intercept the network request during the test,
@@ -11,7 +10,7 @@ import { UpdateUser, UpdateUserDto } from "../../types/UpdateUser";
 // when receiving a get request to the `/api/user` endpoint
 export const handlers = [
   rest.post(
-    `http://localhost:5216/api/v1/auth/login`,
+    `https://fakestore.azurewebsites.net/api/v1/auth/login`,
     async (req, res, ctx) => {
       const { email, password } = await req.json();
       const user = usersData.find(
@@ -26,7 +25,7 @@ export const handlers = [
       }
     }
   ),
-  rest.get("http://localhost:5216/api/v1/users/profile", (req, res, ctx) => {
+  rest.get("https://fakestore.azurewebsites.net/api/v1/users/profile", (req, res, ctx) => {
     // Check for the authorization header in the request
     const authorizationHeader = req.headers.get('Authorization');
 
@@ -50,7 +49,7 @@ export const handlers = [
     }
   }),
   rest.patch(
-    "http://localhost:5216/api/v1/users/profile",
+    "https://fakestore.azurewebsites.net/api/v1/users/profile",
     async (req, res, ctx) => {
       const input: UpdateUserDto = await req.json();
       // Check for the authorization header in the request

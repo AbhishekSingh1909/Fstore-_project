@@ -11,10 +11,9 @@ export const getProductCategoriesAsync = createAsyncThunk<
   try {
     console.log("get category");
     const response = await axios.get(
-      `http://localhost:5216/api/v1/categories`
+      `https://fakestore.azurewebsites.net/api/v1/categories`
     );
-    console.log("got category");
-    console.log(response.data);
+
     return response.data;
   } catch (e) {
     const error = e as AxiosError;

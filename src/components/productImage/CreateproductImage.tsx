@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import SendIcon from "@mui/icons-material/Send";
 import CancelIcon from "@mui/icons-material/Cancel";
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 
 import { CreateProductImageDto } from "../../types/CreateProductImage";
 import { createProductImageAsync } from "../../redux/reducers/image/createProductImageAsync";
@@ -66,11 +67,15 @@ export const CreateImageModel = ({ id }: { id: string }) => {
         <main>
             <ToastContainer />
             <Box sx={{ marginTop: "5px" }}>
-                <Tooltip title="Add">
-                    <IconButton color="secondary" onClick={handleClickOpen}>
-                        <AddPhotoAlternateIcon />
-                    </IconButton>
-                </Tooltip>
+
+                <Button
+                    variant="contained"
+                    startIcon={<AddCircleOutlineOutlinedIcon />}
+                    color="primary"
+                    onClick={handleClickOpen}
+                >
+                    Add Image
+                </Button>
                 <Dialog open={open} fullWidth>
                     <Box
                         component="form"

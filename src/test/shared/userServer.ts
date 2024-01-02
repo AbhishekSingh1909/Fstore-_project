@@ -8,7 +8,7 @@ import { User } from "../../types/User";
 import { UpdateUser, UpdateUserDto } from "../../types/UpdateUser";
 
 export const handlers = [
-  rest.get("http://localhost:5216/api/v1/users", (req, res, ctx) => {
+  rest.get("https://fakestore.azurewebsites.net/api/v1/users", (req, res, ctx) => {
 
     // Check for the authorization header in the request
     const authorizationHeader = req.headers.get('Authorization');
@@ -22,7 +22,7 @@ export const handlers = [
       return res(ctx.status(401), ctx.json(error));
     }
   }),
-  rest.get("http://localhost:5216/api/v1/users/:id", (req, res, ctx) => {
+  rest.get("https://fakestore.azurewebsites.net/api/v1/users/:id", (req, res, ctx) => {
     const { id } = req.params;
 
     // Check for the authorization header in the request
@@ -44,7 +44,7 @@ export const handlers = [
       return res(ctx.status(401), ctx.json(error));
     }
   }),
-  rest.post("http://localhost:5216/api/v1/users", async (req, res, ctx) => {
+  rest.post("https://fakestore.azurewebsites.net/api/v1/users", async (req, res, ctx) => {
     const input: CreateNewUser = await req.json();
     const user: User = {
       id: "4990a687-05b1-4957-a7d6-5684322b152e",
@@ -60,7 +60,7 @@ export const handlers = [
   }),
 
   rest.patch(
-    "http://localhost:5216/api/v1/users/:id",
+    "https://fakestore.azurewebsites.net/api/v1/users/:id",
     async (req, res, ctx) => {
       const input: UpdateUserDto = await req.json();
       const { id } = req.params;
@@ -89,7 +89,7 @@ export const handlers = [
     }
   ),
   rest.delete(
-    "http://localhost:5216/api/v1/users/:id",
+    "https://fakestore.azurewebsites.net/api/v1/users/:id",
     (req, res, ctx) => {
       const { id } = req.params;
       // Check for the authorization header in the request

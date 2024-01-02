@@ -15,10 +15,10 @@ export const updateUserAsync = createAsyncThunk<
       Authorization: `Bearer ${access_token}`,
     },
   };
-  debugger;
+
   try {
     const response = await axios.patch(
-      `http://localhost:5216/api/v1/users/${user.id}`,
+      `https://fakestore.azurewebsites.net/api/v1/users/${user.id}`,
       user.updateUser, config
     );
     return response.data;

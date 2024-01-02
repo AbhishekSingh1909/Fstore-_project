@@ -16,7 +16,7 @@ export const authenticateUserAsync = createAsyncThunk<
   };
   try {
     const response = await axios.get(
-      `http://localhost:5216/api/v1/users/profile`,
+      `https://fakestore.azurewebsites.net/api/v1/users/profile`,
       config
     );
     return response.data;

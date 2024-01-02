@@ -15,12 +15,12 @@ export const formSchema = yup.object({
   price: yup
     .number()
     .typeError("Price must be a number")
-    .positive("Price can't be negative")
+    .positive("Price can't be negative and zero")
     .required("Required"),
   inventory: yup
     .number()
     .typeError("inventory must be a number")
-    .positive("inventory can't be negative")
+    .positive("Price can't be negative and zero")
     .required("Required"),
   description: yup.string().required("Required"),
   categoryId: yup.string().required("Required"),

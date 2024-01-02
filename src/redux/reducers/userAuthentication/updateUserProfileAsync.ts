@@ -17,7 +17,7 @@ export const updateUserProfileAsync = createAsyncThunk<
     };
     try {
         const response = await axios.patch(
-            "http://localhost:5216/api/v1/users/profile",
+            "https://fakestore.azurewebsites.net/api/v1/users/profile",
             user.updateUser, config
         );
         return response.data;

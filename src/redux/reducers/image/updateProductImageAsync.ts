@@ -10,7 +10,7 @@ export const updateProductImagesAsync = createAsyncThunk<
     UpdateProductImageDto,
     { rejectValue: AxiosError }
 >("images/updateProductImagesAsync", async (productImage, { rejectWithValue }) => {
-    debugger;
+
     const access_token = localStorage.getItem("access_token");
     const config = {
         headers: {
@@ -19,9 +19,9 @@ export const updateProductImagesAsync = createAsyncThunk<
     };
     try {
         const response = await axios.patch(
-            `http://localhost:5216/api/v1/images/${productImage.id}`, productImage.imageUrl, config
+            `https://fakestore.azurewebsites.net/api/v1/images/${productImage.id}`, productImage.imageUrl, config
         );
-        debugger;
+
         return response.data;
     } catch (e) {
         const error = e as AxiosError;

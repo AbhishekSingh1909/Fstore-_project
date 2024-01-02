@@ -8,7 +8,7 @@ export const getProductAllImagesAsync = createAsyncThunk<
     string,
     { rejectValue: AxiosError }
 >("images/getProductAllImagesAsync", async (id, { rejectWithValue }) => {
-    debugger;
+
     const access_token = localStorage.getItem("access_token");
     const config = {
         headers: {
@@ -17,9 +17,9 @@ export const getProductAllImagesAsync = createAsyncThunk<
     };
     try {
         const response = await axios.get(
-            `http://localhost:5216/api/v1/images/product/${id}`, config
+            `https://fakestore.azurewebsites.net/api/v1/images/product/${id}`, config
         );
-        debugger;
+
         return response.data;
     } catch (e) {
         const error = e as AxiosError;

@@ -18,7 +18,7 @@ export const updateAddressAsync = createAsyncThunk<
     };
     try {
         const response = await axios.post(
-            "http://localhost:5216/api/v1/addresses/", address, config
+            "https://fakestore.azurewebsites.net/api/v1/addresses/", address, config
         );
         return response.data;
     } catch (e) {

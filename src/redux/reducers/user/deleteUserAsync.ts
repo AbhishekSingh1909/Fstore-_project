@@ -14,7 +14,7 @@ export const deleteUserAsync = createAsyncThunk<
     };
     try {
         const response = await axios.delete(
-            `http://localhost:5216/api/v1/users/${id}`, config
+            `https://fakestore.azurewebsites.net/api/v1/users/${id}`, config
         );
         return id;
     } catch (e) {

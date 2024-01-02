@@ -90,30 +90,13 @@ const ProductImages = () => {
                         Back
                     </Button>
                 </Box>
-                {/* <Box>
-              <CreateProductModel />
-            </Box> */}
+                <Box>
+                    <CreateImageModel id={id || ''} />
+                </Box>
+
+
             </Box>
-            {/* <Container maxWidth="xs" sx={{ marginTop: "20px" }}>
-            <Paper
-              component="form"
-              sx={{
-                p: "2px 4px",
-                display: "flex",
-                alignItems: "center",
-                width: 400,
-              }}
-            >
-              <InputBase
-                sx={{ ml: 1, flex: 1 }}
-                placeholder="Search Prodcut by title"
-                onChange={(e) => handleSeachChange(e.target.value)}
-              />
-              <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
-                <SearchIcon />
-              </IconButton>
-            </Paper>
-          </Container> */}
+
             <Typography variant="h4" gutterBottom>
                 {product?.title}
             </Typography>
@@ -141,9 +124,7 @@ const ProductImages = () => {
                                                         margin: "1em"
                                                     }}
                                                 >
-                                                    <Stack>
-                                                        <CreateImageModel id={id || ''} />
-                                                    </Stack>
+
                                                     <Stack sx={{ marginTop: "0.25em" }}>
                                                         <UpdateImageModel images={image} />
                                                     </Stack>
@@ -163,25 +144,6 @@ const ProductImages = () => {
                     </Table>
                 </TableContainer>
             </Paper>
-            {/* {data && (
-            <Stack
-              spacing={2}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Typography>Page: {page}</Typography>
-              <Pagination
-                count={pageCount}
-                page={page}
-                onChange={handleChange}
-                color="primary"
-                sx={{ margin: "20px", padding: "20px" }}
-              />
-            </Stack>
-          )} */}
         </Container>
     );
 }

@@ -8,7 +8,7 @@ export const getAllOrdersAsync = createAsyncThunk<
     void,
     { rejectValue: AxiosError }
 >("orders/getAllOrdersAsync", async (_, { rejectWithValue }) => {
-    debugger;
+
     const access_token = localStorage.getItem("access_token");
     const config = {
         headers: {
@@ -17,7 +17,7 @@ export const getAllOrdersAsync = createAsyncThunk<
     };
     try {
         const response = await axios.get(
-            "http://localhost:5216/api/v1/orders", config
+            "https://fakestore.azurewebsites.net/api/v1/orders", config
         );
         return response.data;
     } catch (e) {

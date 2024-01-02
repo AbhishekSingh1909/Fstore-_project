@@ -9,7 +9,7 @@ export const createProductAsync = createAsyncThunk<
   CreateProductWithAccessToken,
   { rejectValue: AxiosError }
 >("products/createProduct", async (product, { rejectWithValue }) => {
-  debugger;
+
   const config = {
     headers: {
       Authorization: `Bearer ${product.access_token}`,
@@ -18,7 +18,7 @@ export const createProductAsync = createAsyncThunk<
 
   try {
     const response = await axios.post(
-      "http://localhost:5216/api/v1/products",
+      "https://fakestore.azurewebsites.net/api/v1/products",
       product.createProduct, config
     );
     return response.data;

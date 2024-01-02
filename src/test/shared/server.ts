@@ -17,10 +17,10 @@ const config = {
   },
 };
 export const handlers = [
-  rest.get("http://localhost:5216/api/v1/products", (req, res, ctx) => {
+  rest.get("https://fakestore.azurewebsites.net/api/v1/products", (req, res, ctx) => {
     return res(ctx.json(productsData));
   }),
-  rest.get("http://localhost:5216/api/v1/products/:id", (req, res, ctx) => {
+  rest.get("https://fakestore.azurewebsites.net/api/v1/products/:id", (req, res, ctx) => {
     const { id } = req.params;
     const product = productsData.find((p) => p.id === id);
     if (product) {
@@ -28,7 +28,7 @@ export const handlers = [
     }
   }),
   rest.get(
-    "http://localhost:5216/api/v1/categories/:id/products",
+    "https://fakestore.azurewebsites.net/api/v1/categories/:id/products",
     (req, res, ctx) => {
       const { id } = req.params;
       const products = productsData.filter((p) => p.category.id === id);
@@ -37,11 +37,11 @@ export const handlers = [
       }
     }
   ),
-  rest.get("http://localhost:5216/api/v1/categories", (req, res, ctx) => {
+  rest.get("https://fakestore.azurewebsites.net/api/v1/categories", (req, res, ctx) => {
     return res(ctx.json(categorydata));
   }),
   rest.delete(
-    "http://localhost:5216/api/v1/products/:id",
+    "https://fakestore.azurewebsites.net/api/v1/products/:id",
     (req, res, ctx) => {
       const { id } = req.params;
 
@@ -62,7 +62,7 @@ export const handlers = [
     }
   ),
   rest.post(
-    "http://localhost:5216/api/v1/products",
+    "https://fakestore.azurewebsites.net/api/v1/products",
     async (req, res, ctx) => {
       const input: CreateProduct = await req.json();
       // Check for the authorization header in the request
@@ -103,7 +103,7 @@ export const handlers = [
     }
   ),
   rest.patch(
-    "http://localhost:5216/api/v1/products/:id",
+    "https://fakestore.azurewebsites.net/api/v1/products/:id",
     async (req, res, ctx) => {
       const updateProduct: ProductDto = await req.json();
 

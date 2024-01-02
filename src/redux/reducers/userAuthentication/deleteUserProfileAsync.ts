@@ -15,7 +15,7 @@ export const deleteUserProfileAsync = createAsyncThunk<
     };
     try {
         const response = await axios.delete(
-            "http://localhost:5216/api/v1/users/profile",
+            "https://fakestore.azurewebsites.net/api/v1/users/profile",
             config
         );
         debugger;

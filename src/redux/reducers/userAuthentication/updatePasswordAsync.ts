@@ -13,10 +13,10 @@ export const updatePasswordAsync = createAsyncThunk<
       Authorization: `Bearer ${access_token}`,
     },
   };
-  debugger;
+
   try {
     const response = await axios.patch(
-      "http://localhost:5216/api/v1/users/changepassword",
+      "https://fakestore.azurewebsites.net/api/v1/users/changepassword",
       user, config
     );
     return response.data;

@@ -14,7 +14,7 @@ export const deleteProductAsync = createAsyncThunk<
   };
   try {
     const response = await axios.delete<boolean>(
-      `http://localhost:5216/api/v1/products/${productId}`, config
+      `https://fakestore.azurewebsites.net/api/v1/products/${productId}`, config
     );
     if (!response.data) {
       throw new AxiosError("Could not delete product");
