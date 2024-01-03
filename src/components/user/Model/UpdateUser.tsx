@@ -129,7 +129,7 @@ export const UpdateUserByAdmin = ({ updateUser }: { updateUser: User }) => {
                   fullWidth
                   margin="normal"
                   label="Enter your name"
-                  {...field}
+                  value={updateUser?.name}
                 />
               )}
               name="name"
@@ -146,7 +146,7 @@ export const UpdateUserByAdmin = ({ updateUser }: { updateUser: User }) => {
                   fullWidth
                   margin="normal"
                   label="Enter your email"
-                  {...field}
+                  value={updateUser?.email}
                 />
               )}
               name="email"
@@ -155,44 +155,6 @@ export const UpdateUserByAdmin = ({ updateUser }: { updateUser: User }) => {
             {errors.email && (
               <Typography color="red">{errors.email.message}</Typography>
             )}
-            {/* <Controller
-              render={({ field }) => (
-                <TextField
-                  required
-                  fullWidth
-                  margin="normal"
-                  label="Enter your password"
-                  type="password"
-                  autoComplete="current-password"
-                  {...field}
-                />
-              )}
-              name="password"
-              control={control}
-            />
-            {errors.password && (
-              <Typography color="red">{errors.password.message}</Typography>
-            )}
-
-            <Controller
-              render={({ field }) => (
-                <TextField
-                  required
-                  fullWidth
-                  margin="normal"
-                  label="Confirm your password"
-                  type="password"
-                  autoComplete="current-password"
-                  {...field}
-                />
-              )}
-              name="confirm"
-              control={control}
-            />
-            {errors.confirm && (
-              <Typography color="red">{errors.confirm.message}</Typography>
-            )} */}
-
             <Controller
               render={({ field }) => (
                 <TextField
@@ -201,7 +163,7 @@ export const UpdateUserByAdmin = ({ updateUser }: { updateUser: User }) => {
                   fullWidth
                   margin="normal"
                   label="Enter Image Url"
-                  {...field}
+                  value={updateUser?.avatar}
                 />
               )}
               name="avatar"
@@ -217,7 +179,7 @@ export const UpdateUserByAdmin = ({ updateUser }: { updateUser: User }) => {
                   required
                   fullWidth
                   select
-                  defaultValue={updateUser.role}
+                  defaultValue={updateUser?.role}
                   margin="normal"
                   label="role"
                   {...field}
