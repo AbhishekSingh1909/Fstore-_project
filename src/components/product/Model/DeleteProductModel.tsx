@@ -9,7 +9,7 @@ import {
   IconButton,
   Tooltip,
 } from "@mui/material";
-import React from "react";
+import React, { useMemo } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { ToastContainer, toast } from "react-toastify";
@@ -17,10 +17,19 @@ import { ToastContainer, toast } from "react-toastify";
 import { useAppDispatch } from "../../../app/hooks/useAppDispatch";
 import Product from "../../../types/Product";
 import { deleteProductAsync } from "../../../redux/reducers/product/deleteProductAsync";
+import { useAppSelector } from "../../../app/hooks/useAppSelector";
 
 export const DeleteProductModel = ({ product }: { product: Product }) => {
   const [open, setOpen] = React.useState(false);
   const dispatch = useAppDispatch();
+  const categories = useAppSelector(
+    (state) => state.ProductCategoryReducer.categories
+  );
+
+  const category_name = useMemo(() => {
+    const result = categories?.find(c => c.id == product?.categoryId);
+    return result
+  }, [product])
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -80,7 +89,7 @@ export const DeleteProductModel = ({ product }: { product: Product }) => {
               id="select-category"
               label="Category"
               variant="filled"
-              value={product?.category?.name}
+              value={category_name?.name}
               sx={{ marginTop: "20px" }}
             ></TextField>
             <TextField
